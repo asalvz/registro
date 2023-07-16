@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netlify User Panel</title>
+</head>
+
+<body>
+  <h1>Netlify User Panel</h1>
+
+  <!-- Formulario de Registro -->
+  <h2>Registro</h2>
+  <form id="registration-form">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Panel de Usuario -->
+  <div id="user-panel" style="display: none;">
+    <h2>Panel de Usuario</h2>
+    <!-- Contenido del panel de usuario -->
+    <p>Bienvenido al panel de usuario. Aquí puedes realizar acciones específicas para los usuarios.</p>
+  </div>
+
+  <!-- Panel de Administrador -->
+  <div id="admin-panel" style="display: none;">
+    <h2>Panel de Administrador</h2>
+    <!-- Contenido del panel de administrador -->
+    <p>Bienvenido al panel de administrador. Aquí puedes realizar acciones administrativas adicionales.</p>
+  </div>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    // Inicialización del widget de Netlify Identity
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function () {
+        // Comprueba el estado de autenticación cuando se inicializa el widget
+        if (!window.netlifyIdentity.currentUser()) {
+          // Oculta el panel de usuario y el panel de administrador si el usuario no está autenticado
+          document.getElementById("user-panel").style.display = "none";
+          document.getElementById("admin-panel").style.display = "none";
+        }
+      });
+    }
+
+    // Manejo del formulario de registro
+    document.getElementById("registration-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var username = document.getElementById("username").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      // Registra un nuevo usuario utilizando Netlify Identity
+      netlifyIdentity.on("signup", function (user) {
+        console.log("Usuario registrado:", user);
+        // Muestra el panel de usuario después del registro exitoso
+        document.getElementById("user-panel").style.display = "block";
+      });
+
+      netlifyIdentity.signup(email, password, {
+        username: username,
+      });
+    });
+
+    // Manejo del evento de autenticación
+    netlifyIdentity.on("login", function (user) {
+      console.log("Usuario autenticado:", user);
+      // Muestra el panel de usuario y el panel de administrador después de iniciar sesión
+      document.getElementById("user-panel").style.display = "block";
+      document.getElementById("admin-panel").style.display = "block";
+    });
+
+    // Manejo del evento de cierre de sesión
+    netlifyIdentity.on("logout", function () {
+      console.log("Usuario cerró sesión");
+      // Oculta el panel de usuario y el panel de administrador después de cerrar sesión
+      document.getElementById("user-panel").style.display = "none";
+      document.getElementById("admin-panel").style.display = "none";
+    });
+
+    // Inicializa el widget de Netlify Identity
+    netlifyIdentity.init();
+  </script>
+</body>
+
+</html>
