@@ -4,68 +4,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netlify User Panel</title>
+  <title>Iniciar sesión con Metamask</title>
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Netlify User Panel</h1>
+  <div class="container">
+    <h1>Iniciar sesión con Metamask</h1>
+    <button id="login-button">Iniciar sesión</button>
 
-  <!-- Panel de Usuario -->
-  <div id="user-panel" style="display: none;">
-    <h2>Panel de Usuario</h2>
-    <!-- Contenido del panel de usuario -->
-    <p>Bienvenido al panel de usuario. Aquí puedes realizar acciones específicas para los usuarios.</p>
-    <button id="logout-button">Cerrar sesión</button>
+    <script>
+      // JavaScript
+      // Verificar la disponibilidad de Metamask
+      if (typeof window.ethereum === 'undefined') {
+        alert('Metamask no está instalado. Asegúrate de tenerlo instalado y desbloqueado en tu navegador.');
+      } else {
+        const loginButton = document.getElementById('login-button');
+
+        // Manejar el evento de inicio de sesión
+        loginButton.addEventListener('click', async () => {
+          try {
+            // Solicitar al usuario que se autentique y apruebe la conexión
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+
+            // La cuenta del usuario está disponible en el array "accounts"
+            const userAddress = accounts[0];
+
+            // Realizar acciones adicionales después del inicio de sesión exitoso
+            console.log('Usuario autenticado:', userAddress);
+            // Aquí puedes redirigir al usuario a una página protegida o realizar otras operaciones necesarias
+
+          } catch (error) {
+            console.error('Error al iniciar sesión con Metamask:', error);
+          }
+        });
+      }
+    </script>
   </div>
-
-  <!-- Panel de Administrador -->
-  <div id="admin-panel" style="display: none;">
-    <h2>Panel de Administrador</h2>
-    <!-- Contenido del panel de administrador -->
-    <p>Bienvenido al panel de administrador. Aquí puedes realizar acciones administrativas adicionales.</p>
-  </div>
-
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    // Inicialización del widget de Netlify Identity
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function (user) {
-        if (!user) {
-          // Oculta el panel de usuario y el panel de administrador si el usuario no está autenticado
-          document.getElementById("user-panel").style.display = "none";
-          document.getElementById("admin-panel").style.display = "none";
-        } else {
-          // Muestra el panel de usuario y el panel de administrador si el usuario está autenticado
-          document.getElementById("user-panel").style.display = "block";
-          document.getElementById("admin-panel").style.display = "block";
-        }
-      });
-    }
-
-    // Manejo del evento de autenticación
-    netlifyIdentity.on("login", function (user) {
-      console.log("Usuario autenticado:", user);
-      // Muestra el panel de usuario y el panel de administrador después de iniciar sesión
-      document.getElementById("user-panel").style.display = "block";
-      document.getElementById("admin-panel").style.display = "block";
-    });
-
-    // Manejo del evento de cierre de sesión
-    document.getElementById("logout-button").addEventListener("click", function () {
-      netlifyIdentity.logout();
-    });
-
-    // Configuración del proveedor externo Google
-    netlifyIdentity.init({
-      external: {
-        google: {
-          url: "https://your-netlify-app.netlify.app/.netlify/identity/drop/google",
-          clientId: "AIzaSyDJb_wbfDLnAqgqOH6V4lH8E_Ozk6rsuYE",
-          scope: "openid email profile",
-        },
-      },
-    });
-  </script>
 </body>
 
 </html>
