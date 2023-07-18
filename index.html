@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión con Metamask</title>
+  <title>Perfil del usuario</title>
   <style>
     /* Estilos CSS */
     body {
@@ -13,57 +13,68 @@
       padding: 0;
     }
     .container {
-      max-width: 400px;
+      max-width: 600px;
       margin: 0 auto;
       padding: 20px;
     }
     h1 {
       text-align: center;
     }
-    button {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    p {
+      margin-bottom: 10px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Iniciar sesión con Metamask</h1>
-    <button id="login-button">Iniciar sesión</button>
+    <h1>Perfil del usuario</h1>
+    <p><strong>Dirección de la cuenta:</strong> <span id="address"></span></p>
+    <p><strong>Saldo:</strong> <span id="balance"></span> ETH</p>
+    <p><strong>NFTs:</strong></p>
+    <ul id="nft-list"></ul>
 
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script>
       // JavaScript
       // Verificar la disponibilidad de Metamask
       if (typeof window.ethereum === 'undefined') {
         alert('Metamask no está instalado. Asegúrate de tenerlo instalado y desbloqueado en tu navegador.');
       } else {
-        const loginButton = document.getElementById('login-button');
+        const addressElement = document.getElementById('address');
+        const balanceElement = document.getElementById('balance');
+        const nftListElement = document.getElementById('nft-list');
+
+        // Crear una instancia de Web3
+        const web3 = new Web3(window.ethereum);
 
         // Manejar el evento de inicio de sesión
-        loginButton.addEventListener('click', async () => {
-          try {
-            // Solicitar al usuario que se autentique y apruebe la conexión
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-
-            // La cuenta del usuario está disponible en el array "accounts"
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(accounts => {
             const userAddress = accounts[0];
+            addressElement.textContent = userAddress;
 
-            // Realizar acciones adicionales después del inicio de sesión exitoso
-            console.log('Usuario autenticado:', userAddress);
-            // Aquí puedes redirigir al usuario a una página protegida o realizar otras operaciones necesarias
+            // Obtener el saldo de la cuenta
+            web3.eth.getBalance(userAddress)
+              .then(balance => {
+                balanceElement.textContent = web3.utils.fromWei(balance, 'ether');
+              })
+              .catch(error => {
+                console.error('Error al obtener el saldo:', error);
+              });
 
-          } catch (error) {
+            // Obtener los NFTs del usuario
+            // Aquí debes implementar la lógica para recuperar los NFTs del usuario utilizando las bibliotecas y contratos apropiados
+            // Por ejemplo, puedes utilizar la biblioteca web3.js junto con la dirección del usuario y los contratos de NFT para recuperar los NFTs
+
+            // Mostrar los NFTs en la lista
+            // Recorre la lista de NFTs y crea elementos <li> para cada uno, agregándolos a la lista <ul>
+            // Puedes mostrar información como el nombre, la imagen o cualquier otra propiedad relevante de los NFTs
+
+          })
+          .catch(error => {
             console.error('Error al iniciar sesión con Metamask:', error);
-          }
-        });
+          });
       }
     </script>
   </div>
