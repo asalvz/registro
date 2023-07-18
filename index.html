@@ -4,95 +4,258 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfil del usuario</title>
+  <title>Granja de Gallinas</title>
   <style>
     /* Estilos CSS */
     body {
       font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
       margin: 0;
       padding: 0;
     }
     .container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
     }
-    h1 {
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 18px;
+    }
+    .chicken-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    .chicken-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .chicken-image {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .chicken-name {
+      font-weight: bold;
+    }
+    .chicken-value {
+      margin-left: auto;
+    }
+    .slots {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      width: calc(33.33% - 10px);
+    }
+    .slot h3 {
+      margin-bottom: 10px;
+    }
+    .accessory-slot {
+      margin-top: 20px;
       text-align: center;
     }
-    p {
-      margin-bottom: 10px;
+    .accessory-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .accessory-button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Perfil del usuario</h1>
+    <div class="header">
+      <h1 class="title">LOW CHICKENS EGGS</h1>
+      <h2 class="subtitle">Granja de Gallinas</h2>
+    </div>
+
+    <button id="connect-button" class="button">Conectar a Metamask</button>
     <p><strong>Dirección de la cuenta:</strong> <span id="address"></span></p>
     <p><strong>Saldo:</strong> <span id="balance"></span> ETH</p>
-    <p><strong>NFTs:</strong></p>
-    <ul id="nft-list"></ul>
+
+    <ul class="chicken-list">
+      <li class="chicken-item">
+        <img src="chicken1.png" alt="Gallina 1" class="chicken-image">
+        <span class="chicken-name">Gallina 1</span>
+        <span class="chicken-value">5 huevos</span>
+      </li>
+      <li class="chicken-item">
+        <img src="chicken2.png" alt="Gallina 2" class="chicken-image">
+        <span class="chicken-name">Gallina 2</span>
+        <span class="chicken-value">8 huevos</span>
+      </li>
+      <li class="chicken-item">
+        <img src="chicken3.png" alt="Gallina 3" class="chicken-image">
+        <span class="chicken-name">Gallina 3</span>
+        <span class="chicken-value">10 huevos</span>
+      </li>
+      <li class="chicken-item">
+        <img src="chicken4.png" alt="Gallina 4" class="chicken-image">
+        <span class="chicken-name">Gallina 4</span>
+        <span class="chicken-value">6 huevos</span>
+      </li>
+      <li class="chicken-item">
+        <img src="chicken5.png" alt="Gallina 5" class="chicken-image">
+        <span class="chicken-name">Gallina 5</span>
+        <span class="chicken-value">9 huevos</span>
+      </li>
+      <li class="chicken-item">
+        <img src="chicken6.png" alt="Gallina 6" class="chicken-image">
+        <span class="chicken-name">Gallina 6</span>
+        <span class="chicken-value">7 huevos</span>
+      </li>
+    </ul>
+
+    <div class="slots">
+      <div class="slot">
+        <h3>Ranura 1</h3>
+        <input type="number" id="slot1-input" placeholder="Cantidad">
+      </div>
+      <div class="slot">
+        <h3>Ranura 2</h3>
+        <input type="number" id="slot2-input" placeholder="Cantidad">
+      </div>
+      <div class="slot">
+        <h3>Ranura 3</h3>
+        <input type="number" id="slot3-input" placeholder="Cantidad">
+      </div>
+    </div>
+
+    <div class="accessory-slot">
+      <h3>Accesorio para Gallina 1</h3>
+      <button id="accessory1-button" class="accessory-button">Obtener</button>
+    </div>
+    <div class="accessory-slot">
+      <h3>Accesorio para Gallina 2</h3>
+      <button id="accessory2-button" class="accessory-button">Obtener</button>
+    </div>
+    <div class="accessory-slot">
+      <h3>Accesorio para Gallina 3</h3>
+      <button id="accessory3-button" class="accessory-button">Obtener</button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script>
       // JavaScript
-      // Verificar la disponibilidad de Metamask
-      if (typeof window.ethereum === 'undefined') {
-        alert('Metamask no está instalado. Asegúrate de tenerlo instalado y desbloqueado en tu navegador.');
-      } else {
-        const addressElement = document.getElementById('address');
-        const balanceElement = document.getElementById('balance');
-        const nftListElement = document.getElementById('nft-list');
+      const connectButton = document.getElementById('connect-button');
+      const addressElement = document.getElementById('address');
+      const balanceElement = document.getElementById('balance');
 
+      const slot1Input = document.getElementById('slot1-input');
+      const slot2Input = document.getElementById('slot2-input');
+      const slot3Input = document.getElementById('slot3-input');
+
+      const accessory1Button = document.getElementById('accessory1-button');
+      const accessory2Button = document.getElementById('accessory2-button');
+      const accessory3Button = document.getElementById('accessory3-button');
+
+      let userAddress;
+      let web3;
+
+      connectButton.addEventListener('click', () => {
+        if (typeof window.ethereum === 'undefined') {
+          alert('Metamask no está instalado. Asegúrate de tenerlo instalado y desbloqueado en tu navegador.');
+        } else {
+          connectToMetamask();
+        }
+      });
+
+      function connectToMetamask() {
         // Crear una instancia de Web3
-        const web3 = new Web3(window.ethereum);
+        web3 = new Web3(window.ethereum);
 
-        // Manejar el evento de inicio de sesión
+        // Solicitar el inicio de sesión a Metamask
         window.ethereum.request({ method: 'eth_requestAccounts' })
           .then(accounts => {
-            const userAddress = accounts[0];
+            userAddress = accounts[0];
             addressElement.textContent = userAddress;
 
             // Obtener el saldo de la cuenta
             web3.eth.getBalance(userAddress)
               .then(balance => {
-                balanceElement.textContent = web3.utils.fromWei(balance, 'ether');
+                const formattedBalance = web3.utils.fromWei(balance, 'ether');
+                balanceElement.textContent = formattedBalance;
               })
               .catch(error => {
                 console.error('Error al obtener el saldo:', error);
               });
-
-            // Obtener los NFTs del usuario
-            const contractAddress = '0x123456789'; // Dirección del contrato del NFT
-            const contractABI = [
-              // ABI del contrato del NFT
-              // Define los métodos y eventos del contrato necesarios para interactuar con él
-            ];
-            const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-            contract.methods.getNFTs(userAddress).call()
-              .then(nfts => {
-                // Mostrar los NFTs en la lista
-                nfts.forEach(nft => {
-                  const li = document.createElement('li');
-                  const img = document.createElement('img');
-                  img.src = nft.image;
-                  img.alt = nft.name;
-                  li.appendChild(img);
-                  li.appendChild(document.createTextNode(nft.name));
-                  nftListElement.appendChild(li);
-                });
-              })
-              .catch(error => {
-                console.error('Error al obtener los NFTs:', error);
-              });
-
           })
           .catch(error => {
             console.error('Error al iniciar sesión con Metamask:', error);
           });
       }
+
+      // Manejar la interacción con las ranuras
+      slot1Input.addEventListener('change', () => {
+        const quantity = parseInt(slot1Input.value);
+        if (isNaN(quantity) || quantity < 0) {
+          slot1Input.value = '';
+          return;
+        }
+        // Lógica para manejar la ranura 1
+        console.log('Ranura 1 - Cantidad:', quantity);
+      });
+
+      slot2Input.addEventListener('change', () => {
+        const quantity = parseInt(slot2Input.value);
+        if (isNaN(quantity) || quantity < 0) {
+          slot2Input.value = '';
+          return;
+        }
+        // Lógica para manejar la ranura 2
+        console.log('Ranura 2 - Cantidad:', quantity);
+      });
+
+      slot3Input.addEventListener('change', () => {
+        const quantity = parseInt(slot3Input.value);
+        if (isNaN(quantity) || quantity < 0) {
+          slot3Input.value = '';
+          return;
+        }
+        // Lógica para manejar la ranura 3
+        console.log('Ranura 3 - Cantidad:', quantity);
+      });
+
+      // Manejar la interacción con los accesorios
+      accessory1Button.addEventListener('click', () => {
+        // Lógica para obtener el accesorio para la Gallina 1
+        console.log('Accesorio para Gallina 1 - Obtener');
+      });
+
+      accessory2Button.addEventListener('click', () => {
+        // Lógica para obtener el accesorio para la Gallina 2
+        console.log('Accesorio para Gallina 2 - Obtener');
+      });
+
+      accessory3Button.addEventListener('click', () => {
+        // Lógica para obtener el accesorio para la Gallina 3
+        console.log('Accesorio para Gallina 3 - Obtener');
+      });
     </script>
   </div>
 </body>
