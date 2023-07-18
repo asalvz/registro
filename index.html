@@ -64,12 +64,29 @@
               });
 
             // Obtener los NFTs del usuario
-            // Aquí debes implementar la lógica para recuperar los NFTs del usuario utilizando las bibliotecas y contratos apropiados
-            // Por ejemplo, puedes utilizar la biblioteca web3.js junto con la dirección del usuario y los contratos de NFT para recuperar los NFTs
+            const contractAddress = '0x123456789'; // Dirección del contrato del NFT
+            const contractABI = [
+              // ABI del contrato del NFT
+              // Define los métodos y eventos del contrato necesarios para interactuar con él
+            ];
+            const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-            // Mostrar los NFTs en la lista
-            // Recorre la lista de NFTs y crea elementos <li> para cada uno, agregándolos a la lista <ul>
-            // Puedes mostrar información como el nombre, la imagen o cualquier otra propiedad relevante de los NFTs
+            contract.methods.getNFTs(userAddress).call()
+              .then(nfts => {
+                // Mostrar los NFTs en la lista
+                nfts.forEach(nft => {
+                  const li = document.createElement('li');
+                  const img = document.createElement('img');
+                  img.src = nft.image;
+                  img.alt = nft.name;
+                  li.appendChild(img);
+                  li.appendChild(document.createTextNode(nft.name));
+                  nftListElement.appendChild(li);
+                });
+              })
+              .catch(error => {
+                console.error('Error al obtener los NFTs:', error);
+              });
 
           })
           .catch(error => {
