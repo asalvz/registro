@@ -1,5 +1,5 @@
 let web3;
-let selectedChickens = [];
+
 
 // Comprobar si web3 está disponible en el navegador
 if (typeof window.ethereum !== 'undefined') {
@@ -39,6 +39,8 @@ async function getBalance(address) {
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
+let selectedChickens = [];
+
 function selectChicken(chickenElement) {
   const chickenId = chickenElement.getAttribute('data-id');
   const index = selectedChickens.indexOf(chickenId);
@@ -49,22 +51,6 @@ function selectChicken(chickenElement) {
     selectedChickens.splice(index, 1);
   }
 
-  updateChickenSlotUI();
-  updateRentButton();
-}
-
-// Función para alquilar las gallinas seleccionadas
-function rentChickens() {
-  if (selectedChickens.length === 0) {
-    alert('Selecciona al menos una gallina para alquilar.');
-    return;
-  }
-
-  // Aquí puedes implementar la lógica para alquilar las gallinas seleccionadas.
-  // Por ejemplo, puedes enviar una transacción a un contrato inteligente que gestione los alquileres.
-  // Por ahora, simplemente limpiaremos la lista de gallinas seleccionadas.
-
-  selectedChickens = [];
   updateChickenSlotUI();
   updateRentButton();
 }
@@ -82,6 +68,23 @@ function updateChickenSlotUI() {
       slot.innerHTML = '';
     }
   });
+}
+
+// Función para actualizar el estado del botón "Alquilar" y su evento click
+function updateRentButton() {
+  const rentButton = document.getElementById('rent-button');
+  rentButton.innerHTML = '';
+
+  if (selectedChickens.length > 0) {
+    const button = document.createElement('button');
+    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
+    button.onclick = rentChickens;
+    rentButton.appendChild(button);
+  } else {
+    const info = document.createElement('p');
+    info.textContent = 'Selecciona al menos una gallina para alquilar.';
+    rentButton.appendChild(info);
+  }
 }
 
 // Función para actualizar el estado del botón "Alquilar" y su evento click
