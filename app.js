@@ -106,6 +106,9 @@ function updateRentButton() {
 
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
+  // Agregar evento click al botón para conectar a MetaMask
+  const connectButton = document.getElementById('connect-button');
+  connectButton.addEventListener('click', connectToMetaMask);
   // Resto del código omitido por brevedad...
   
   const rentButton = document.getElementById('rent-button');
