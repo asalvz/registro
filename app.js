@@ -1,29 +1,36 @@
-  // Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
+ // Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
 async function connectToMetaMask() {
   try {
     // Solicitar al usuario que conecte su billetera MetaMask
     await ethereum.request({ method: 'eth_requestAccounts' });
-    
+
     // Obtener la dirección del usuario conectado
     const accounts = await ethereum.request({ method: 'eth_accounts' });
     const userAddress = accounts[0];
     console.log('Dirección del usuario:', userAddress);
 
-    // Obtener el saldo del usuario conectado
-    const balance = await ethereum.request({
-      method: 'eth_getBalance',
-      params: [userAddress, 'latest'],
-    });
-    console.log('Saldo del usuario:', balance);
-    
+    // Obtener el saldo del usuario conectado en BNB
+    const balance = await getBalance(userAddress);
+    console.log('Saldo del usuario:', balance + ' BNB');
+
     // Imprimir la dirección y saldo en la página HTML
     const userAddressElement = document.getElementById('user-address');
     const balanceElement = document.getElementById('user-balance');
     userAddressElement.textContent = userAddress;
-    balanceElement.textContent = balance;
+    balanceElement.textContent = balance + ' BNB';
   } catch (error) {
     console.error('Error al conectarse a MetaMask:', error);
   }
+}
+
+// Función para obtener el saldo del usuario en BNB
+async function getBalance(address) {
+  const weiBalance = await ethereum.request({
+    method: 'eth_getBalance',
+    params: [address, 'latest'],
+  });
+  const etherBalance = web3.utils.fromWei(weiBalance, 'ether');
+  return parseFloat(etherBalance).toFixed(4);
 }
 
 // Función para comprar una gallina
@@ -32,28 +39,19 @@ function buyChicken(chickenId) {
   console.log('Comprar gallina:', chickenId);
 }
 
-// Función para calcular la rentabilidad según la categoría de las gallinas
-function calculateProfitability(category) {
-  // Aquí puedes implementar la lógica para calcular la rentabilidad según la categoría
-  let price = 0;
-  switch (category) {
-    case 'A':
-      price = 2;
-      break;
-    case 'B':
-      price = 1;
-      break;
-    case 'C':
-      price = 0.5;
-      break;
-    case 'D':
-      price = 0.3;
-      break;
-    default:
-      price = 0;
-      break;
-  }
-  return price;
+// Función para seleccionar una gallina y colocarla en una ranura
+function selectChickenSlot(slotNumber) {
+  const chickenSlot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
+  chickenSlot.classList.toggle('selected');
+}
+
+// Función para alquilar las gallinas seleccionadas
+function rentChickens() {
+  const selectedChickenSlots = document.querySelectorAll('.chicken-slot.selected');
+  const selectedChickenIds = Array.from(selectedChickenSlots).map((slot) => {
+    return slot.getAttribute('data-chicken-id');
+  });
+  console.log('Alquilar gallinas seleccionadas:', selectedChickenIds);
 }
 
 // Conexión con MetaMask y eventos
@@ -65,13 +63,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   for (let i = 0; i < chickens.length; i++) {
     const chicken = chickens[i];
-    const category = chicken.getAttribute('data-category');
-    const buyButton = chicken.querySelector('.buy-button');
+    const chickenId = i + 1;
+    const buyButton = chicken.querySelector('button.buy-button');
     const profitabilityElement = chicken.querySelector('.profitability');
 
     buyButton.addEventListener('click', () => {
-      buyChicken(i + 1);
-      const profitability = calculateProfitability(category);
+      buyChicken(chickenId);
+      const profitability = calculateProfitability(chickenId);
       profitabilityElement.textContent = profitability + ' BNB';
     });
   }
