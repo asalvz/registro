@@ -1,4 +1,13 @@
- // Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
+// Inicializar web3
+let web3;
+
+// Comprobar si web3 está disponible en el navegador
+if (typeof window.ethereum !== 'undefined') {
+  web3 = new Web3(window.ethereum);
+} else {
+  console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
+}
+// Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
 async function connectToMetaMask() {
   try {
     // Solicitar al usuario que conecte su billetera MetaMask
@@ -29,8 +38,8 @@ async function getBalance(address) {
     method: 'eth_getBalance',
     params: [address, 'latest'],
   });
-  const etherBalance = web3.utils.fromWei(weiBalance, 'ether');
-  return parseFloat(etherBalance).toFixed(4);
+  const balance = web3.utils.fromWei(weiBalance, 'ether');
+  return parseFloat(balance).toFixed(4);
 }
 
 // Función para comprar una gallina
@@ -64,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < chickens.length; i++) {
     const chicken = chickens[i];
     const chickenId = i + 1;
-    const buyButton = chicken.querySelector('button.buy-button');
+    const buyButton = chicken.querySelector('button');
     const profitabilityElement = chicken.querySelector('.profitability');
 
     buyButton.addEventListener('click', () => {
