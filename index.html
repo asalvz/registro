@@ -13,7 +13,7 @@
     }
 
     #header {
-      background: linear-gradient(to bottom, #16171E, #ff6600);
+      background: linear-gradient(to bottom, #ff9966, #ff6600);
       padding: 20px;
       text-align: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -40,13 +40,14 @@
       padding: 10px;
       margin: 10px;
       width: 180px;
-      height: 280px;
+      height: 400px;
       text-align: center;
       background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
     }
 
     .chicken h2 {
@@ -54,6 +55,14 @@
       font-size: 20px;
       color: #ffffff;
       margin-bottom: 10px;
+    }
+
+    .chicken img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto;
+      margin-top: 10px;
     }
 
     .chicken p {
@@ -89,7 +98,7 @@
       padding: 10px;
       margin: 10px;
       width: 180px;
-      height: 280px;
+      height: 400px;
       text-align: center;
       background: linear-gradient(to bottom, #99ccff, #4dd2ff);
       cursor: pointer;
@@ -142,51 +151,57 @@
   <p style="color: #ffffff; font-size: 18px;">Dirección del usuario: <span id="user-address" class="highlight"></span></p>
   <p style="color: #ffffff; font-size: 18px;">Saldo del usuario: <span id="user-balance" class="highlight"></span></p>
   <div id="chickens-panel">
-    <div class="chicken">
+    <div class="chicken" data-id="1" onclick="selectChicken(this)">
       <h2>Gallina 1</h2>
-      <p>Tiempo en poner huevos: <span id="chicken1-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken1-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken1-egg-quality"></span></p>
+      <img src="gallina1.png" alt="Gallina 1">
+      <p>Tiempo en poner huevos: 30 minutos</p>
+      <p>Cantidad de huevos: 5</p>
+      <p>Calidad de huevos: Alta</p>
       <p>Precio: 0.3 BNB</p>
       <button onclick="buyChicken(1)">Comprar</button>
     </div>
-    <div class="chicken">
+    <div class="chicken" data-id="2" onclick="selectChicken(this)">
       <h2>Gallina 2</h2>
-      <p>Tiempo en poner huevos: <span id="chicken2-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken2-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken2-egg-quality"></span></p>
+      <img src="gallina2.png" alt="Gallina 2">
+      <p>Tiempo en poner huevos: 1 hora</p>
+      <p>Cantidad de huevos: 4</p>
+      <p>Calidad de huevos: Media</p>
       <p>Precio: 0.5 BNB</p>
       <button onclick="buyChicken(2)">Comprar</button>
     </div>
-    <div class="chicken">
+    <div class="chicken" data-id="3" onclick="selectChicken(this)">
       <h2>Gallina 3</h2>
-      <p>Tiempo en poner huevos: <span id="chicken3-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken3-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken3-egg-quality"></span></p>
+      <img src="gallina3.png" alt="Gallina 3">
+      <p>Tiempo en poner huevos: 1.5 horas</p>
+      <p>Cantidad de huevos: 3</p>
+      <p>Calidad de huevos: Baja</p>
       <p>Precio: 0.8 BNB</p>
       <button onclick="buyChicken(3)">Comprar</button>
     </div>
-    <div class="chicken">
+    <div class="chicken" data-id="4" onclick="selectChicken(this)">
       <h2>Gallina 4</h2>
-      <p>Tiempo en poner huevos: <span id="chicken4-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken4-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken4-egg-quality"></span></p>
+      <img src="gallina4.png" alt="Gallina 4">
+      <p>Tiempo en poner huevos: 2 horas</p>
+      <p>Cantidad de huevos: 2</p>
+      <p>Calidad de huevos: Media</p>
       <p>Precio: 1.2 BNB</p>
       <button onclick="buyChicken(4)">Comprar</button>
     </div>
-    <div class="chicken">
+    <div class="chicken" data-id="5" onclick="selectChicken(this)">
       <h2>Gallina 5</h2>
-      <p>Tiempo en poner huevos: <span id="chicken5-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken5-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken5-egg-quality"></span></p>
+      <img src="gallina5.png" alt="Gallina 5">
+      <p>Tiempo en poner huevos: 2.5 horas</p>
+      <p>Cantidad de huevos: 2</p>
+      <p>Calidad de huevos: Baja</p>
       <p>Precio: 1.8 BNB</p>
       <button onclick="buyChicken(5)">Comprar</button>
     </div>
-    <div class="chicken">
+    <div class="chicken" data-id="6" onclick="selectChicken(this)">
       <h2>Gallina 6</h2>
-      <p>Tiempo en poner huevos: <span id="chicken6-egg-time"></span></p>
-      <p>Cantidad de huevos: <span id="chicken6-egg-count"></span></p>
-      <p>Calidad de huevos: <span id="chicken6-egg-quality"></span></p>
+      <img src="gallina6.png" alt="Gallina 6">
+      <p>Tiempo en poner huevos: 3 horas</p>
+      <p>Cantidad de huevos: 1</p>
+      <p>Calidad de huevos: Baja</p>
       <p>Precio: 2 BNB</p>
       <button onclick="buyChicken(6)">Comprar</button>
     </div>
@@ -208,5 +223,6 @@
     <p>Rentabilidad: X</p>
   </div>
   <script src="app.js"></script>
+ 
 </body>
 </html>
