@@ -40,19 +40,27 @@
     }
 
     // Función para comprar o seleccionar una gallina
-   function buyChicken(chickenId) {
- 
-      const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+ // Función para comprar una gallina
+function buyChicken(chickenId) {
+  const chicken = document.getElementById(`chicken${chickenId}`);
+  const eggTimeElement = document.getElementById(`chicken${chickenId}-egg-time`);
+  const eggCountElement = document.getElementById(`chicken${chickenId}-egg-count`);
+  const eggQualityElement = document.getElementById(`chicken${chickenId}-egg-quality`);
 
-      if (chicken.classList.contains('purchased')) {
-        // La gallina ya ha sido comprada, así que seleccionarla
-        selectChickenSlot(chickenId);
-      } else {
-        // La gallina aún no ha sido comprada, así que comprarla y seleccionarla
-        buyChicken(chickenId);
-        selectChickenSlot(chickenId);
-      }
-    }
+  // Obtener los datos fijos de la gallina
+  const eggTime = 15; // Tiempo fijo para todos los pollos
+  const eggCount = 8; // Cantidad fija para todos los pollos
+  const eggQuality = getEggQuality(chickenId);
+
+  // Actualizar las atribuciones en la página HTML
+  eggTimeElement.textContent = eggTime;
+  eggCountElement.textContent = eggCount;
+  eggQualityElement.textContent = eggQuality;
+
+  // Marcar la gallina como comprada
+  chicken.classList.add('purchased');
+}
+
 
     // Función para agregar una gallina a la lista de seleccionadas
   function selectChicken(chicken) {
