@@ -97,7 +97,7 @@
     }
 
     // Conexión con MetaMask y eventos
-    window.addEventListener('DOMContentLoaded', () => {
+     window.addEventListener('DOMContentLoaded', () => {
       const connectButton = document.getElementById('connect-button');
       const chickens = document.getElementsByClassName('chicken');
 
@@ -105,7 +105,7 @@
 
       for (let i = 0; i < chickens.length; i++) {
         const chicken = chickens[i];
-        const chickenId = i + 1;
+        const chickenId = chicken.getAttribute('data-id');
         const buyButton = chicken.querySelector('button');
 
         buyButton.addEventListener('click', () => {
