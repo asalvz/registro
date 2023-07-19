@@ -1,1260 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Granja de Gallinas</title>
   <style>
-    /* Estilos CSS */
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(to right, #FFD700 50%, #4169E1 50%);
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
+
+    #header {
+      background: linear-gradient(to bottom, #4169E1, #00008B);
+      color: white;
+      text-align: center;
       padding: 20px;
     }
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .subtitle {
-      font-size: 18px;
-    }
-    .chicken-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 20px 0;
-    }
-    .chicken-item {
+
+    #chickens-panel {
       display: flex;
+      justify-content: center;
       align-items: center;
-      margin-bottom: 10px;
+      flex-wrap: wrap;
+      padding: 20px;
     }
-    .chicken-image {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-    }
-    .chicken-name {
-      font-weight: bold;
-    }
-    .chicken-value {
-      margin-left: auto;
-    }
-    .slots {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .slot {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #fff;
-      border: 2px solid #ddd;
+
+    .chicken {
+      border: 1px solid #000;
       border-radius: 5px;
       padding: 10px;
-      width: calc(33.33% - 10px);
-    }
-    .slot h3 {
-      margin-bottom: 10px;
-    }
-    .accessory-slot {
-      margin-top: 20px;
+      margin: 10px;
+      width: 150px;
+      height: 200px;
       text-align: center;
     }
-    .accessory-button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      padding: 5px 10px;
+
+    #selected-chickens {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .chicken-slot {
+      border: 1px solid #000;
       border-radius: 5px;
-      cursor: pointer;
+      padding: 10px;
+      margin: 10px;
+      width: 150px;
+      height: 200px;
+      text-align: center;
     }
-    .accessory-button:hover {
-      background-color: #0056b3;
+
+    #metamask-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
     }
-  * {
-  box-sizing: border-box;
-}
 
-html, 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  background-color: #4e83b4;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.bg-red {
-  background-color: #c52541;
-}
-
-.stage {
-  width: 330px;
-  height: 410px;
-  position: relative;
-}
-
-.edge {
-  width: 100px;
-  z-index: 2;
-  height: 72px;
-  position: absolute;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: end;
-  -webkit-align-items: flex-end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-transform: rotate(-45deg) translateZ(0);
-          transform: rotate(-45deg) translateZ(0);
-  top: -45px;
-  right: 55px;
-  -webkit-animation: edge 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: edge 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-}
-
-@-webkit-keyframes edge {
-  0% {
-    -webkit-transform: rotate(-40deg) translateX(6px) translateY(15px);
-  } 
-  25% {
-    -webkit-transform: rotate(-45deg) translateX(-6px) translateY(0);
-  } 
-  50% {
-    -webkit-transform: rotate(-40deg) translateX(6px)translateY(15px);
-  }
-  75% {
-    -webkit-transform: rotate(-45deg) translateX(-6px) translateY(0);
-  }
-  100% {
-    -webkit-transform: rotate(-40deg) translateX(6px) translateY(15px);
-  }
-}
-
-@keyframes edge {
-  0% {
-    transform: rotate(-40deg) translateX(6px) translateY(15px);
-  } 
-  25% {
-    transform: rotate(-45deg) translateX(-6px) translateY(0);
-  } 
-  50% {
-    transform: rotate(-40deg) translateX(6px)translateY(15px);
-  }
-  75% {
-    transform: rotate(-45deg) translateX(-6px) translateY(0);
-  }
-  100% {
-    transform: rotate(-40deg) translateX(6px) translateY(15px);
-  }
-}
-
-.flex1 {
- -webkit-box-flex: 1;
-  -webkit-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-.edge-first {
-  height: 40px;
-  border-radius: 20px 20px 0 20px;
-  -webkit-transform-origin: bottom left;
-          transform-origin: bottom left;
-}
-
-.edge-second {
-  height: 50px;
-  border-radius: 20px 20px 0 0; 
-}
-
-.edge-third {
-  height: 58px;
-  border-radius: 20px 20px 0 0;
-}
-
-.edge-fourth {
-  height: 64px;
-  border-radius: 20px 20px 0 0; 
-}
-
-.edge-fiveth {
-  height: 72px;
-  border-radius: 20px 20px 20px 0;
-}
-
-.head {
-  width: 96px;
-  position: absolute;
-  border-bottom: 198px solid #baba9e;
-  border-left: 36px solid transparent;
-  border-right: 0px solid transparent;
-  height: 0;
-  top: 26px;
-  -webkit-transform: rotate(-7deg);
-          transform: rotate(-7deg);
-  right: 30px;
-  -webkit-animation: head 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: head 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-}
-
-@-webkit-keyframes head {
-  0% {
-    -webkit-transform: rotate(-7deg);
-  } 
-  25% {
-    -webkit-transform: rotate(-14deg);
-  } 
-  50% {
-    -webkit-transform: rotate(-7deg);
-  } 
-  75% {
-    -webkit-transform: rotate(-14deg);
-  } 
-  100% {
-    -webkit-transform: rotate(-7deg);
-  } 
-}
-
-@keyframes head {
-  0% {
-    transform: rotate(-7deg);
-  } 
-  25% {
-    transform: rotate(-14deg);
-  } 
-  50% {
-    transform: rotate(-7deg);
-  } 
-  75% {
-    transform: rotate(-14deg);
-  } 
-  100% {
-    transform: rotate(-7deg);
-  } 
-}
-
-.head:before {
-  background-color: #aaaa96;
-  content: '';
-  width: 36px;
-  height: 198px;
-  left: -20px;
-  top: 5px;
-  position: absolute;
-  -webkit-transform: rotate(10deg);
-          transform: rotate(10deg);
-}
-
-.head:after {
-  background-color: #aaaa96;
-  content: '';
-  width: 62px;
-  height: 44px;
-  left: -2px;
-  position: absolute;
-}
-
-.nose {
-  width: 54px;
-  height: 84px;
-  position: absolute;
-  top: 82px;
-  right: 15px;
-  -webkit-animation: nose 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: nose 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-}
-
-@-webkit-keyframes nose {
-  0% {
-    -webkit-transform: rotate(-7deg) translateX(6px);
-  } 
-  25% {
-    -webkit-transform: rotate(-14deg) translateX(-2px);
-  } 
-  50% {
-    -webkit-transform: rotate(-7deg) translateX(6px);
-  }
-  75% {
-    -webkit-transform: rotate(-14deg) translateX(-2px);
-  }
-  100% {
-    -webkit-transform: rotate(-7deg) translateX(6px);
-  }
-}
-
-@keyframes nose {
-  0% {
-    transform: rotate(-7deg) translateX(6px);
-  } 
-  25% {
-    transform: rotate(-14deg) translateX(-2px);
-  } 
-  50% {
-    transform: rotate(-7deg) translateX(6px);
-  }
-  75% {
-    transform: rotate(-14deg) translateX(-2px);
-  }
-  100% {
-    transform: rotate(-7deg) translateX(6px);
-  }
-}
-
-.nose-left {
-  width: 26px;
-  height: 48px;
-  border-bottom-left-radius: 100px;
-  position: absolute; 
-  top: 0;
-  left: 0;
-  border-top-left-radius: 100px;
-}
-
-.beek-top {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  top: 8px;
-  right: 0;
-  border-width: 20px 0 0 28px;
-  border-color: transparent transparent transparent #ffcf55;
-  -webkit-animation: beekTop 3000ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: beekTop 3000ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-@-webkit-keyframes beekTop {
-  0% {
-    -webkit-transform: translateY(0);
-  }
-  70% {
-    -webkit-transform: translateY(0);
-  }
-  80% {
-    -webkit-transform: translateY(-6px);
-  }
-  100% {
-    -webkit-transform: translateY(-6px);
-  }
-}
-
-@keyframes beekTop {
-  0% {
-    transform: translateY(0);
-  }
-  70% {
-    transform: translateY(0);
-  }
-  80% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(-6px);
-  }
-}
-
-.beek-bottom {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  z-index: 2;
-  top: 28px;
-  right: 10px;
-  border-width: 14px 18px 0 0;
-  border-color: #ffae20 transparent transparent transparent;
-}
-
-.nose-bottom {
-  position: absolute;
-  width: 16px;
-  height: 46px;
-  border-radius: 0 0 20px 20px;
-  bottom: 0;
-  -webkit-transform: rotate(-10deg);
-          transform: rotate(-10deg);
-  right: 18px;
-}
-
-.body {
-  background-color: #383851;
-  width: 208px;
-  height: 108px;
-  border-radius: 0 0 100px 100px;
-  -webkit-transform: rotate(-14deg);
-          transform: rotate(-14deg);
-  top: 236px;
-  right: 17px;
-  z-index: 3;
-  position: absolute; 
-  -webkit-animation: body 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: body 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-@-webkit-keyframes body {
-  0% {
-    -webkit-transform: rotate(-14deg);
-  } 
-
-  25% {
-    -webkit-transform: rotate(-7deg) translateY(3px) translateX(3px);
-  } 
-  50% {
-    -webkit-transform: rotate(-14deg);
-  } 
-  75% {
-    -webkit-transform: rotate(-7deg) translateY(3px) translateX(3px);
-  }
-  100% {
-    -webkit-transform: rotate(-14deg);
-  }
-}
-
-@keyframes body {
-  0% {
-    transform: rotate(-14deg);
-  } 
-  25% {
-    transform: rotate(-7deg) translateY(3px) translateX(3px);
-  } 
-  50% {
-    transform: rotate(-14deg);
-  } 
-  75% {
-    transform: rotate(-7deg) translateY(3px) translateX(3px);
-  }
-  100% {
-    transform: rotate(-14deg);
-  }
-}
-
-.body-shade1 {
-  background-color: #3c3c55;
-  width: 154px;
-  height: 80px;
-  border-radius: 0 0 100px 100px;
-  -webkit-transform: rotate(-14deg);
-          transform: rotate(-14deg);
-  top: 250px;
-  right: 36px;
-  position: absolute;
-  overflow: hidden;
-  z-index: 4;
-  -webkit-animation: body 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: body 1500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-.body-shade1:after {
-  background-color: #414159;
-  width: 114px;
-  height: 74px;
-  border-radius: 0 0 0 100px;
-  top: 0;
-  right: 0;
-  position: absolute;
-  content: '';
-}
-
-.body-triangle {
-  width: 96px;
-  height: 18px;
-  position: absolute;
-  right: -1px;
-  top: -17px;
-  -webkit-transform: skew(-14deg);
-          transform: skew(-14deg);
-}
-
-.triangle-one {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #383851 transparent;
-  right: 0;
-  position: absolute;
-  bottom: 0px;
-}
-
-.triangle-two {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #383851 transparent;
-  right: 20px;
-  position: absolute;
-  bottom: 0;
-}
-
-.triangle-three {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #383851 transparent;
-  right: 40px;
-  position: absolute;
-  bottom: 2px;
-}
-
-.triangle-three:before {
-  content: '';
-  background-color: #383851;
-  width: 21px;
-  border-radius: 0 6px 0 0;
-  position: absolute;
-  height: 7px;
-  bottom: -16px;
-  left: -10px;
-}
-
-.triangle-four {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 10px;
-  border-color: transparent transparent #383851 transparent;
-  right: 60px;
-  position: absolute;
-  bottom: 4px;
-}
-
-.triangle-four:before {
-  content: '';
-  background-color: #383851;
-  width: 21px;
-  border-radius: 0 6px 0 0;
-  position: absolute;
-  height: 7px;
-  bottom: -16px;
-  left: -10px;
-}
-
-.triangle-five {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 9px 10px 9px;
-  border-color: transparent transparent #383851 transparent;
-  right: 80px;
-  position: absolute;
-  bottom: 6px;
-}
-
-.triangle-five:before {
-  content: '';
-  background-color: #383851;
-  width: 21px;
-  border-radius: 0 6px 0 0;
-  position: absolute;
-  height: 7px;
-  bottom: -16px;
-  left: -9px;
-  -webkit-transform: skew(-10deg);
-          transform: skew(-10deg);
-}
-
-.tail {
-  width: 158px;
-  height: 122px;
-  position: absolute;
-  top: 140px;
-}
-
-.tail-one {
-  -webkit-transform: rotate(-18deg);
-          transform: rotate(-18deg);
-  background-color: #34344d;
-  width: 96px;
-  height: 50px;
-  position: absolute;
-  border-radius: 100px 100px 0 0;
-  top: 78px;
-  left: 32px;
-  z-index: 2;
-  overflow: hidden;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-  -webkit-animation: tailOne 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: tailOne 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-@-webkit-keyframes tailOne {
-  0% {
-    -webkit-transform: rotate(-18deg);
-  } 
-  50% {
-    -webkit-transform: rotate(-6deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    -webkit-transform: rotate(-18deg);
-  } 
-}
-
-@keyframes tailOne {
-  0% {
-    transform: rotate(-18deg);
-  } 
-  50% {
-    transform: rotate(-6deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    transform: rotate(-18deg);
-  } 
-}
-
-.tail-one:before {
-  content: '';
-  background-color: #383851;
-  width: 68px;
-  height: 44px;
-  right: 0px;
-  bottom: 0;
-  position: absolute;
-  border-radius: 100px 0 0 0; 
-}
-
-.tail-two {
-  width: 132px;
-  height: 70px;
-  position: absolute;
-  background-color: #4d4961;
-  -webkit-transform: rotate(25deg);
-          transform: rotate(25deg);
-  border-radius: 100px 100px 0 0;
-  overflow: hidden;
-  top: 72px;
-  left: 6px;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-  -webkit-animation: tailtwo 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: tailtwo 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-@-webkit-keyframes tailtwo {
-  0% {
-    -webkit-transform: rotate(25deg);
-  } 
-  50% {
-    -webkit-transform: rotate(22deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    -webkit-transform: rotate(25deg);
-  } 
-}
-
-@keyframes tailtwo {
-  0% {
-    transform: rotate(25deg);
-  } 
-  50% {
-    transform: rotate(22deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    transform: rotate(25deg);
-  } 
-} 
-
-.tail-two:before {
-  content: '';
-  background-color: #555569;
-  width: 98px;
-  height: 54px;
-  right: 0px;
-  top: 0;
-  position: absolute;
-  border-radius: 100px 0 0 0;
-}
-
-.tail-three {
-  width: 124px;
-  height: 68px;
-  position: absolute;
-  background-color: #34344d;
-  -webkit-transform: rotate(75deg);
-          transform: rotate(75deg);
-  border-radius: 100px 100px 0 0;
-  top: 70px;
-  right: 40px;
-  -webkit-transform-origin: bottom right;
-          transform-origin: bottom right;
-  z-index: -1;
-  overflow: hidden;
-  -webkit-animation: tailThree 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-          animation: tailThree 500ms cubic-bezier(0.4, 0, 1, 1) infinite alternate;
-}
-
-@-webkit-keyframes tailThree {
-  0% {
-    -webkit-transform: rotate(75deg);
-  } 
-  50% {
-    -webkit-transform: rotate(80deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    -webkit-transform: rotate(75deg);
-  } 
-}
-
-@keyframes tailThree {
-  0% {
-    transform: rotate(75deg);
-  } 
-  50% {
-    transform: rotate(80deg) translateY(3px) translateX(3px);
-  } 
-  100% {
-    transform: rotate(75deg);
-  } 
-}
-
-.tail-three:before {
-  content: '';
-  background-color: #383851;
-  width: 100px;
-  height: 48px;
-  right: 0px;
-  top: 0;
-  position: absolute;
-  border-radius: 100px 0 0 0;
-}
-
-.top-leg-front-content {
-  width: 48px;
-  height: 114px;
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-  position: absolute;
-  bottom: 0;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
-  left: 180px;
-  z-index: 3;
-  -webkit-animation: legFront 1500ms cubic-bezier(0.4, 0, 1, 1) infinite; 
-          animation: legFront 1500ms cubic-bezier(0.4, 0, 1, 1) infinite; 
-}
-
-@-webkit-keyframes legFront {
-  0% {
-    -webkit-transform: rotate(30deg);
-  } 
-  25% {
-    -webkit-transform: rotate(-30deg);
-  } 
-  50% {
-    -webkit-transform: rotate(30deg);
-  }  
-  75% {
-    -webkit-transform: rotate(-30deg);
-  }
-  100% {
-    -webkit-transform: rotate(30deg);
-  }
-}
-
-@keyframes legFront {
-  0% {
-    transform: rotate(30deg);
-  } 
-  25% {
-    transform: rotate(-30deg);
-  }   
-  50% {
-    transform: rotate(30deg);
-  }  
-  75% {
-    transform: rotate(-30deg);
-  }
-  100% {
-    transform: rotate(30deg);
-  }
-}
-
-.top-leg-front {
-  width: 48px;
-  height: 72px;
-  border-radius: 100%;
-  position: absolute;
-  top: 0px;
-  background-color: #2c2c45;
-}
-
-.stick-leg-front-top {
-  width: 8px;
-  height: 16px;
-  position: absolute;
-  background-color: #ffae20;
-  top: 72px;
-  left: 20px;
-}
-
-.stick-leg-front-middle {
-  width: 12px;
-  height: 8px;
-  position: absolute;
-  background-color: #ffae20;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
-  left: 16px;
-  top: 84px;
-  border-radius: 20px 0 0 20px;
-}
-
-.stick-leg-front-bottom {
-  width: 8px;
-  height: 14px;
-  position: absolute;
-  background-color: #ffae20;
-  bottom: 8px;
-  left: 20px;
-}
-
-.stick-base-front {
-  width: 38px;
-  height: 8px;
-  position: absolute;
-  background-color: #ffae20;
-  bottom: 0;
-  left: 10px;
-  border-radius: 20px;
-  -webkit-animation: legbaseFront 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-          animation: legbaseFront 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-}
-
-@-webkit-keyframes legbaseFront {
-  0% {
-    -webkit-transform: rotate(20deg);
-  }
-  25% {
-     -webkit-transform: rotate(10deg);
-  }   
-  50% {
-     -webkit-transform: rotate(20deg);
-  }  
-  75% {
-     -webkit-transform: rotate(10deg);
-  }
-  100% {
-     -webkit-transform: rotate(20deg);
-  }
-}
-
-@keyframes legbaseFront {
-  0% {
-    transform: rotate(20deg);
-  } 
-  25% {
-    transform: rotate(10deg);
-  }   
-  50% {
-    transform: rotate(20deg);
-  }   
-  75% {
-    transform: rotate(10deg);
-  }
-  100% {
-    transform: rotate(20deg);
-  }
-}
-
-.top-leg-back-content {
-  width: 48px;
-  height: 114px;
-  position: absolute;
-  bottom: 0;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
-  left: 180px;
-  z-index: 1;
-  -webkit-animation: legBack 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-          animation: legBack 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-}
-
-@-webkit-keyframes legBack {
-  0% {
-     -webkit-transform: rotate(-30deg);
-  } 
-  25% {
-     -webkit-transform: rotate(30deg);
-  }   
-  50% {
-     -webkit-transform: rotate(-30deg);
-  } 
-  75% {
-     -webkit-transform: rotate(30deg);
-  }
-  100% {
-     -webkit-transform: rotate(-30deg);
-  }
-}
-
-@keyframes legBack {
-  0% {
-    transform: rotate(-30deg);
-  } 
-  25% {
-    transform: rotate(30deg);
-  }  
-  50% {
-    transform: rotate(-30deg);
-  } 
-  75% {
-    transform: rotate(30deg);
-  } 
-  100% {
-    transform: rotate(-30deg);
-  }
-}
-
-.top-leg-back {
-  width: 48px;
-  height: 72px;
-  border-radius: 100%;
-  position: absolute;
-  top: 0px;
-  background-color: #202034;
-}
-
-.stick-leg-back-top {
-  width: 8px;
-  height: 16px;
-  position: absolute;
-  background-color: #ffae20;
-  top: 72px;
-  left: 20px;
-}
-
-.stick-leg-back-middle {
-  width: 12px;
-  height: 8px;
-  position: absolute;
-  background-color: #ffae20;
-  -webkit-transform-origin: top center;
-          transform-origin: top center;
-  left: 16px;
-  top: 84px;
-  border-radius: 20px 0 0 20px;
-}
-
-.stick-leg-back-bottom {
-  width: 8px;
-  height: 14px;
-  position: absolute;
-  background-color: #ffae20;
-  bottom: 8px;
-  left: 20px;
-}
-
-.stick-base-back {
-  width: 38px;
-  height: 8px;
-  position: absolute;
-  background-color: #ffae20;
-  bottom: 0;
-  left: 10px;
-  border-radius: 20px;
-  -webkit-animation: legbaseBack 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-          animation: legbaseBack 1500ms cubic-bezier(0.4, 0, 1, 1) infinite;
-}
-
-@-webkit-keyframes legbaseBack {
-  0% {
-     -webkit-transform: rotate(10deg);
-  } 
-  25% {
-     -webkit-transform: rotate(20deg);
-  } 
-  50% {
-     -webkit-transform: rotate(10deg);
-  } 
-  75% {
-     -webkit-transform: rotate(20deg);
-  }
-  100% {
-     -webkit-transform: rotate(10deg);
-  }
-}
-
-@keyframes legbaseBack {
-  0% {
-    transform: rotate(10deg);
-  } 
-  25% {
-    transform: rotate(20deg);
-  } 
-  50% {
-    transform: rotate(10deg);
-  } 
-  75% {
-    transform: rotate(20deg);
-  }
-  100% {
-    transform: rotate(10deg);
-  }
-}
-
+    #profitability {
+      text-align: center;
+      padding: 20px;
+    }
+
+    #rent-button {
+      text-align: center;
+      padding: 20px;
+    }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="header">
-      <h1 class="title">LOW CHICKENS EGGS</h1>
-      <h2 class="subtitle">Granja de Gallinas</h2>
-    </div>
-
-    <button id="connect-button" class="button">Conectar a Metamask</button>
-    <p><strong>Dirección de la cuenta:</strong> <span id="address"></span></p>
-    <p><strong>Saldo:</strong> <span id="balance"></span> ETH</p>
-
-    <ul class="chicken-list">
-      <li class="chicken-item">
-        <img src="chicken1.png" alt="Gallina 1" class="chicken-image">
-        <span class="chicken-name">Gallina 1</span>
-        <span class="chicken-value">5 huevos</span>
-      </li>
-      <li class="chicken-item">
-        <img src="chicken2.png" alt="Gallina 2" class="chicken-image">
-        <span class="chicken-name">Gallina 2</span>
-        <span class="chicken-value">8 huevos</span>
-      </li>
-      <li class="chicken-item">
-        <img src="chicken3.png" alt="Gallina 3" class="chicken-image">
-        <span class="chicken-name">Gallina 3</span>
-        <span class="chicken-value">10 huevos</span>
-      </li>
-      <li class="chicken-item">
-        <img src="chicken4.png" alt="Gallina 4" class="chicken-image">
-        <span class="chicken-name">Gallina 4</span>
-        <span class="chicken-value">6 huevos</span>
-      </li>
-      <li class="chicken-item">
-        <img src="chicken5.png" alt="Gallina 5" class="chicken-image">
-        <span class="chicken-name">Gallina 5</span>
-        <span class="chicken-value">9 huevos</span>
-      </li>
-      <li class="chicken-item">
-        <img src="chicken6.png" alt="Gallina 6" class="chicken-image">
-        <span class="chicken-name">Gallina 6</span>
-        <span class="chicken-value">7 huevos</span>
-      </li>
-    </ul>
-
-    <div class="slots">
-      <div class="slot">
-        <h3>Ranura 1</h3>
-        <input type="number" id="slot1-input" placeholder="Cantidad">
-      </div>
-      <div class="slot">
-        <h3>Ranura 2</h3>
-        <input type="number" id="slot2-input" placeholder="Cantidad">
-      </div>
-      <div class="slot">
-        <h3>Ranura 3</h3>
-        <input type="number" id="slot3-input" placeholder="Cantidad">
-      </div>
-    </div>
-
-    <div class="accessory-slot">
-      <h3>Accesorio para Gallina 1</h3>
-      <button id="accessory1-button" class="accessory-button">Obtener</button>
-    </div>
-    <div class="accessory-slot">
-      <h3>Accesorio para Gallina 2</h3>
-      <button id="accessory2-button" class="accessory-button">Obtener</button>
-    </div>
-    <div class="accessory-slot">
-      <h3>Accesorio para Gallina 3</h3>
-      <button id="accessory3-button" class="accessory-button">Obtener</button>
-    </div>
-<div class="stage">
-  <div class="edge">
-    <div class="edge-first bg-red flex1"></div>
-    <div class="edge-second bg-red flex1"></div>
-    <div class="edge-third bg-red flex1"></div>
-    <div class="edge-fourth bg-red flex1"></div>
-    <div class="edge-fiveth bg-red flex1"></div>
+  <button id="metamask-button">Conectar con MetaMask</button>
+  <div id="header">
+    <h1>LOW CHICKEN BOB</h1>
   </div>
-  <div class="head"></div>
-  <div class="nose">
-    <div class="nose-left bg-red"></div>
-    <div class="beek-top"></div>
-    <div class="beek-bottom"></div>
-    <div class="nose-bottom bg-red"></div>
-  </div>
-  <div class="body">
-    <div class="body-triangle">
-      <div class="triangle-one"></div>
-      <div class="triangle-two"></div>
-      <div class="triangle-three"></div>
-      <div class="triangle-four"></div>
-      <div class="triangle-five"></div>
+  <div id="chickens-panel">
+    <div class="chicken">
+      <h2>Gallina 1</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(1)">Comprar</button>
+    </div>
+    <div class="chicken">
+      <h2>Gallina 2</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(2)">Comprar</button>
+    </div>
+    <div class="chicken">
+      <h2>Gallina 3</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(3)">Comprar</button>
+    </div>
+    <div class="chicken">
+      <h2>Gallina 4</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(4)">Comprar</button>
+    </div>
+    <div class="chicken">
+      <h2>Gallina 5</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(5)">Comprar</button>
+    </div>
+    <div class="chicken">
+      <h2>Gallina 6</h2>
+      <p>Tiempo en poner huevos: X</p>
+      <p>Cantidad de huevos: X</p>
+      <p>Calidad de huevos: X</p>
+      <button onclick="buyChicken(6)">Comprar</button>
     </div>
   </div>
-  <div class="body-shade1"></div>
-  <div class="tail">
-    <div class="tail-one"></div>
-    <div class="tail-two"></div>
-    <div class="tail-three"></div>
+  <div id="selected-chickens">
+    <h2>Gallinas seleccionadas</h2>
+    <div class="chicken-slot"></div>
+    <div class="chicken-slot"></div>
+    <div class="chicken-slot"></div>
   </div>
-  <div class="top-leg-front-content">
-    <div class="top-leg-front"></div>  
-    <div class="stick-leg-front-top"></div>
-    <div class="stick-leg-front-middle"></div>
-    <div class="stick-leg-front-bottom"></div>
-    <div class="stick-base-front"></div>
+  <div id="rent-button">
+    <button onclick="rentChickens()">ALQUILAR</button>
   </div>
-  <div class="top-leg-back-content">
-    <div class="top-leg-back"></div>  
-    <div class="stick-leg-back-top"></div>
-    <div class="stick-leg-back-middle"></div>
-    <div class="stick-leg-back-bottom"></div>
-    <div class="stick-base-back"></div>
+  <div id="profitability">
+    <h2>Cotizador MERCADO</h2>
+    <p>Pago por huevo chico: 0.001 BNB</p>
+    <p>Pago por huevo mediano: 0.003 BNB</p>
+    <p>Pago por huevo grande: 0.005 BNB</p>
+    <p>Rentabilidad: X</p>
   </div>
-</div>
+  <script>
+    // Función para comprar una gallina
+    function buyChicken(chickenId) {
+      // Aquí puedes implementar la lógica para comprar una gallina según su ID
+      console.log("Comprar gallina: " + chickenId);
+    }
 
+    // Función para alquilar las gallinas seleccionadas
+    function rentChickens() {
+      // Aquí puedes implementar la lógica para alquilar las gallinas seleccionadas
+      console.log("Alquilar gallinas seleccionadas");
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
-    <script>
-      // JavaScript
-      const connectButton = document.getElementById('connect-button');
-      const addressElement = document.getElementById('address');
-      const balanceElement = document.getElementById('balance');
-
-      const slot1Input = document.getElementById('slot1-input');
-      const slot2Input = document.getElementById('slot2-input');
-      const slot3Input = document.getElementById('slot3-input');
-
-      const accessory1Button = document.getElementById('accessory1-button');
-      const accessory2Button = document.getElementById('accessory2-button');
-      const accessory3Button = document.getElementById('accessory3-button');
-
-      let userAddress;
-      let web3;
-
-      connectButton.addEventListener('click', () => {
-        if (typeof window.ethereum === 'undefined') {
-          alert('Metamask no está instalado. Asegúrate de tenerlo instalado y desbloqueado en tu navegador.');
-        } else {
-          connectToMetamask();
-        }
-      });
-
-      function connectToMetamask() {
-        // Crear una instancia de Web3
-        web3 = new Web3(window.ethereum);
-
-        // Solicitar el inicio de sesión a Metamask
-        window.ethereum.request({ method: 'eth_requestAccounts' })
-          .then(accounts => {
-            userAddress = accounts[0];
-            addressElement.textContent = userAddress;
-
-            // Obtener el saldo de la cuenta
-            web3.eth.getBalance(userAddress)
-              .then(balance => {
-                const formattedBalance = web3.utils.fromWei(balance, 'ether');
-                balanceElement.textContent = formattedBalance;
-              })
-              .catch(error => {
-                console.error('Error al obtener el saldo:', error);
-              });
-          })
-          .catch(error => {
-            console.error('Error al iniciar sesión con Metamask:', error);
-          });
+    // Conexión con MetaMask y obtención de dirección y saldo del usuario
+    window.addEventListener("DOMContentLoaded", async () => {
+      // Comprueba si MetaMask está disponible en el navegador
+      if (typeof window.ethereum === "undefined") {
+        console.log("MetaMask no detectado");
+        return;
       }
 
-      // Manejar la interacción con las ranuras
-      slot1Input.addEventListener('change', () => {
-        const quantity = parseInt(slot1Input.value);
-        if (isNaN(quantity) || quantity < 0) {
-          slot1Input.value = '';
-          return;
-        }
-        // Lógica para manejar la ranura 1
-        console.log('Ranura 1 - Cantidad:', quantity);
+      // Solicita al usuario que conecte su billetera MetaMask
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      // Obtiene la dirección del usuario conectado
+      const accounts = await window.ethereum.request({ method: "eth_accounts" });
+      const userAddress = accounts[0];
+      console.log("Dirección del usuario:", userAddress);
+
+      // Obtiene el saldo del usuario conectado
+      const balance = await window.ethereum.request({
+        method: "eth_getBalance",
+        params: [userAddress, "latest"],
       });
-
-      slot2Input.addEventListener('change', () => {
-        const quantity = parseInt(slot2Input.value);
-        if (isNaN(quantity) || quantity < 0) {
-          slot2Input.value = '';
-          return;
-        }
-        // Lógica para manejar la ranura 2
-        console.log('Ranura 2 - Cantidad:', quantity);
-      });
-
-      slot3Input.addEventListener('change', () => {
-        const quantity = parseInt(slot3Input.value);
-        if (isNaN(quantity) || quantity < 0) {
-          slot3Input.value = '';
-          return;
-        }
-        // Lógica para manejar la ranura 3
-        console.log('Ranura 3 - Cantidad:', quantity);
-      });
-
-      // Manejar la interacción con los accesorios
-      accessory1Button.addEventListener('click', () => {
-        // Lógica para obtener el accesorio para la Gallina 1
-        console.log('Accesorio para Gallina 1 - Obtener');
-      });
-
-      accessory2Button.addEventListener('click', () => {
-        // Lógica para obtener el accesorio para la Gallina 2
-        console.log('Accesorio para Gallina 2 - Obtener');
-      });
-
-      accessory3Button.addEventListener('click', () => {
-        // Lógica para obtener el accesorio para la Gallina 3
-        console.log('Accesorio para Gallina 3 - Obtener');
-      });
-    var gallina = document.getElementById("gallina");
-
-
-
-    </script>
-  </div>
+      console.log("Saldo del usuario:", balance);
+    });
+  </script>
 </body>
-
 </html>
