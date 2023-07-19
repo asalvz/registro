@@ -84,6 +84,12 @@
     .accessory-button:hover {
       background-color: #0056b3;
     }
+    #gallina {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+}
+
   </style>
 </head>
 
@@ -158,6 +164,9 @@
       <h3>Accesorio para Gallina 3</h3>
       <button id="accessory3-button" class="accessory-button">Obtener</button>
     </div>
+    <div id="gallina"></div>
+<button onclick="ponerHuevo()">Poner huevo</button>
+
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script>
@@ -256,6 +265,16 @@
         // Lógica para obtener el accesorio para la Gallina 3
         console.log('Accesorio para Gallina 3 - Obtener');
       });
+      function ponerHuevo() {
+  var gallina = document.getElementById("gallina");
+  var huevo = document.createElement("div");
+  huevo.className = "huevo";
+  gallina.appendChild(huevo);
+  setTimeout(function() {
+    gallina.removeChild(huevo);
+  }, 2000);
+}
+
     </script>
   </div>
 </body>
