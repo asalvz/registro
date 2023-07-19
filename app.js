@@ -1,4 +1,5 @@
 let web3;
+let selectedChickens = [];
 
 // Comprobar si web3 está disponible en el navegador
 if (typeof window.ethereum !== 'undefined') {
