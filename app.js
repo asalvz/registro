@@ -61,25 +61,22 @@
     }
 
     // Función para seleccionar una gallina y colocarla en una ranura
-    function selectChickenSlot(slotNumber) {
+   function selectChickenSlot(slotNumber) {
       const chickenSlot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
       const purchasedChickens = document.querySelectorAll('.chicken.purchased');
-      const selectedChickenId = chickenSlot.getAttribute('data-chicken-id');
 
       if (chickenSlot.classList.contains('selected')) {
         chickenSlot.classList.remove('selected');
-        chickenSlot.setAttribute('data-chicken-id', '');
         chickenSlot.innerHTML = '';
       } else {
         if (purchasedChickens.length < 3) {
           for (let i = 0; i < purchasedChickens.length; i++) {
             const purchasedChicken = purchasedChickens[i];
-            const chickenId = purchasedChicken.getAttribute('data-chicken-id');
+            const chickenId = purchasedChicken.getAttribute('data-id');
 
-            if (chickenId === selectedChickenId) {
+            if (chickenId === slotNumber.toString()) {
               chickenSlot.classList.add('selected');
-              chickenSlot.setAttribute('data-chicken-id', chickenId);
-              chickenSlot.innerHTML = purchasedChicken.innerHTML;
+              chickenSlot.innerHTML = purchasedChicken.outerHTML;
               break;
             }
           }
