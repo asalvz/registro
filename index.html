@@ -4,8 +4,8 @@
   <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
 
   <style>
-    body {
-      background-color: #333333;
+  body {
+      background-color: #1a1a1a;
       color: #ffffff;
       font-family: Arial, sans-serif;
       margin: 0;
@@ -20,6 +20,9 @@
 
     h1 {
       margin: 0;
+      color: #ffffff;
+      font-size: 32px;
+      text-transform: uppercase;
     }
 
     #chickens-panel {
@@ -32,24 +35,29 @@
 
     .chicken {
       border: 1px solid #ffffff;
-      border-radius: 5px;
+      border-radius: 10px;
       padding: 20px;
       margin: 10px;
-      width: 200px;
-      height: 320px;
+      width: 240px;
+      height: 380px;
       text-align: center;
-      background-color: #555555;
+      background-color: #333333;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .chicken h2 {
       margin-top: 0;
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 10px;
     }
 
     .chicken p {
       margin: 10px 0;
+      color: #ffffff;
     }
 
     .chicken button {
@@ -60,6 +68,7 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
+      font-size: 16px;
     }
 
     .chicken button:hover {
@@ -75,14 +84,15 @@
 
     .chicken-slot {
       border: 1px dashed #ffffff;
-      border-radius: 5px;
+      border-radius: 10px;
       padding: 20px;
       margin: 10px;
-      width: 200px;
-      height: 320px;
+      width: 240px;
+      height: 380px;
       text-align: center;
       background-color: #333333;
       cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .chicken-slot.selected {
@@ -102,6 +112,7 @@
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
+      font-size: 18px;
     }
 
     #rent-button button:hover {
@@ -119,6 +130,7 @@
       padding: 5px;
       border-radius: 5px;
     }
+
   </style>
 </head>
 <body>
