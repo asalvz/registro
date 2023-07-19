@@ -39,6 +39,29 @@ async function getBalance(address) {
   return parseFloat(balance).toFixed(4);
 }
 
+// Función para obtener la calidad de los huevos de una gallina según su ID
+function getEggQuality(chickenId) {
+  // Supongamos que hay 3 calidades de huevos: "Alta", "Media" y "Baja"
+  // Utilizaremos el ID de la gallina para generar un número aleatorio y asignar una calidad de huevo correspondiente.
+  // La calidad de los huevos será diferente para cada gallina, pero se mantendrá constante para una gallina específica en una sesión.
+
+  // Generamos un número aleatorio entre 0 y 2 (representando las 3 calidades de huevos)
+  const randomNum = Math.floor(Math.random() * 3);
+
+  // Asignamos la calidad de los huevos en función del número aleatorio generado
+  let eggQuality;
+  if (randomNum === 0) {
+    eggQuality = 'Alta';
+  } else if (randomNum === 1) {
+    eggQuality = 'Media';
+  } else {
+    eggQuality = 'Baja';
+  }
+
+  return eggQuality;
+}
+
+
 // Función para comprar una gallina
 function buyChicken(chickenId) {
   const chicken = document.getElementById(`chicken${chickenId}`);
@@ -127,3 +150,4 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
