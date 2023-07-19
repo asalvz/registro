@@ -84,11 +84,40 @@
     .accessory-button:hover {
       background-color: #0056b3;
     }
-    #gallina {
-  width: 100px;
-  height: 100px;
-  background-color: yellow;
+   #gallina {
+  width: 200px;
+  height: 250px;
+  background-color: #FFCC66;
+  position: relative;
+  border-radius: 50% 50% 40% 40%;
 }
+
+#gallina:before {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: #FFCC66;
+  border-radius: 50%;
+  bottom: 5px;
+  left: 70px;
+}
+
+#huevo {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  bottom: 0;
+  left: 80px;
+  transition: all 0.3s ease-in-out;
+}
+
+#gallina:hover #huevo {
+  transform: translate(0, -200px);
+}
+
 
   </style>
 </head>
@@ -164,8 +193,7 @@
       <h3>Accesorio para Gallina 3</h3>
       <button id="accessory3-button" class="accessory-button">Obtener</button>
     </div>
-    <div id="gallina"></div>
-<button onclick="ponerHuevo()">Poner huevo</button>
+<div id="gallina"></div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
@@ -265,15 +293,13 @@
         // Lógica para obtener el accesorio para la Gallina 3
         console.log('Accesorio para Gallina 3 - Obtener');
       });
-      function ponerHuevo() {
-  var gallina = document.getElementById("gallina");
+    var gallina = document.getElementById("gallina");
+
+gallina.addEventListener("click", function() {
   var huevo = document.createElement("div");
-  huevo.className = "huevo";
+  huevo.id = "huevo";
   gallina.appendChild(huevo);
-  setTimeout(function() {
-    gallina.removeChild(huevo);
-  }, 2000);
-}
+});
 
     </script>
   </div>
