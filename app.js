@@ -40,11 +40,11 @@
     }
 
     // Función para comprar una gallina
-    function buyChicken(chickenId) {
-      const chicken = document.getElementById(`chicken${chickenId}`);
-      const eggTimeElement = document.getElementById(`chicken${chickenId}-egg-time`);
-      const eggCountElement = document.getElementById(`chicken${chickenId}-egg-count`);
-      const eggQualityElement = document.getElementById(`chicken${chickenId}-egg-quality`);
+  function buyChicken(chickenId) {
+      const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+      const eggTimeElement = chicken.querySelector('.egg-time');
+      const eggCountElement = chicken.querySelector('.egg-count');
+      const eggQualityElement = chicken.querySelector('.egg-quality');
 
       // Obtener los datos fijos de la gallina
       const eggTime = 15; // Tiempo fijo para todos los pollos
@@ -52,16 +52,16 @@
       const eggQuality = getEggQuality(chickenId);
 
       // Actualizar las atribuciones en la página HTML
-      eggTimeElement.textContent = eggTime;
-      eggCountElement.textContent = eggCount;
-      eggQualityElement.textContent = eggQuality;
+      eggTimeElement.textContent = `Tiempo en poner huevos: ${eggTime} minutos`;
+      eggCountElement.textContent = `Cantidad de huevos: ${eggCount}`;
+      eggQualityElement.textContent = `Calidad de huevos: ${eggQuality}`;
 
       // Marcar la gallina como comprada
       chicken.classList.add('purchased');
     }
 
     // Función para seleccionar una gallina y colocarla en una ranura
-   function selectChickenSlot(slotNumber) {
+    function selectChickenSlot(slotNumber) {
       const chickenSlot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
       const purchasedChickens = document.querySelectorAll('.chicken.purchased');
 
@@ -85,6 +85,7 @@
         }
       }
     }
+
 
     // Función para alquilar las gallinas seleccionadas
     function rentChickens() {
