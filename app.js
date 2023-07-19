@@ -40,7 +40,8 @@
     }
 
     // Función para comprar o seleccionar una gallina
-    function buyOrSelectChicken(chickenId) {
+   function buyChicken(chickenId) {
+ 
       const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
 
       if (chicken.classList.contains('purchased')) {
@@ -54,7 +55,9 @@
     }
 
     // Función para agregar una gallina a la lista de seleccionadas
-    function addSelectedChicken(chickenId) {
+  function selectChicken(chicken) {
+  
+
       if (!selectedChickens.includes(chickenId)) {
         selectedChickens.push(chickenId);
         updateChickenSlotUI();
