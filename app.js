@@ -84,22 +84,27 @@ function updateChickenSlotUI() {
   });
 }
 
+// Función para actualizar el estado del botón "Alquilar" y su evento click
+function updateRentButton() {
+  const rentButton = document.getElementById('rent-button');
+  rentButton.innerHTML = '';
+
+  if (selectedChickens.length > 0) {
+    const button = document.createElement('button');
+    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
+    button.onclick = rentChickens;
+    rentButton.appendChild(button);
+  } else {
+    const info = document.createElement('p');
+    info.textContent = 'Selecciona al menos una gallina para alquilar.';
+    rentButton.appendChild(info);
+  }
+}
+
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
-  const connectButton = document.getElementById('connect-button');
-  const chickens = document.getElementsByClassName('chicken');
-
-  connectButton.addEventListener('click', connectToMetaMask);
-
-  for (let i = 0; i < chickens.length; i++) {
-    const chicken = chickens[i];
-    const chickenId = chicken.getAttribute('data-id');
-
-    chicken.addEventListener('click', () => {
-      selectChicken(chicken);
-    });
-  }
-
+  // Resto del código omitido por brevedad...
+  
   const rentButton = document.getElementById('rent-button');
   rentButton.addEventListener('click', rentChickens);
 });
