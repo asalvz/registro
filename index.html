@@ -56,6 +56,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     .chicken button:hover {
@@ -78,6 +79,11 @@
       height: 280px;
       text-align: center;
       background-color: #333333;
+      cursor: pointer;
+    }
+
+    .chicken-slot.selected {
+      background-color: #4169E1;
     }
 
     #rent-button {
@@ -92,6 +98,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     #rent-button button:hover {
@@ -102,6 +109,13 @@
       text-align: center;
       padding: 20px;
     }
+
+    .highlight {
+      background-color: #0000FF;
+      color: #ffffff;
+      padding: 5px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -110,13 +124,14 @@
   </div>
   <button id="connect-button">Conectar con MetaMask</button>
   <p>Dirección del usuario: <span id="user-address"></span></p>
-  <p>Saldo del usuario: <span id="user-balance"></span></p>
+  <p>Saldo del usuario: <span id="user-balance" class="highlight"></span></p>
   <div id="chickens-panel">
     <div class="chicken">
       <h2>Gallina 1</h2>
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 0.3 BNB</p>
       <button onclick="buyChicken(1)">Comprar</button>
     </div>
     <div class="chicken">
@@ -124,6 +139,7 @@
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 0.5 BNB</p>
       <button onclick="buyChicken(2)">Comprar</button>
     </div>
     <div class="chicken">
@@ -131,6 +147,7 @@
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 0.8 BNB</p>
       <button onclick="buyChicken(3)">Comprar</button>
     </div>
     <div class="chicken">
@@ -138,6 +155,7 @@
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 1.2 BNB</p>
       <button onclick="buyChicken(4)">Comprar</button>
     </div>
     <div class="chicken">
@@ -145,6 +163,7 @@
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 1.8 BNB</p>
       <button onclick="buyChicken(5)">Comprar</button>
     </div>
     <div class="chicken">
@@ -152,17 +171,15 @@
       <p>Tiempo en poner huevos: X</p>
       <p>Cantidad de huevos: X</p>
       <p>Calidad de huevos: X</p>
+      <p>Precio: 2 BNB</p>
       <button onclick="buyChicken(6)">Comprar</button>
     </div>
   </div>
   <div id="selected-chickens">
     <h2>Gallinas seleccionadas</h2>
     <div class="chicken-slot" data-chicken-id="1" onclick="selectChickenSlot(1)"></div>
-
-   <div class="chicken-slot" data-chicken-id="2" onclick="selectChickenSlot(2)"></div>
-
-   <div class="chicken-slot" data-chicken-id="3" onclick="selectChickenSlot(3)"></div>
-
+    <div class="chicken-slot" data-chicken-id="2" onclick="selectChickenSlot(2)"></div>
+    <div class="chicken-slot" data-chicken-id="3" onclick="selectChickenSlot(3)"></div>
   </div>
   <div id="rent-button">
     <button onclick="rentChickens()">ALQUILAR</button>
