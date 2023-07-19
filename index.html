@@ -155,9 +155,12 @@
   </div>
   <div id="selected-chickens">
     <h2>Gallinas seleccionadas</h2>
-    <div class="chicken-slot" onclick="selectChickenSlot(1)"></div>
-    <div class="chicken-slot" onclick="selectChickenSlot(2)"></div>
-    <div class="chicken-slot" onclick="selectChickenSlot(3)"></div>
+    <div class="chicken-slot" data-chicken-id="1" onclick="selectChickenSlot(1)"></div>
+
+   <div class="chicken-slot" data-chicken-id="2" onclick="selectChickenSlot(2)"></div>
+
+   <div class="chicken-slot" data-chicken-id="3" onclick="selectChickenSlot(3)"></div>
+
   </div>
   <div id="rent-button">
     <button onclick="rentChickens()">ALQUILAR</button>
