@@ -1,5 +1,4 @@
-// Inicializar web3
-    let web3;
+ let web3;
 
     // Comprobar si web3 está disponible en el navegador
     if (typeof window.ethereum !== 'undefined') {
@@ -50,10 +49,10 @@
       const eggCountElement = document.getElementById(`chicken${chickenId}-egg-count`);
       const eggQualityElement = document.getElementById(`chicken${chickenId}-egg-quality`);
 
-      // Generar atribuciones aleatorias mejoradas según el precio de la gallina
-      let eggTime = getRandomNumber(10, 20);
-      let eggCount = getRandomNumber(5, 10);
-      let eggQuality = getEggQuality(chickenId);
+      // Obtener los datos fijos de la gallina
+      const eggTime = 15; // Tiempo fijo para todos los pollos
+      const eggCount = 8; // Cantidad fija para todos los pollos
+      const eggQuality = getEggQuality(chickenId);
 
       // Actualizar las atribuciones en la página HTML
       eggTimeElement.textContent = eggTime;
@@ -100,31 +99,6 @@
         return slot.getAttribute('data-chicken-id');
       });
       console.log('Alquilar gallinas seleccionadas:', selectedChickenIds);
-    }
-
-    // Función para generar un número aleatorio en un rango dado
-    function getRandomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    // Función para obtener la calidad de los huevos según el ID de la gallina
-    function getEggQuality(chickenId) {
-      switch (chickenId) {
-        case 1:
-          return 'Excelente';
-        case 2:
-          return 'Buena';
-        case 3:
-          return 'Regular';
-        case 4:
-          return 'Buena';
-        case 5:
-          return 'Excelente';
-        case 6:
-          return 'Regular';
-        default:
-          return 'Desconocida';
-      }
     }
 
     // Conexión con MetaMask y eventos
