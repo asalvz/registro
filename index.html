@@ -4,8 +4,8 @@
   <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
 
   <style>
-    body {
-      background-color: #d1f3c9;
+  body {
+      background: linear-gradient(to bottom, #b3e6ff, #99ccff);
       color: #ffffff;
       font-family: Arial, sans-serif;
       margin: 0;
@@ -13,74 +13,17 @@
     }
 
     #header {
-      background: linear-gradient(to bottom, #50c878, #138808);
+      background: linear-gradient(to bottom, #ff9966, #ff6600);
       padding: 20px;
       text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
       margin: 0;
-      color: #50c878;
+      color: #ffffff;
       font-size: 32px;
       text-transform: uppercase;
-      animation: glowing 2s infinite;
-    }
-
-    @keyframes glowing {
-      0% {
-        color: #50c878;
-        text-shadow: 0 0 10px #50c878, 0 0 20px #50c878, 0 0 30px #50c878;
-      }
-      50% {
-        color: #138808;
-        text-shadow: 0 0 20px #50c878, 0 0 30px #50c878, 0 0 40px #50c878;
-      }
-      100% {
-        color: #50c878;
-        text-shadow: 0 0 10px #50c878, 0 0 20px #50c878, 0 0 30px #50c878;
-      }
-    }
-
-    #connect-button {
-      padding: 10px 20px;
-      background-color: #50c878;
-      color: #ffffff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    #connect-button:hover {
-      background-color: #138808;
-    }
-
-    #balance-card {
-      width: 240px;
-      height: 120px;
-      background-color: #50c878;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    #balance-card h2 {
-      color: #ffffff;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    #balance-card p {
-      color: #ffffff;
-      font-size: 16px;
-      margin: 10px 0;
     }
 
     #chickens-panel {
@@ -94,21 +37,16 @@
     .chicken {
       border: 1px solid #ffffff;
       border-radius: 10px;
-      padding: 20px;
+      padding: 10px;
       margin: 10px;
-      width: 200px;
+      width: 180px;
       height: 280px;
       text-align: center;
-      background: linear-gradient(to bottom, #50c878, #138808);
+      background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s;
-    }
-
-    .chicken:hover {
-      transform: scale(1.05);
     }
 
     .chicken h2 {
@@ -119,23 +57,23 @@
     }
 
     .chicken p {
-      margin: 10px 0;
+      margin: 5px 0;
       color: #ffffff;
     }
 
     .chicken button {
       padding: 10px 20px;
-      background: linear-gradient(to bottom, #50c878, #138808);
+      background: linear-gradient(to bottom, #1a8cff, #0052cc);
       color: #ffffff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
-      font-size: 16px;
+      transition: background-color 0.3s;
+      font-size: 14px;
     }
 
     .chicken button:hover {
-      background: linear-gradient(to bottom, #138808, #006400);
+      background: linear-gradient(to bottom, #0052cc, #00004d);
     }
 
     #selected-chickens {
@@ -148,18 +86,18 @@
     .chicken-slot {
       border: 1px dashed #ffffff;
       border-radius: 10px;
-      padding: 20px;
+      padding: 10px;
       margin: 10px;
-      width: 200px;
+      width: 180px;
       height: 280px;
       text-align: center;
-      background: linear-gradient(to bottom, #50c878, #138808);
+      background: linear-gradient(to bottom, #99ccff, #4dd2ff);
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .chicken-slot.selected {
-      background: linear-gradient(to bottom, #138808, #006400);
+      background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
     }
 
     #rent-button {
@@ -169,17 +107,17 @@
 
     #rent-button button {
       padding: 10px 20px;
-      background: linear-gradient(to bottom, #50c878, #138808);
+      background: linear-gradient(to bottom, #1a8cff, #0052cc);
       color: #ffffff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
-      font-size: 18px;
+      transition: background-color 0.3s;
+      font-size: 16px;
     }
 
     #rent-button button:hover {
-      background: linear-gradient(to bottom, #138808, #006400);
+      background: linear-gradient(to bottom, #0052cc, #00004d);
     }
 
     #profitability {
@@ -188,24 +126,21 @@
     }
 
     .highlight {
-      background-color: #006400;
+      background: linear-gradient(to bottom, #1a8cff, #0052cc);
       color: #ffffff;
       padding: 5px;
       border-radius: 5px;
     }
+
   </style>
 </head>
 <body>
   <div id="header">
     <h1>LOW CHICKEN BOB</h1>
-    <button id="connect-button">Conectar con MetaMask</button>
   </div>
-  <div id="balance-card">
-    <h2>Dirección del usuario</h2>
-    <p id="user-address"></p>
-    <h2>Saldo del usuario</h2>
-    <p id="user-balance" class="highlight"></p>
-  </div>
+  <button id="connect-button" style="padding: 10px 20px; background: linear-gradient(to bottom, #ff9933, #ff6600); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Conectar con MetaMask</button>
+  <p style="color: #ffffff; font-size: 18px;">Dirección del usuario: <span id="user-address" class="highlight"></span></p>
+  <p style="color: #ffffff; font-size: 18px;">Saldo del usuario: <span id="user-balance" class="highlight"></span></p>
   <div id="chickens-panel">
     <div class="chicken">
       <h2>Gallina 1</h2>
@@ -273,6 +208,5 @@
     <p>Rentabilidad: X</p>
   </div>
   <script src="app.js"></script>
- 
 </body>
 </html>
