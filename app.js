@@ -84,14 +84,19 @@ function buyChicken(chickenId) {
   chicken.classList.add('purchased');
 }
 
-// Función para agregar una gallina a la lista de seleccionadas
-function selectChicken(chickenId) {
-  if (!selectedChickens.includes(chickenId)) {
-    selectedChickens.push(chickenId);
-    updateChickenSlotUI();
-    updateRentButton();
+
+function selectChickenSlot(chickenSlotId) {
+  const chickenSlot = document.querySelector(`.chicken-slot[data-chicken-id="${chickenSlotId}"]`);
+  const chickenId = selectedChickens[chickenSlotId - 1];
+
+  if (chickenId) {
+    const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+    chickenSlot.innerHTML = chicken.outerHTML;
+  } else {
+    chickenSlot.innerHTML = '';
   }
 }
+
 
 // Función para quitar una gallina de la lista de seleccionadas
 function removeSelectedChicken(chickenId) {
