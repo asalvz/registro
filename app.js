@@ -50,7 +50,7 @@ function buyChicken(chickenId) {
   const selectedChickenSlot = document.querySelector('.chicken-slot.selected');
   if (selectedChickenSlot) {
     const chickenElement = document.querySelector('.chicken[data-chicken-id="' + chickenId + '"]');
-    selectedChickenSlot.innerHTML = chickenElement.outerHTML;
+    selectedChickenSlot.innerHTML = chickenElement.innerHTML;
     selectedChickenSlot.setAttribute('data-chicken-id', chickenId);
     selectedChickenSlot.classList.remove('selected');
   }
