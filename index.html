@@ -3,14 +3,21 @@
 <head>
   <style>
     body {
-      background: linear-gradient(to right, #FFD700 50%, #4169E1 50%);
+      background-color: #333333;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     #header {
       background: linear-gradient(to bottom, #4169E1, #00008B);
-      color: white;
-      text-align: center;
       padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
     }
 
     #chickens-panel {
@@ -22,13 +29,35 @@
     }
 
     .chicken {
-      border: 1px solid #000;
+      border: 1px solid #ffffff;
       border-radius: 5px;
-      padding: 10px;
+      padding: 20px;
       margin: 10px;
-      width: 150px;
-      height: 200px;
+      width: 200px;
+      height: 280px;
       text-align: center;
+      background-color: #555555;
+    }
+
+    .chicken h2 {
+      margin-top: 0;
+    }
+
+    .chicken p {
+      margin: 10px 0;
+    }
+
+    .chicken button {
+      padding: 10px 20px;
+      background-color: #4169E1;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .chicken button:hover {
+      background-color: #0000FF;
     }
 
     #selected-chickens {
@@ -39,34 +68,41 @@
     }
 
     .chicken-slot {
-      border: 1px solid #000;
+      border: 1px dashed #ffffff;
       border-radius: 5px;
-      padding: 10px;
-      margin: 10px;
-      width: 150px;
-      height: 200px;
-      text-align: center;
-    }
-
-    #metamask-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-
-    #profitability {
-      text-align: center;
       padding: 20px;
+      margin: 10px;
+      width: 200px;
+      height: 280px;
+      text-align: center;
+      background-color: #333333;
     }
 
     #rent-button {
       text-align: center;
       padding: 20px;
     }
+
+    #rent-button button {
+      padding: 10px 20px;
+      background-color: #4169E1;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #rent-button button:hover {
+      background-color: #0000FF;
+    }
+
+    #profitability {
+      text-align: center;
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
-  <button id="metamask-button">Conectar con MetaMask</button>
   <div id="header">
     <h1>LOW CHICKEN BOB</h1>
   </div>
@@ -116,9 +152,9 @@
   </div>
   <div id="selected-chickens">
     <h2>Gallinas seleccionadas</h2>
-    <div class="chicken-slot"></div>
-    <div class="chicken-slot"></div>
-    <div class="chicken-slot"></div>
+    <div class="chicken-slot" onclick="selectChickenSlot(1)"></div>
+    <div class="chicken-slot" onclick="selectChickenSlot(2)"></div>
+    <div class="chicken-slot" onclick="selectChickenSlot(3)"></div>
   </div>
   <div id="rent-button">
     <button onclick="rentChickens()">ALQUILAR</button>
@@ -131,41 +167,31 @@
     <p>Rentabilidad: X</p>
   </div>
   <script>
-    // Función para comprar una gallina
+    let selectedChickenSlots = [];
+
     function buyChicken(chickenId) {
-      // Aquí puedes implementar la lógica para comprar una gallina según su ID
-      console.log("Comprar gallina: " + chickenId);
-    }
-
-    // Función para alquilar las gallinas seleccionadas
-    function rentChickens() {
-      // Aquí puedes implementar la lógica para alquilar las gallinas seleccionadas
-      console.log("Alquilar gallinas seleccionadas");
-    }
-
-    // Conexión con MetaMask y obtención de dirección y saldo del usuario
-    window.addEventListener("DOMContentLoaded", async () => {
-      // Comprueba si MetaMask está disponible en el navegador
-      if (typeof window.ethereum === "undefined") {
-        console.log("MetaMask no detectado");
-        return;
+      if (selectedChickenSlots.length < 3) {
+        selectedChickenSlots.push(chickenId);
+        console.log("Gallina " + chickenId + " comprada.");
+      } else {
+        console.log("No se pueden comprar más gallinas.");
       }
+    }
 
-      // Solicita al usuario que conecte su billetera MetaMask
-      await window.ethereum.request({ method: "eth_requestAccounts" });
+    function selectChickenSlot(slotNumber) {
+      if (!selectedChickenSlots.includes(slotNumber)) {
+        selectedChickenSlots.push(slotNumber);
+        console.log("Seleccionado el espacio " + slotNumber + ".");
+      } else {
+        const index = selectedChickenSlots.indexOf(slotNumber);
+        selectedChickenSlots.splice(index, 1);
+        console.log("Deseleccionado el espacio " + slotNumber + ".");
+      }
+    }
 
-      // Obtiene la dirección del usuario conectado
-      const accounts = await window.ethereum.request({ method: "eth_accounts" });
-      const userAddress = accounts[0];
-      console.log("Dirección del usuario:", userAddress);
-
-      // Obtiene el saldo del usuario conectado
-      const balance = await window.ethereum.request({
-        method: "eth_getBalance",
-        params: [userAddress, "latest"],
-      });
-      console.log("Saldo del usuario:", balance);
-    });
+    function rentChickens() {
+      console.log("Alquiladas las gallinas seleccionadas:", selectedChickenSlots);
+    }
   </script>
 </body>
 </html>
