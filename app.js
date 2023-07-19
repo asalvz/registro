@@ -39,52 +39,6 @@ async function getBalance(address) {
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
-
-// Función para obtener la calidad de los huevos de una gallina según su ID
-function getEggQuality(chickenId) {
-  // Supongamos que hay 3 calidades de huevos: "Alta", "Media" y "Baja"
-  // Utilizaremos el ID de la gallina para generar un número aleatorio y asignar una calidad de huevo correspondiente.
-  // La calidad de los huevos será diferente para cada gallina, pero se mantendrá constante para una gallina específica en una sesión.
-
-  // Generamos un número aleatorio entre 0 y 2 (representando las 3 calidades de huevos)
-  const randomNum = Math.floor(Math.random() * 3);
-
-  // Asignamos la calidad de los huevos en función del número aleatorio generado
-  let eggQuality;
-  if (randomNum === 0) {
-    eggQuality = 'Alta';
-  } else if (randomNum === 1) {
-    eggQuality = 'Media';
-  } else {
-    eggQuality = 'Baja';
-  }
-
-  return eggQuality;
-}
-
-
-// Función para comprar una gallina
-function buyChicken(chickenId) {
-  const chicken = document.getElementById(`chicken${chickenId}`);
-  const eggTimeElement = document.getElementById(`chicken${chickenId}-egg-time`);
-  const eggCountElement = document.getElementById(`chicken${chickenId}-egg-count`);
-  const eggQualityElement = document.getElementById(`chicken${chickenId}-egg-quality`);
-
-  // Obtener los datos fijos de la gallina
-  const eggTime = 15; // Tiempo fijo para todos los pollos
-  const eggCount = 8; // Cantidad fija para todos los pollos
-  const eggQuality = getEggQuality(chickenId);
-
-  // Actualizar las atribuciones en la página HTML
-  eggTimeElement.textContent = eggTime;
-  eggCountElement.textContent = eggCount;
-  eggQualityElement.textContent = eggQuality;
-
-  // Marcar la gallina como comprada
-  chicken.classList.add('purchased');
-}
-
-
 function selectChicken(chickenElement) {
   const chickenId = chickenElement.getAttribute('data-id');
   const index = selectedChickens.indexOf(chickenId);
@@ -140,14 +94,12 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < chickens.length; i++) {
     const chicken = chickens[i];
     const chickenId = chicken.getAttribute('data-id');
-    const buyButton = chicken.querySelector('button');
-
-    buyButton.addEventListener('click', () => {
-      buyChicken(chickenId);
-    });
 
     chicken.addEventListener('click', () => {
       selectChicken(chicken);
     });
   }
+
+  const rentButton = document.getElementById('rent-button');
+  rentButton.addEventListener('click', rentChickens);
 });
