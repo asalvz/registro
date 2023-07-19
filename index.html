@@ -5,7 +5,7 @@
 
   <style>
     body {
-      background-color: #1a1a1a;
+      background-color: #d1f3c9;
       color: #ffffff;
       font-family: Arial, sans-serif;
       margin: 0;
@@ -13,22 +13,54 @@
     }
 
     #header {
-      background: linear-gradient(to bottom, #4169E1, #00008B);
+      background: linear-gradient(to bottom, #50c878, #138808);
       padding: 20px;
       text-align: center;
     }
 
     h1 {
       margin: 0;
-      color: #ffffff;
+      color: #50c878;
       font-size: 32px;
       text-transform: uppercase;
+      animation: glowing 2s infinite;
+    }
+
+    @keyframes glowing {
+      0% {
+        color: #50c878;
+        text-shadow: 0 0 10px #50c878, 0 0 20px #50c878, 0 0 30px #50c878;
+      }
+      50% {
+        color: #138808;
+        text-shadow: 0 0 20px #50c878, 0 0 30px #50c878, 0 0 40px #50c878;
+      }
+      100% {
+        color: #50c878;
+        text-shadow: 0 0 10px #50c878, 0 0 20px #50c878, 0 0 30px #50c878;
+      }
+    }
+
+    #connect-button {
+      padding: 10px 20px;
+      background-color: #50c878;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    #connect-button:hover {
+      background-color: #138808;
     }
 
     #balance-card {
       width: 240px;
       height: 120px;
-      background-color: #555555;
+      background-color: #50c878;
       border-radius: 10px;
       padding: 20px;
       margin: 20px auto;
@@ -67,7 +99,7 @@
       width: 200px;
       height: 280px;
       text-align: center;
-      background: linear-gradient(to bottom, #555555, #333333);
+      background: linear-gradient(to bottom, #50c878, #138808);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -93,7 +125,7 @@
 
     .chicken button {
       padding: 10px 20px;
-      background: linear-gradient(to bottom, #4169E1, #0000FF);
+      background: linear-gradient(to bottom, #50c878, #138808);
       color: #ffffff;
       border: none;
       border-radius: 5px;
@@ -103,7 +135,7 @@
     }
 
     .chicken button:hover {
-      background: linear-gradient(to bottom, #0000FF, #00008B);
+      background: linear-gradient(to bottom, #138808, #006400);
     }
 
     #selected-chickens {
@@ -121,13 +153,13 @@
       width: 200px;
       height: 280px;
       text-align: center;
-      background: linear-gradient(to bottom, #333333, #555555);
+      background: linear-gradient(to bottom, #50c878, #138808);
       cursor: pointer;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .chicken-slot.selected {
-      background: linear-gradient(to bottom, #4169E1, #0000FF);
+      background: linear-gradient(to bottom, #138808, #006400);
     }
 
     #rent-button {
@@ -137,7 +169,7 @@
 
     #rent-button button {
       padding: 10px 20px;
-      background: linear-gradient(to bottom, #4169E1, #0000FF);
+      background: linear-gradient(to bottom, #50c878, #138808);
       color: #ffffff;
       border: none;
       border-radius: 5px;
@@ -147,7 +179,7 @@
     }
 
     #rent-button button:hover {
-      background: linear-gradient(to bottom, #0000FF, #00008B);
+      background: linear-gradient(to bottom, #138808, #006400);
     }
 
     #profitability {
@@ -156,7 +188,7 @@
     }
 
     .highlight {
-      background-color: #0000FF;
+      background-color: #006400;
       color: #ffffff;
       padding: 5px;
       border-radius: 5px;
@@ -166,6 +198,7 @@
 <body>
   <div id="header">
     <h1>LOW CHICKEN BOB</h1>
+    <button id="connect-button">Conectar con MetaMask</button>
   </div>
   <div id="balance-card">
     <h2>Dirección del usuario</h2>
@@ -240,9 +273,6 @@
     <p>Rentabilidad: X</p>
   </div>
   <script src="app.js"></script>
-  <script>
-    // Agrega aquí el código para conectarse a MetaMask y obtener los saldos
-    // ...
-  </script>
+ 
 </body>
 </html>
