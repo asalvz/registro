@@ -7,6 +7,7 @@ if (typeof window.ethereum !== 'undefined') {
 } else {
   console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
 }
+
 // Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
 async function connectToMetaMask() {
   try {
@@ -46,6 +47,13 @@ async function getBalance(address) {
 function buyChicken(chickenId) {
   // Aquí puedes implementar la lógica para comprar una gallina según su ID
   console.log('Comprar gallina:', chickenId);
+  const selectedChickenSlot = document.querySelector('.chicken-slot.selected');
+  if (selectedChickenSlot) {
+    const chickenElement = document.querySelector('.chicken[data-chicken-id="' + chickenId + '"]');
+    selectedChickenSlot.innerHTML = chickenElement.outerHTML;
+    selectedChickenSlot.setAttribute('data-chicken-id', chickenId);
+    selectedChickenSlot.classList.remove('selected');
+  }
 }
 
 // Función para seleccionar una gallina y colocarla en una ranura
