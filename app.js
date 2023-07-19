@@ -11,10 +11,10 @@
     async function connectToMetaMask() {
       try {
         // Solicitar al usuario que conecte su billetera MetaMask
-        await ethereum.request({ method: 'eth_requestAccounts' });
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
 
         // Obtener la dirección del usuario conectado
-        const accounts = await ethereum.request({ method: 'eth_accounts' });
+        const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
         console.log('Dirección del usuario:', userAddress);
 
@@ -34,10 +34,7 @@
 
     // Función para obtener el saldo del usuario en BNB
     async function getBalance(address) {
-      const weiBalance = await ethereum.request({
-        method: 'eth_getBalance',
-        params: [address, 'latest'],
-      });
+      const weiBalance = await web3.eth.getBalance(address);
       const balance = web3.utils.fromWei(weiBalance, 'ether');
       return parseFloat(balance).toFixed(4);
     }
