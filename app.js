@@ -39,63 +39,69 @@
       return parseFloat(balance).toFixed(4);
     }
 
-    // Función para comprar una gallina
-  function buyChicken(chickenId) {
+    // Función para comprar o seleccionar una gallina
+    function buyOrSelectChicken(chickenId) {
       const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-      const eggTimeElement = chicken.querySelector('.egg-time');
-      const eggCountElement = chicken.querySelector('.egg-count');
-      const eggQualityElement = chicken.querySelector('.egg-quality');
 
-      // Obtener los datos fijos de la gallina
-      const eggTime = 15; // Tiempo fijo para todos los pollos
-      const eggCount = 8; // Cantidad fija para todos los pollos
-      const eggQuality = getEggQuality(chickenId);
-
-      // Actualizar las atribuciones en la página HTML
-      eggTimeElement.textContent = `Tiempo en poner huevos: ${eggTime} minutos`;
-      eggCountElement.textContent = `Cantidad de huevos: ${eggCount}`;
-      eggQualityElement.textContent = `Calidad de huevos: ${eggQuality}`;
-
-      // Marcar la gallina como comprada
-      chicken.classList.add('purchased');
-    }
-
-    // Función para seleccionar una gallina y colocarla en una ranura
-    function selectChickenSlot(slotNumber) {
-      const chickenSlot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
-      const purchasedChickens = document.querySelectorAll('.chicken.purchased');
-
-      if (chickenSlot.classList.contains('selected')) {
-        chickenSlot.classList.remove('selected');
-        chickenSlot.innerHTML = '';
+      if (chicken.classList.contains('purchased')) {
+        // La gallina ya ha sido comprada, así que seleccionarla
+        selectChickenSlot(chickenId);
       } else {
-        if (purchasedChickens.length < 3) {
-          for (let i = 0; i < purchasedChickens.length; i++) {
-            const purchasedChicken = purchasedChickens[i];
-            const chickenId = purchasedChicken.getAttribute('data-id');
-
-            if (chickenId === slotNumber.toString()) {
-              chickenSlot.classList.add('selected');
-              chickenSlot.innerHTML = purchasedChicken.outerHTML;
-              break;
-            }
-          }
-        } else {
-          console.log('Ya se seleccionaron 3 gallinas.');
-        }
+        // La gallina aún no ha sido comprada, así que comprarla y seleccionarla
+        buyChicken(chickenId);
+        selectChickenSlot(chickenId);
       }
     }
 
-
-    // Función para alquilar las gallinas seleccionadas
-    function rentChickens() {
-      const selectedChickenSlots = document.querySelectorAll('.chicken-slot.selected');
-      const selectedChickenIds = Array.from(selectedChickenSlots).map((slot) => {
-        return slot.getAttribute('data-chicken-id');
-      });
-      console.log('Alquilar gallinas seleccionadas:', selectedChickenIds);
+    // Función para agregar una gallina a la lista de seleccionadas
+    function addSelectedChicken(chickenId) {
+      if (!selectedChickens.includes(chickenId)) {
+        selectedChickens.push(chickenId);
+        updateChickenSlotUI();
+        updateRentButton();
+      }
     }
 
+    // Función para quitar una gallina de la lista de seleccionadas
+    function removeSelectedChicken(chickenId) {
+      const index = selectedChickens.indexOf(chickenId);
+      if (index !== -1) {
+        selectedChickens.splice(index, 1);
+        updateChickenSlotUI();
+        updateRentButton();
+      }
+    }
+
+    // Función para actualizar la interfaz de las ranuras inferiores con las gallinas seleccionadas
+    function updateChickenSlotUI() {
+      const chickenSlots = document.querySelectorAll('.chicken-slot');
+      chickenSlots.forEach((slot, index) => {
+        if (selectedChickens[index]) {
+          const chickenId = selectedChickens[index];
+          const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+          slot.innerHTML = chicken.outerHTML;
+        } else {
+          slot.innerHTML = '';
+        }
+      });
+    }
+
+    // Función para actualizar el estado del botón "Alquilar" y su evento click
+    function updateRentButton() {
+      const rentButton = document.getElementById('rent-button');
+      rentButton.innerHTML = '';
+
+      if (selectedChickens.length > 0) {
+        const button = document.createElement('button');
+        button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
+        button.onclick = rentChickens;
+        rentButton.appendChild(button);
+      } else {
+        const info = document.createElement('p');
+        info.textContent = 'Selecciona al menos una gallina para alquilar.';
+        rentButton.appendChild(info);
+      }
+    }
     // Conexión con MetaMask y eventos
      window.addEventListener('DOMContentLoaded', () => {
       const connectButton = document.getElementById('connect-button');
