@@ -3,6 +3,15 @@
     height: 100%;
     background: url("https://s3.amazonaws.com/ritalbradley-dev-photos/twinkle-back.gif");
   }
+.amanecer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: url("https://sunny-brigadeiros-470a39.netlify.app/360_F_563390499_tolcG9opOP7Rg0IjvzTTln4s6IFRimbt.jpg") center/cover no-repeat; /* Reemplaza "tu_ruta_de_la_imagen.png" por la ruta de tu imagen PNG o GIF */
+  opacity: 0.5;
+}
 
     #header {
       background: rgba(0, 0.5, 0, 0.3); /* Utilizamos rgba en lugar de #000 para darle transparencia */
