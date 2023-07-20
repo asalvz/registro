@@ -10,7 +10,7 @@
   width: 100%;
   height: 50vh; /* Esto ocupa la mitad inferior de la pantalla */
   background: url("https://sunny-brigadeiros-470a39.netlify.app/dfgh.jpg") center/cover no-repeat;
-  opacity: 0.6;
+  opacity: 0.9;
   z-index: -1; /* Asegura que la imagen esté por detrás del contenido */
 }
 
