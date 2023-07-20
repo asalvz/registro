@@ -24,7 +24,7 @@
 }
 
 .wrapper {
-  background: rgba(0, 0, 0, 0.1); /* Utilizamos rgba en lugar de #000 para darle transparencia */
+  background: rgba(0, 0, 0, 0.5); /* Utilizamos rgba en lugar de #000 para darle transparencia */
   line-height: 1;
   min-height: 50%;
   display: grid;
