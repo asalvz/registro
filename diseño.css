@@ -24,7 +24,7 @@
 }
 
 .wrapper {
-  background: #000;
+  background: rgba(0, 0, 0, 0.1); /* Utilizamos rgba en lugar de #000 para darle transparencia */
   line-height: 1;
   min-height: 50%;
   display: grid;
@@ -32,6 +32,7 @@
   min-height: calc(50vh - 26px);
   padding: 50px; 
 }
+
 
 h1 {
   font-family: "Exo", sans-serif;
