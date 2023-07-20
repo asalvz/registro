@@ -28,7 +28,7 @@
 .wrapper {
   background: #000;
   line-height: 1;
-  min-height: 100%;
+  min-height: 50%;
   display: grid;
   place-items: center;
   min-height: calc(100vh - 16px);
