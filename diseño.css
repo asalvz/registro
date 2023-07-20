@@ -5,10 +5,10 @@
   }
 
     #header {
-      background: linear-gradient(to bottom, #ff9966, black);
+      background: rgba(0, 0, 0, 0); /* Utilizamos rgba en lugar de #000 para darle transparencia */
       padding: 20px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0);
     }
 
    * {
@@ -24,7 +24,7 @@
 }
 
 .wrapper {
-  background: rgba(0, 0, 0, 0.5); /* Utilizamos rgba en lugar de #000 para darle transparencia */
+  background: rgba(0, 0, 0, 0); /* Utilizamos rgba en lugar de #000 para darle transparencia */
   line-height: 1;
   min-height: 50%;
   display: grid;
