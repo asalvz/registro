@@ -13,8 +13,10 @@ body {
 }
 
 #header {
-  text-align: center;
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
 }
 
 h1 {
@@ -43,6 +45,7 @@ h2 span {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .chicken {
