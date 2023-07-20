@@ -30,9 +30,18 @@
   display: grid;
   place-items: center;
   min-height: calc(50vh - 26px);
-  padding: 50px; 
+  padding: 50px;
+  position: relative;
 }
-
+.amanece {
+  position: absolute;
+  bottom: 0; /* La capa estará en la parte inferior */
+  left: 0;
+  right: 0;
+  height: 50%; /* Altura que ocupará la capa del amanecer */
+  background: linear-gradient(to bottom, #f9ce54, #fe8c37); /* Colores del gradiente del amanecer */
+  opacity: 0.5; /* Opacidad de la capa del amanecer, puedes ajustar este valor para obtener el efecto deseado */
+}
 
 h1 {
   font-family: "Exo", sans-serif;
