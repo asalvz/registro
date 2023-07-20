@@ -1,5 +1,5 @@
    body {
-      background: linear-gradient(to bottom, #b3e6ff, black);
+      background: linear-gradient(to bottom, black, black);
       color: #ffffff;
       font-family: Arial, sans-serif;
       margin: 0;
@@ -31,8 +31,8 @@
   min-height: 50%;
   display: grid;
   place-items: center;
-  min-height: calc(50vh - 16px);
-  padding: 30px; 
+  min-height: calc(50vh - 26px);
+  padding: 50px; 
 }
 
 h1 {
