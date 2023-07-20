@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   height: 50vh; /* Esto ocupa la mitad inferior de la pantalla */
-  background: url("https://sunny-brigadeiros-470a39.netlify.app/360_F_563390499_tolcG9opOP7Rg0IjvzTTln4s6IFRimbt.jpg") center/cover no-repeat;
+  background: url("https://sunny-brigadeiros-470a39.netlify.app/descarga.gif") center/cover no-repeat;
   opacity: 0.9;
   z-index: -1; /* Asegura que la imagen esté por detrás del contenido */
 }
