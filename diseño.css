@@ -169,14 +169,16 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #ffffff; /* Establece el color del texto como blanco */
+  color: #00a9e0; /* Cambia el color a un tono celeste */
   text-transform: uppercase;
-  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Aplica el fondo degradado naranja */
-  display: inline-block;
+  text-align: center; /* Alinea el texto al centro */
   padding: 5px 15px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: none; /* Elimina el fondo degradado naranja */
+  border: 2px solid #00a9e0; /* Agrega un borde celeste para resaltar el título */
 }
+
 
 .chicken h2 {
   margin-top: 0;
@@ -237,9 +239,15 @@ h1 {
   background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
 }
 
+#rent-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #rent-button button {
   padding: 10px 20px;
-  background: linear-gradient(to bottom, #ff9933, #ff6600);
+  background: #00a9e0; /* Cambia el fondo a un color celeste */
   color: #ffffff;
   border: none;
   border-radius: 20px; /* Rounded button */
@@ -249,13 +257,9 @@ h1 {
 }
 
 #rent-button button:hover {
-  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Revert the gradient on hover */
+  background: #ff9933; /* Cambia el fondo a naranja en hover */
 }
 
-#profitability {
-  text-align: center;
-  padding: 20px;
-}
 
 .highlight {
   background: linear-gradient(to bottom, #1a8cff, #0052cc);
