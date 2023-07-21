@@ -1,6 +1,5 @@
 let web3;
 
-
 // Comprobar si web3 está disponible en el navegador
 if (typeof window.ethereum !== 'undefined') {
   web3 = new Web3(window.ethereum);
@@ -28,6 +27,12 @@ async function connectToMetaMask() {
     const balanceElement = document.getElementById('user-balance');
     userAddressElement.textContent = userAddress;
     balanceElement.textContent = balance + ' BNB';
+
+    // Obtener y mostrar el progreso del usuario
+    const userProgress = getUserProgress();
+    console.log('Progreso del usuario:', userProgress + '%');
+    const progressElement = document.getElementById('user-progress');
+    progressElement.textContent = userProgress + '%';
   } catch (error) {
     console.error('Error al conectarse a MetaMask:', error);
   }
@@ -39,6 +44,18 @@ async function getBalance(address) {
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
+
+// Función para obtener el progreso del usuario desde Local Storage
+function getUserProgress() {
+  const userProgress = localStorage.getItem('user-progress');
+  return userProgress ? parseFloat(userProgress) : 0;
+}
+
+// Función para guardar el progreso del usuario en Local Storage
+function saveUserProgress(progress) {
+  localStorage.setItem('user-progress', progress);
+}
+
 let selectedChickens = [];
 
 function selectChicken(chickenElement) {
@@ -87,51 +104,64 @@ function updateRentButton() {
   }
 }
 
-// Función para actualizar el estado del botón "Alquilar" y su evento click
-function updateRentButton() {
-  const rentButton = document.getElementById('rent-button');
-  rentButton.innerHTML = '';
+// Función para realizar el alquiler de las gallinas
+function rentChickens() {
+  const paymentAmount = calculatePayment();
+  if (isNaN(paymentAmount) || paymentAmount <= 0) {
+    alert('No se ha seleccionado ninguna gallina para alquilar.');
+    return;
+  }
 
-  if (selectedChickens.length > 0) {
-    const button = document.createElement('button');
-    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
-    button.onclick = rentChickens;
-    rentButton.appendChild(button);
-  } else {
-    const info = document.createElement('p');
-    info.textContent = 'Selecciona al menos una gallina para alquilar.';
-    rentButton.appendChild(info);
+  const userAddress = document.getElementById('user-address').textContent;
+  const confirmation = window.confirm(`Confirmar alquiler de ${selectedChickens.length} gallinas por ${paymentAmount} BNB a la dirección ${userAddress}. ¿Deseas continuar?`);
+  if (confirmation) {
+    // Aquí se debe realizar la transacción con MetaMask para enviar el pago al contrato o dirección especificada
+    // Una vez completada la transacción, se puede actualizar el estado del progreso del usuario y mostrarlo en la página
+    const userProgress = parseFloat(getUserProgress()) + paymentAmount; // Sumar el pago al progreso actual
+    saveUserProgress(userProgress.toFixed(2));
+    const progressElement = document.getElementById('user-progress');
+    progressElement.textContent = userProgress.toFixed(2) + '%';
+    alert(`Transacción exitosa. Se ha agregado el pago al progreso del usuario.`);
   }
 }
 
-// Función para obtener el progreso del usuario desde Local Storage
-function getUserProgress() {
-  const userProgress = localStorage.getItem('user-progress');
-  return userProgress ? parseFloat(userProgress) : 0;
+// Función para calcular el pago total por el alquiler de las gallinas seleccionadas
+function calculatePayment() {
+  const smallEggPrice = 0.001;
+  const mediumEggPrice = 0.003;
+  const largeEggPrice = 0.005;
+  
+  let payment = 0;
+  selectedChickens.forEach(chickenId => {
+    const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+    const eggQuality = chicken.querySelector('p:nth-child(4)').textContent;
+    if (eggQuality === 'Alta') {
+      payment += smallEggPrice;
+    } else if (eggQuality === 'Media') {
+      payment += mediumEggPrice;
+    } else if (eggQuality === 'Baja') {
+      payment += largeEggPrice;
+    }
+  });
+
+  return payment.toFixed(4);
 }
-
-// Función para guardar el progreso del usuario en Local Storage
-function saveUserProgress(progress) {
-  localStorage.setItem('user-progress', progress);
-}
-
-// Evento click del botón "Refrescar Progreso"
-const refreshButton = document.getElementById('refresh-button');
-refreshButton.addEventListener('click', () => {
-  const randomProgress = Math.random() * 100; // Generar un progreso aleatorio
-  saveUserProgress(randomProgress.toFixed(2));
-  const progressElement = document.getElementById('user-progress');
-  progressElement.textContent = randomProgress.toFixed(2) + '%';
-});
-
 
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
   // Agregar evento click al botón para conectar a MetaMask
   const connectButton = document.getElementById('connect-button');
   connectButton.addEventListener('click', connectToMetaMask);
-  // Resto del código omitido por brevedad...
-  
+
+  // Agregar evento click al botón "Refrescar Progreso"
+  const refreshButton = document.getElementById('refresh-button');
+  refreshButton.addEventListener('click', () => {
+    const randomProgress = Math.random() * 100; // Generar un progreso aleatorio
+    saveUserProgress(randomProgress.toFixed(2));
+    const progressElement = document.getElementById('user-progress');
+    progressElement.textContent = randomProgress.toFixed(2) + '%';
+  });
+
   const rentButton = document.getElementById('rent-button');
   rentButton.addEventListener('click', rentChickens);
 });
