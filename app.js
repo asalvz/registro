@@ -104,6 +104,27 @@ function updateRentButton() {
   }
 }
 
+// Función para obtener el progreso del usuario desde Local Storage
+function getUserProgress() {
+  const userProgress = localStorage.getItem('user-progress');
+  return userProgress ? parseFloat(userProgress) : 0;
+}
+
+// Función para guardar el progreso del usuario en Local Storage
+function saveUserProgress(progress) {
+  localStorage.setItem('user-progress', progress);
+}
+
+// Evento click del botón "Refrescar Progreso"
+const refreshButton = document.getElementById('refresh-button');
+refreshButton.addEventListener('click', () => {
+  const randomProgress = Math.random() * 100; // Generar un progreso aleatorio
+  saveUserProgress(randomProgress.toFixed(2));
+  const progressElement = document.getElementById('user-progress');
+  progressElement.textContent = randomProgress.toFixed(2) + '%';
+});
+
+
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
   // Agregar evento click al botón para conectar a MetaMask
