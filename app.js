@@ -1,4 +1,5 @@
 let web3;
+let isConnected = false; 
 
 // Comprobar si web3 está disponible en el navegador
 if (typeof window.ethereum !== 'undefined') {
@@ -16,11 +17,11 @@ async function connectToMetaMask() {
     // Obtener la dirección del usuario conectado
     const accounts = await web3.eth.getAccounts();
     const userAddress = accounts[0];
-    console.log('Dirección del usuario:', userAddress);
+    console.log('Address:', userAddress);
 
     // Obtener el saldo del usuario conectado en BNB
     const balance = await getBalance(userAddress);
-    console.log('Saldo del usuario:', balance + ' BNB');
+    console.log('Avaliable:', balance + ' BNB');
 
     // Imprimir la dirección y saldo en la página HTML
     const userAddressElement = document.getElementById('user-address');
@@ -30,9 +31,14 @@ async function connectToMetaMask() {
 
     // Obtener y mostrar el progreso del usuario
     const userProgress = getUserProgress();
-    console.log('Progreso del usuario:', userProgress + '%');
+    console.log('Update:', userProgress + '%');
     const progressElement = document.getElementById('user-progress');
     progressElement.textContent = userProgress + '%';
+
+    // Cambiar el texto del botón a "Dashboard" una vez que el usuario se ha conectado
+    const connectButton = document.getElementById('connect-button');
+    connectButton.textContent = 'Dashboard';
+    isConnected = true;
   } catch (error) {
     console.error('Error al conectarse a MetaMask:', error);
   }
