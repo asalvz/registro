@@ -8,12 +8,11 @@
 <body>
 
   <div id="header">
-  <div id="header" style="position: fixed; top: 10px; right: 10px;">
-    <button id="connect-button" style="padding: 10px 20px; background: linear-gradient(to bottom, #ff9933, #ff6600); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Conectar con MetaMask</button>
-    <p style="color: #ffffff; font-size: 16px; font-weight: bold;">Dirección del usuario: <span id="user-address" style="font-weight: normal;"></span></p>
-    <p style="color: #ffffff; font-size: 16px; font-weight: bold;">Saldo del usuario: <span id="user-balance" style="font-weight: normal;"></span></p>
-    <p style="color: #ffffff; font-size: 16px; font-weight: bold;">Progreso del usuario: <span id="user-progress" style="font-weight: normal;"></span>%</p>
-    <button id="refresh-button" style="padding: 10px 20px; background: linear-gradient(to bottom, #33cc33, #009900); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Refrescar Progreso</button>
+ <button id="connect-button" style="padding: 10px 20px; background: linear-gradient(to bottom, #ff9933, #ff6600); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">LOgin WEB3</button>
+      <p style="color: #ffffff; font-size: 18px;">Address: <span id="user-address" class="highlight"></span></p>
+      <p style="color: #ffffff; font-size: 18px;">Avaliable: <span id="user-balance" class="highlight"></span></p>
+      <p style="color: #ffffff; font-size: 18px;">Update: <span id="user-progress" class="highlight"></span>%</p>
+      <button id="refresh-button" style="padding: 10px 20px; background: linear-gradient(to bottom, #33cc33, #009900); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Refresh</button>
   </div>
     
     <div class="wrapper">
@@ -29,69 +28,69 @@
  
   <div id="chickens-panel">
     <div class="chicken" data-id="1" onclick="selectChicken(this)">
-      <h2>Gallina 1</h2>
+      <h2>Chicken 1</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.png" alt="Gallina 1">
       <p>Tiempo en poner huevos: 30 minutos</p>
       <p>Cantidad de huevos: 5</p>
       <p>Calidad de huevos: Alta</p>
       <p>Precio: 0.3 BNB</p>
-      <button onclick="buyChicken(1)">Comprar</button>
+      <button onclick="buyChicken(1)">Select</button>
     </div>
     <div class="chicken" data-id="2" onclick="selectChicken(this)">
-      <h2>Gallina 2</h2>
+      <h2>Chicken 2</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.png" alt="Gallina 2">
       <p>Tiempo en poner huevos: 1 hora</p>
       <p>Cantidad de huevos: 4</p>
       <p>Calidad de huevos: Media</p>
       <p>Precio: 0.5 BNB</p>
-      <button onclick="buyChicken(2)">Comprar</button>
+      <button onclick="buyChicken(2)">Select</button>
     </div>
     <div class="chicken" data-id="3" onclick="selectChicken(this)">
-      <h2>Gallina 3</h2>
+      <h2>Chicken 3</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.png" alt="Gallina 3">
       <p>Tiempo en poner huevos: 1.5 horas</p>
       <p>Cantidad de huevos: 3</p>
       <p>Calidad de huevos: Baja</p>
       <p>Precio: 0.8 BNB</p>
-      <button onclick="buyChicken(3)">Comprar</button>
+      <button onclick="buyChicken(3)">Select</button>
     </div>
     <div class="chicken" data-id="4" onclick="selectChicken(this)">
-      <h2>Gallina 4</h2>
+      <h2>Chicken 4</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.gif" alt="Gallina 4">
       <p>Tiempo en poner huevos: 2 horas</p>
       <p>Cantidad de huevos: 2</p>
       <p>Calidad de huevos: Media</p>
       <p>Precio: 1.2 BNB</p>
-      <button onclick="buyChicken(4)">Comprar</button>
+      <button onclick="buyChicken(4)">Select</button>
     </div>
     <div class="chicken" data-id="5" onclick="selectChicken(this)">
-      <h2>Gallina 5</h2>
+      <h2>Chicken 5</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.png" alt="Gallina 5">
       <p>Tiempo en poner huevos: 2.5 horas</p>
       <p>Cantidad de huevos: 2</p>
       <p>Calidad de huevos: Baja</p>
       <p>Precio: 1.8 BNB</p>
-      <button onclick="buyChicken(5)">Comprar</button>
+      <button onclick="buyChicken(5)">Select</button>
     </div>
     <div class="chicken" data-id="6" onclick="selectChicken(this)">
-      <h2>Gallina 6</h2>
+      <h2>Chicken 6</h2>
       <img src="https://sunny-brigadeiros-470a39.netlify.app/gallina.png" alt="Gallina 6">
       <p>Tiempo en poner huevos: 3 horas</p>
       <p>Cantidad de huevos: 1</p>
       <p>Calidad de huevos: Baja</p>
       <p>Precio: 2 BNB</p>
-      <button onclick="buyChicken(6)">Comprar</button>
+      <button onclick="buyChicken(6)">Select</button>
     </div>
   </div>
    
  <div id="selected-chickens">
-    <h2>Gallinas seleccionadas</h2>
+    <h2>Proof of work</h2>
     <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(1)"></div>
     <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(2)"></div>
     <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(3)"></div>
   </div>
   <div id="rent-button">
-    <button onclick="rentChickens()">ALQUILAR</button>
+    <button onclick="rentChickens()">Work </button>
   </div>
   <div id="profitability">
     <h2>Cotizador MERCADO</h2>
