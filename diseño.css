@@ -224,25 +224,20 @@ h1 {
       background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
     }
 
-    #rent-button {
-      text-align: center;
-      padding: 20px;
-    }
+#rent-button button {
+  padding: 10px 20px;
+  background: linear-gradient(to bottom, #ff9933, #ff6600);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
 
-    #rent-button button {
-      padding: 10px 20px;
-      background: linear-gradient(to bottom, #1a8cff, #0052cc);
-      color: #ffffff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 16px;
-    }
-
-    #rent-button button:hover {
-      background: linear-gradient(to bottom, #0052cc, #00004d);
-    }
+#rent-button button:hover {
+  background: linear-gradient(to bottom, #ff6600, #ff9933);
+}
 
     #profitability {
       text-align: center;
