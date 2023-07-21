@@ -147,6 +147,8 @@ h1 {
   align-items: center;
   flex-wrap: wrap;
   padding: 20px;
+  flex-direction: column; /* Cambia flex-direction a column para apilar los slots debajo del texto */
+
 }
 
 .chicken {
@@ -163,6 +165,18 @@ h1 {
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffffff; /* Establece el color del texto como blanco */
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Aplica el fondo degradado naranja */
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .chicken h2 {
