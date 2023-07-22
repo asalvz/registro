@@ -1,17 +1,114 @@
-  body {
-    width: 100%;
-    height: 100%;
-    background: url("https://s3.amazonaws.com/ritalbradley-dev-photos/twinkle-back.gif");
-  }
-.amanecer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+body {
+  padding: 0;
+  margin: 0;
+}
+.totalcontainer {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.container1 {
+  transform: scaleX(1.11);
+}
+.container2 {
+  transform: scaleX(1.25);
+}
+.layer-1 {
+  height: 100vh;
   width: 100%;
-  height: 50vh; /* Esto ocupa la mitad inferior de la pantalla */
-  background: url("https://sunny-brigadeiros-470a39.netlify.app/aeb2149471de2abc2be9d58b1c62b38f.gif") center/cover no-repeat;
-  opacity: 0.6;
-  z-index: -1; /* Asegura que la imagen esté por detrás del contenido */
+  background-color: #fed8c1;
+}
+
+.layer-2 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay2.svg")
+    no-repeat center center fixed;
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.layer-3 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay3.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+.layer-4 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay4.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+}
+.layer-5 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay5.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s
+    both;
+}
+.layer-6 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453881/codepen/lay6.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.75s
+    both;
+}
+.layer-7 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453881/codepen/lay7.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.85s
+    both;
+}
+.layer-8 {
+  background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453882/codepen/lay8.svg")
+    no-repeat center center fixed;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
+}
+.laya-please {
+  position: absolute;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0px;
+}
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
     #header {
