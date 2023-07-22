@@ -164,7 +164,12 @@ h1 {
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  transition: transform 0.3s; /* Agrega una transición suave para el cambio de tamaño */
+
 }
+.chicken:hover {
+    transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
+  }
 .title {
   font-size: 24px;
   font-weight: bold;
