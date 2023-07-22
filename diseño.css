@@ -269,7 +269,7 @@ h1 {
 .highlight {
   background: linear-gradient(to bottom, #1a8cff, #0052cc);
   color: #ffffff;
-  padding: 5px;
+  padding: 1px;
   border-radius: 5px;
 }
 
