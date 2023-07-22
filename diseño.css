@@ -18,45 +18,63 @@ body {
   height: 100vh;
   width: 100%;
   background-color: #fed8c1;
+  z-index: -1; 
 }
 
 .layer-2 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay2.svg")
     no-repeat center center fixed;
   animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    z-index: -1; 
+
+  
+
+
 }
 .layer-3 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay3.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+    z-index: -1; 
+
 }
 .layer-4 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay4.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+    z-index: -1; 
+
 }
 .layer-5 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453880/codepen/lay5.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.55s
     both;
+    z-index: -1; 
+
 }
 .layer-6 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453881/codepen/lay6.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.75s
     both;
+    z-index: -1; 
+
 }
 .layer-7 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453881/codepen/lay7.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.85s
     both;
+    z-index: -1; 
+
 }
 .layer-8 {
   background: url("https://res.cloudinary.com/dkgrf00g1/image/upload/v1536453882/codepen/lay8.svg")
     no-repeat center center fixed;
   animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
+    z-index: -1; 
+
 }
 .laya-please {
   position: absolute;
@@ -68,6 +86,8 @@ body {
   width: 100%;
   top: 0;
   left: 0px;
+    z-index: -1; 
+
 }
 
 @-webkit-keyframes slide-in-bottom {
