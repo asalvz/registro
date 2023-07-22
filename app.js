@@ -93,30 +93,8 @@ function updateChickenSlotUI() {
   });
 }
 
-// Función para actualizar el estado del botón "Alquilar" y su evento click
-function updateRentButton() {
-  const rentButton = document.getElementById('rent-button');
-  rentButton.innerHTML = '';
 
-  if (selectedChickens.length > 0) {
-    const button = document.createElement('button');
-    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
-    button.onclick = rentChickens;
-    rentButton.appendChild(button);
-  } else {
-    const info = document.createElement('p');
-    info.textContent = 'Selecciona al menos una gallina para alquilar.';
-    rentButton.appendChild(info);
-  }
-}
 
-// Función para realizar el alquiler de las gallinas
-function rentChickens() {
-  const paymentAmount = calculatePayment();
-  if (isNaN(paymentAmount) || paymentAmount <= 0) {
-    alert('No se ha seleccionado ninguna gallina para alquilar.');
-    return;
-  }
 
   const userAddress = document.getElementById('user-address').textContent;
   const confirmation = window.confirm(`Confirmar alquiler de ${selectedChickens.length} gallinas por ${paymentAmount} BNB a la dirección ${userAddress}. ¿Deseas continuar?`);
