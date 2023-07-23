@@ -238,8 +238,6 @@ h1 {
   transition: transform 0.3s;
 }
 
-
-}
 .chicken:hover {
     transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
   }
