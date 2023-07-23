@@ -229,13 +229,15 @@ h1 {
   width: 180px;
   height: 400px;
   text-align: center;
-  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Orange gradient for the background */
+  background: linear-gradient(to bottom, rgba(0, 255, 0, 0.5), rgba(0, 128, 0, 0.5)); /* Green gradient with 50% opacity */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  transition: transform 0.3s; /* Agrega una transición suave para el cambio de tamaño */
+  transition: transform 0.3s;
+}
+
 
 }
 .chicken:hover {
