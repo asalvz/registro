@@ -429,6 +429,7 @@ h1 {
   animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
 /* Estilos para el botón de generar enlace de referido y copiar dirección */
+/* Estilos para el botón de generar enlace de referido y copiar dirección */
 #generate-referral-button {
   padding: 8px 16px;
   background-color: #007bff; /* Azul (cambiar según tus preferencias) */
@@ -444,3 +445,20 @@ h1 {
   background-color: #0056b3; /* Azul oscuro (cambiar según tus preferencias) */
 }
 
+/* Estilos para mostrar el enlace de referido */
+#referral-link {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#referral-link span {
+  color: #007bff; /* Azul (cambiar según tus preferencias) */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Estilo al pasar el mouse sobre el enlace de referido */
+#referral-link span:hover {
+  color: #0056b3; /* Azul oscuro (cambiar según tus preferencias) */
+}
