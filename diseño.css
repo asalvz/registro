@@ -236,6 +236,7 @@ h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   transition: transform 0.3s;
+  position: relative; /* Agrega esta propiedad para que el posicionamiento funcione correctamente */
 }
 
 .chicken:hover {
@@ -297,10 +298,13 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
-  display: flex; /* Utilizar flexbox */
+  display: flex;
   justify-content: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
-}
+  position: absolute;
+  bottom: 10px; /* Ajusta la distancia desde la parte inferior */
+  left: 50%;
+  transform: translateX(-50%); /
 
 
 .chicken button:hover {
