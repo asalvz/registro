@@ -366,53 +366,58 @@ h1 {
   border-radius: 5px;
 }
 
-
 /* Contenedor de profitability */
 #profitability {
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 /* Título */
 #profitability h2 {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
-  color: #333333;
+  color: #0080ff;
   text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Párrafos de información */
 #profitability p {
-  color: #666666;
-  font-size: 18px;
-  margin: 5px 0;
+  color: #333333;
+  font-size: 20px;
+  margin: 15px 0;
 }
 
 /* Animación de resaltado */
 @keyframes highlight {
   0%, 100% {
-    background-color: #f8f8f8;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   50% {
-    background-color: #ffd700;
+    background-color: #e1f0ff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 }
 
-/* Animación de rebote */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
+/* Animación de brillo */
+@keyframes shine {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
   }
   50% {
-    transform: translateY(-10px);
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.0);
   }
 }
 
 /* Aplicar animaciones al contenedor */
 #profitability {
-  animation: highlight 2s ease infinite, bounce 1s ease infinite;
+  animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
