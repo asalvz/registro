@@ -1,4 +1,3 @@
-
 body {
   padding: 0;
   margin: 0;
@@ -221,7 +220,7 @@ h1 {
 
 }
 
-chicken {
+.chicken {
   border: 1px solid #ffffff;
   border-radius: 90px;
   padding: 10px;
@@ -229,41 +228,33 @@ chicken {
   width: 180px;
   height: 400px;
   text-align: center;
-  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Orange gradient for the background */
+  background: linear-gradient(to bottom, rgba(0, 255, 0, 0.5), rgba(0, 128, 0, 0.5)); /* Green gradient with 50% opacity */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  transition: transform 0.3s; /* Agrega una transición suave para el cambio de tamaño */
+  transition: transform 0.3s;
+}
+
+
 
 .chicken:hover {
     transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
   }
-
 .title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #00a9e0; /* Cambia el color a un tono celeste */
   text-transform: uppercase;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 50px; /* Un valor mayor para hacerlo más redondeado */
-  background-color: #ff0066; /* Color de fondo */
-  color: #ffffff; /* Color del texto en blanco para mayor contraste */
+  text-align: center; /* Alinea el texto al centro */
+  padding: 5px 15px;
+  border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 2px solid #00a9e0;
-  animation: rainbow 5s linear infinite; /* Aplicar la animación al título */
+  background: none; /* Elimina el fondo degradado naranja */
+  border: 2px solid #00a9e0; /* Agrega un borde celeste para resaltar el título */
 }
-
-@keyframes rainbow {
-  0% { background-color: #ff0066; }
-  25% { background-color: #ffcc00; }
-  50% { background-color: #00ff99; }
-  75% { background-color: #00a9e0; }
-  100% { background-color: #ff0066; }
-}
-
 
 
 .chicken h2 {
@@ -286,22 +277,16 @@ chicken {
   color: #ffffff;
 }
 
- .chicken button {
-  padding: 8px 12px;
-  width: 80px;
-  background: linear-gradient(to bottom, #ff9933, #ff6600);
+.chicken button {
+  padding: 10px 20px;
+  background: linear-gradient(to bottom, #ff9933, #ff6600); /* Orange gradient for the select button */
   color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px; /* Rounded button */
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
-  display: flex; /* Utilizar flexbox */
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
 }
-
-
 
 .chicken button:hover {
   background: linear-gradient(to bottom, #ff6600, #ff9933); /* Revert the gradient on hover */
@@ -316,17 +301,16 @@ chicken {
 
 .chicken-slot {
   border: 1px dashed #ffffff;
-  border-radius: 90px;
+  border-radius: 10px;
   padding: 10px;
   margin: 10px;
   width: 180px;
   height: 400px;
   text-align: center;
-  background: linear-gradient(to bottom, rgba(153, 204, 255, 0.7), rgba(77, 210, 255, 0.7)); /* Blue gradient with 70% opacity */
+  background: linear-gradient(to bottom, #99ccff, #4dd2ff);
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 
 .chicken-slot.selected {
   background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
@@ -373,27 +357,4 @@ chicken {
   padding: 5px;
   margin: 5px 0;
   border-radius: 5px;
-}
-
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 50px;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 15px 30px;
-  border-radius: 50px; /* Un valor mayor para hacerlo más redondeado */
-  background: linear-gradient(135deg, #000, #1a1a1a); /* Degradado desde negro (#000) a un gris oscuro (#1a1a1a) */
-  color: #ffffff; /* Texto en color blanco para mayor contraste */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Sombra para dar sensación de luz negra */
-}
-
-/* Opcional: animación para darle un efecto de destello */
-@keyframes flash {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-.title:hover {
-  animation: flash 1s infinite; /* Aplicar la animación al título en el hover */
 }
