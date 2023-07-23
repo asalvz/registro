@@ -10,12 +10,15 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  z-index: -1;
 }
 .container1 {
   transform: scaleX(1.11);
+  z-index: -1;
 }
 .container2 {
   transform: scaleX(1.25);
+  z-index: -1;
 }
 .layer-1 {
   height: 100vh;
@@ -71,6 +74,7 @@ body {
   width: 100%;
   top: 0;
   left: 0px;
+  z-index: -1;
 }
 
 @-webkit-keyframes slide-in-bottom {
