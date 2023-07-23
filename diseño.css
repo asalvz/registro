@@ -428,8 +428,8 @@ h1 {
 #profitability {
   animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
-/* Estilos para el botón de copiar dirección */
-#copy-button {
+/* Estilos para el botón de generar enlace de referido y copiar dirección */
+#generate-referral-button {
   padding: 8px 16px;
   background-color: #007bff; /* Azul (cambiar según tus preferencias) */
   color: #ffffff;
@@ -440,8 +440,7 @@ h1 {
 }
 
 /* Estilo al pasar el mouse sobre el botón */
-#copy-button:hover {
+#generate-referral-button:hover {
   background-color: #0056b3; /* Azul oscuro (cambiar según tus preferencias) */
 }
-
 
