@@ -241,18 +241,25 @@ h1 {
 .chicken:hover {
     transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
   }
+
 .title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #00a9e0; /* Cambia el color a un tono celeste */
   text-transform: uppercase;
-  text-align: center; /* Alinea el texto al centro */
+  text-align: center;
   padding: 5px 15px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  background: none; /* Elimina el fondo degradado naranja */
-  border: 2px solid #00a9e0; /* Agrega un borde celeste para resaltar el título */
+  border: 2px solid #00a9e0;
+  animation: rainbow 5s linear infinite; /* Aplicar la animación al título */
+}
+@keyframes rainbow {
+  0% { color: #00a9e0; }
+  25% { color: #ff0066; }
+  50% { color: #ffcc00; }
+  75% { color: #00ff99; }
+  100% { color: #00a9e0; }
 }
 
 
