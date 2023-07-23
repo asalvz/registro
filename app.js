@@ -162,12 +162,18 @@ document.body.addEventListener('mouseenter', function (e) {
         }, 500);
     });
 });
-// Función para copiar la dirección al portapapeles
-function copyAddressToClipboard() {
+// Función para generar el enlace de referido y copiar la dirección al portapapeles
+function generateReferralLink() {
   const addressElement = document.getElementById('address');
   const address = addressElement.textContent;
 
-  // Crear un elemento de texto temporal para copiar al portapapeles
+  // Generar el enlace de referido con la dirección como parámetro
+  const referralLink = `https://tusitio.com/registro?ref=${address}`;
+
+  // Mostrar el enlace generado en un cuadro de diálogo
+  alert('Enlace de referido generado: ' + referralLink);
+
+  // Copiar la dirección al portapapeles
   const tempTextArea = document.createElement('textarea');
   tempTextArea.value = address;
   document.body.appendChild(tempTextArea);
@@ -175,9 +181,10 @@ function copyAddressToClipboard() {
   document.execCommand('copy');
   document.body.removeChild(tempTextArea);
 
-  // Mostrar un mensaje o cambiar el estilo para indicar que se copió la dirección
-  alert('Dirección copiada al portapapeles: ' + address);
+  // Mostrar un mensaje para indicar que se copió la dirección
+  alert('Dirección de Metamask copiada al portapapeles: ' + address);
 }
+
 
 
 // Conexión con MetaMask y eventos
