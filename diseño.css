@@ -428,4 +428,20 @@ h1 {
 #profitability {
   animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
+/* Estilos para el botón de copiar dirección */
+#copy-button {
+  padding: 8px 16px;
+  background-color: #007bff; /* Azul (cambiar según tus preferencias) */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Estilo al pasar el mouse sobre el botón */
+#copy-button:hover {
+  background-color: #0056b3; /* Azul oscuro (cambiar según tus preferencias) */
+}
+
 
