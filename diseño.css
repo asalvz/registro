@@ -243,24 +243,28 @@ h1 {
     transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
   }
 .title {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
   text-transform: uppercase;
   text-align: center;
-  padding: 5px 15px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: 2px solid #00a9e0;
-  animation: rainbow 5s linear infinite; /* Aplicar la animación al título */
+  padding: 15px 30px;
+  border-radius: 50px; /* Un valor mayor para hacerlo más redondeado */
+  background: linear-gradient(135deg, #000, #1a1a1a); /* Degradado desde negro (#000) a un gris oscuro (#1a1a1a) */
+  color: #ffffff; /* Texto en color blanco para mayor contraste */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Sombra para dar sensación de luz negra */
 }
-@keyframes rainbow {
-  0% { color: #00a9e0; }
-  25% { color: #ff0066; }
-  50% { color: #ffcc00; }
-  75% { color: #00ff99; }
-  100% { color: #00a9e0; }
+
+/* Opcional: animación para darle un efecto de destello */
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }
+
+.title:hover {
+  animation: flash 1s infinite; /* Aplicar la animación al título en el hover */
+}
+
 
 .chicken h2 {
   margin-top: 0;
@@ -284,18 +288,20 @@ h1 {
 
 .chicken button {
   padding: 10px 20px;
-  background: linear-gradient(to bottom, #ff9933, #ff6600); /* Orange gradient for the select button */
+  min-width: 100px; /* Establecer el ancho mínimo deseado */
+  background: linear-gradient(to bottom, #ff9933, #ff6600);
   color: #ffffff;
   border: none;
-  border-radius: 20px; /* Rounded button */
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
 }
 
 .chicken button:hover {
-  background: linear-gradient(to bottom, #ff6600, #ff9933); /* Revert the gradient on hover */
+  background: linear-gradient(to bottom, #ff6600, #ff9933);
 }
+
 
 #selected-chickens {
   display: flex;
@@ -364,12 +370,7 @@ h1 {
   margin: 5px 0;
   border-radius: 5px;
 }
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f0f0f0;
-}
+
 
 /* Contenedor de profitability */
 #profitability {
