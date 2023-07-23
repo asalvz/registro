@@ -3,41 +3,20 @@ html {
 }
 html,
 body {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
-
 .totalcontainer {
-  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
-
-.laya-please,
-.container1,
+.container1 {
+  transform: scaleX(1.11);
+}
 .container2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
+  transform: scaleX(1.25);
 }
-
-.laya-please::before,
-.container1::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  opacity: 0.6; /* Ajusta la opacidad para el efecto deseado */
-  z-index: -1;
-}
-
 .layer-1 {
   height: 100vh;
   width: 100%;
@@ -92,7 +71,6 @@ body {
   width: 100%;
   top: 0;
   left: 0px;
-  z-index: -1;
 }
 
 @-webkit-keyframes slide-in-bottom {
@@ -136,6 +114,7 @@ body {
     opacity: 1;
   }
 }
+
 
 
     #header {
