@@ -288,11 +288,12 @@ h1 {
 }
 
 .chicken button {
-  padding: 10px 20px;
-  background: linear-gradient(to bottom, #ff9933, #ff6600); /* Orange gradient for the select button */
+  padding: 8px 12px; /* Reducir el tamaño del padding para hacer el botón más pequeño */
+  width: 80px; /* Agregar un ancho explícito al botón */
+  background: linear-gradient(to bottom, #ff9933, #ff6600);
   color: #ffffff;
   border: none;
-  border-radius: 20px; /* Rounded button */
+  border-radius: 10px; /* Reducir el valor del border-radius para hacer el botón más pequeño y más redondeado */
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
