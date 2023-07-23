@@ -87,6 +87,9 @@ body {
   width: 100%;
   top: 0;
   left: 0px;
+  z-index: -1; /* Agregar un z-index para colocar el fondo detrás del contenido */
+
+
 }
 
 @-webkit-keyframes slide-in-bottom {
@@ -159,6 +162,8 @@ body {
   place-items: center;
   min-height: calc(50vh - 26px);
   padding: 50px;
+  z-index: 1; /* Agregar un z-index para que .wrapper esté encima de .laya-please */
+
  
 }
 
