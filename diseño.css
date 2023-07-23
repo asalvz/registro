@@ -288,16 +288,20 @@ h1 {
 }
 
 .chicken button {
-  padding: 8px 12px; /* Reducir el tamaño del padding para hacer el botón más pequeño */
-  width: 80px; /* Agregar un ancho explícito al botón */
+  padding: 8px 12px;
+  width: 80px;
   background: linear-gradient(to bottom, #ff9933, #ff6600);
   color: #ffffff;
   border: none;
-  border-radius: 10px; /* Reducir el valor del border-radius para hacer el botón más pequeño y más redondeado */
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
   font-size: 14px;
+  display: flex; /* Utilizar flexbox */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
 }
+
 
 .chicken button:hover {
   background: linear-gradient(to bottom, #ff6600, #ff9933); /* Revert the gradient on hover */
