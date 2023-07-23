@@ -427,3 +427,965 @@ h1 {
 #profitability {
   animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
+
+// Color names from http://chir.ag/projects/name-that-color/
+$eggplant: #573e53;
+$strikemaster: #8c617f;
+$green-smoke: #a4b263;
+$green-smoke-2: #a5b364;
+$whiskey: #d5aa73;
+$tussock: #c79455;
+$caper: #e3e8a6;
+$thunder: #2b1d2a;
+$marigold: #b97729;
+$laser: #cea975;
+$baltic-sea: #322d34;
+$roman-coffee: #814f50;
+$raw-sienna: #d78740;
+$tuscany: #ce5d3d;
+$woodland: #4e6b2b;
+$stromboli: #2e6353;
+$chalet-green: #4d6334;
+$copper: #b9772b;
+$caper: #e3e8a6;
+$black: #000;
+$white: #fff;
+$bastille: #1b161d;
+$cape-palliser: #936b48;
+$manhattan: #f4d096;
+$jewel: #117038;
+$apple: #44b34a;
+$paarl: #a15825;
+$jambalaya: #653916;
+$sushi: #7cbd3f;
+$everglade: #1f5227;
+$old-lavender: #775d76;
+$mountbatten-pink: #997493;
+$persian-red: #c3422f;
+$flamingo: #f15d21;
+$tree-poppy: #fba51a;
+$tango: #ec782d;
+$carrot-orange: #ec8a29;
+$texas-rose: #ffb852;
+$grandis: #ffd883;
+$fruit-salad: #4a9145;
+$apricot: #e9907e;
+$punch: #d62829;
+$cumin: #944921;
+$bright-sun: #fad638;
+$fuel-yellow: #eca620;
+$saddle: #4e3224;
+$half-spanish-white: #fef2dc;
+
+$font-size: 15px; // Change value to scale
+
+@mixin absolute-horizontal-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+}
+
+@mixin mirror-shine {
+  height: 150%;
+  width: 1.875em;
+  color: rgba(white, 0.1);
+  background-color: currentColor;
+  transform: rotate(45deg);
+  box-shadow: -1.875em 0 0 -0.625em;
+  z-index: 1;
+}
+
+@function horizontal-repeating-box-shadow($width, $gap, $repeats, $alternating-color: null) {
+  $shadow: 0 0;
+
+  @for $i from 1 through $repeats {
+    @if $alternating-color and $i % 2 != 0 {
+      $shadow: #{$shadow}, #{($width * ($i)) + ($gap * $i)} 0 $alternating-color;
+    } @else {
+      $shadow: #{$shadow}, #{($width * ($i)) + ($gap * $i)} 0;
+    }
+  }
+
+  @return $shadow;
+}
+
+.shop {
+  font-size: $font-size;
+  position: relative;
+  width: 26.313em;
+  height: 30.75em;
+  box-sizing: border-box;
+  background-color: $eggplant;
+}
+
+.shop__nameContainer {
+  @include absolute-horizontal-center;
+  top: -2.188em;
+  width: 17.438em;
+  height: 8.563em;
+  border: 0.875em solid $strikemaster;
+  box-sizing: border-box;
+  background-color: $eggplant;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.shop__name {
+  font-family: "Permanent Marker", cursive;
+  font-size: 3em;
+  color: $green-smoke;
+}
+
+.shop__roof {
+  @include absolute-horizontal-center;
+  top: 4.875em;
+  width: 29.25em;
+  height: 7.063em;
+  background-color: $whiskey;
+  clip-path: polygon(
+    0 calc(100% - 2.375em),
+    5% 0,
+    95% 0,
+    100% calc(100% - 2.375em),
+    100% 100%,
+    0 100%
+  );
+  z-index: 1;
+
+  // pattern
+  &::after {
+    content: "";
+    @include absolute-horizontal-center;
+    width: 3.554em;
+    height: 2.031em;
+    color: $tussock;
+    background-color: currentColor;
+    box-shadow: -4.241em 0, -8.545em 0, -12.848em 0, 4.241em 0, 8.545em 0,
+      12.848em 0, 0 2.656em, -4.241em 2.656em, -8.545em 2.656em,
+      -12.848em 2.656em, 4.241em 2.656em, 8.545em 2.656em, 12.848em 2.656em;
+  }
+
+  // gutter
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.375em;
+    background: linear-gradient($caper 0.75em, $green-smoke-2 0.75em);
+    z-index: 1;
+  }
+}
+
+.shop__roofShadow {
+  @include absolute-horizontal-center;
+  top: 11.938em;
+  height: 1.063em;
+  width: 26.313em;
+  background-color: $thunder;
+}
+
+.shop__front {
+  position: absolute;
+  bottom: 1.688em;
+  left: 1.813em;
+  width: 14.375em;
+  height: 15.5em;
+  background-color: $marigold;
+
+  // top shade
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1.625em;
+    background-color: $laser;
+  }
+}
+
+.shop__frontMainContainer {
+  @include absolute-horizontal-center;
+  top: 1.625em;
+  width: 13.125em;
+  height: 6.563em;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-rows: 1.063em repeat(2, 1fr);
+  grid-gap: 0.375em;
+
+  // mirror shines
+  &::after,
+  &::before {
+    content: "";
+    @include mirror-shine;
+    position: absolute;
+    top: -2.438em;
+    left: 1.5em;
+  }
+
+  &::before {
+    height: 250%;
+    top: unset;
+    left: unset;
+    bottom: -6.25em;
+    right: 2em;
+  }
+}
+
+.shop__frontMainContainer div[class^="shop__container"],
+.shop__frontMainContainer span[class^="shop__container"]:not(.shop__product6) {
+  background-color: $baltic-sea;
+}
+
+.shop__container1 {
+  grid-column: 1 / -1;
+
+  &::after {
+    content: "";
+    @include circle(1.063em);
+    display: block;
+    margin-left: 0.125em;
+    color: $roman-coffee;
+    background-color: currentColor;
+    box-shadow: horizontal-repeating-box-shadow(1.063em, 0.125em, 10);
+  }
+}
+
+.shop__container2 {
+  position: relative;
+  display: flex;
+}
+
+.shop__container2Product {
+  display: block;
+  margin-top: auto;
+  margin-left: 0.188em;
+  height: 1.563em;
+  width: 1.563em;
+  position: relative;
+
+  // body
+  &::after {
+    content: "";
+    @include absolute-horizontal-center;
+    height: 100%;
+    width: 0.75em;
+    border-radius: 0.75em;
+    color: $tuscany;
+    background-color: $raw-sienna;
+    box-shadow: -0.313em 0, 0.313em 0;
+  }
+
+  // stem
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.438em;
+    left: 0.281em;
+    height: 0.625em;
+    width: 0.625em;
+    border: 0.313em solid $woodland;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0 0.625em 0 0;
+    box-sizing: border-box;
+    transform: rotate(15deg);
+  }
+}
+
+.shop__container3 {
+  display: flex;
+
+  &::after {
+    content: "";
+    display: block;
+    margin-top: auto;
+    margin-left: 0.375em;
+    height: 80%;
+    width: 1.188em;
+    border-radius: 1.188em 1.188em 0 0;
+    color: $stromboli;
+    background-color: currentColor;
+    box-shadow: horizontal-repeating-box-shadow(1.188em, 0.188em, 2);
+  }
+}
+
+.shop__container6 {
+  background: repeating-linear-gradient(
+    -45deg,
+    $chalet-green,
+    $chalet-green 0.625em,
+    lighten($chalet-green, 10) 0.625em,
+    lighten($chalet-green, 10) 1.25em
+  );
+}
+
+.shop__container7 {
+  position: relative;
+  padding: 0.125em;
+
+  &::after {
+    content: "";
+    display: block;
+    width: calc((100% / 2) - 0.125em);
+    height: calc((100% / 2) - 0.125em);
+    border-radius: 50%/100%;
+    color: lighten($tussock, 5);
+    background-color: currentColor;
+    box-shadow: 1.75em 0, 0 1.125em, 1.75em 1.125em;
+  }
+}
+
+.shop__frontBottom {
+  position: absolute;
+  width: 100%;
+  height: 6.688em;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    to right,
+    $tussock,
+    $tussock 1.597em,
+    $copper 1.597em,
+    $copper 3.194em
+  );
+
+  // shadow
+  &::before {
+    content: "";
+    width: 100%;
+    top: 0;
+    position: absolute;
+    height: 4.438em;
+    background-color: rgba(black, 0.2);
+  }
+
+  // bantings
+  &::after {
+    content: "";
+    position: absolute;
+    width: 1.597em;
+    height: 3.563em;
+    color: $green-smoke;
+    background-color: currentColor;
+    border-radius: 0 0 1.597em 1.597em;
+    box-shadow: horizontal-repeating-box-shadow(1.597em, 0, 8, $caper);
+  }
+}
+
+.shop__frontDivider {
+  // shadow
+  @include absolute-horizontal-center;
+  width: 14.375em;
+  height: 2em;
+  background-color: rgba($black, 0.1);
+  z-index: 1;
+
+  // divider
+  &::after {
+    content: "";
+    @include absolute-horizontal-center;
+    top: 0;
+    width: 15.625em;
+    height: 1.063em;
+    background-color: $white;
+  }
+}
+
+.shop__door {
+  position: absolute;
+  right: 1.875em;
+  bottom: 1.688em;
+  width: 6.5em;
+  height: 15.5em;
+  background-color: $copper;
+}
+
+.shop__doorGlassPanel {
+  @include absolute-horizontal-center;
+  top: 0.688em;
+  height: 7.313em;
+  width: 4.938em;
+  background-color: $bastille;
+  overflow: hidden;
+
+  // inner
+  &::after {
+    content: "";
+    @include absolute-horizontal-center;
+    bottom: 1.375em;
+    width: 2.75em;
+    height: 1.688em;
+    background-color: $cape-palliser;
+  }
+
+  // mirror shine
+  &::before {
+    content: "";
+    @include mirror-shine;
+    position: absolute;
+    top: -1em;
+    left: 1.75em;
+  }
+}
+
+.shop__doorBottom {
+  @include absolute-horizontal-center;
+  bottom: 0.75em;
+  width: 4.938em;
+  height: 5em;
+  background-color: $whiskey;
+  box-shadow: 0 -0.813em darken($whiskey, 30);
+}
+
+.shop__floor {
+  @include absolute-horizontal-center;
+  bottom: 0;
+  height: 1.688em;
+  width: 28em;
+  background-color: $manhattan;
+}
+
+.shop__bar {
+  // bar
+  position: absolute;
+  top: 13.375em;
+  left: -4.625em;
+  width: 4.625em;
+  height: 0.688em;
+  background-color: $eggplant;
+  z-index: 1;
+
+  // rope tied on .shop__bar
+  &::before {
+    content: "";
+    @include absolute-horizontal-center;
+    height: 100%;
+    width: 0.375em;
+    background-color: $thunder;
+  }
+
+  // base
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 1.313em;
+    width: 0.688em;
+    background-color: $eggplant;
+  }
+}
+
+.shop__hangingProduct {
+  //body
+  @include circle(3.75em);
+  @include absolute-horizontal-center;
+  bottom: -5.5em;
+  background-color: $jewel;
+
+  // inner
+  &::before {
+    content: "";
+    @include absolute-horizontal-center;
+    top: 0.813em;
+    height: 1.563em;
+    width: 1.563em;
+    color: $apple;
+    background-color: currentColor;
+    border-radius: inherit;
+    box-shadow: 0.75em 0.313em, -0.75em 0.313em;
+  }
+
+  // container
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1.875em;
+    border-radius: 0 0 1.875em 1.875em;
+    background: repeating-linear-gradient(
+      to right,
+      $paarl,
+      $paarl 0.75em,
+      $jambalaya 0.75em,
+      $jambalaya 1em
+    );
+  }
+}
+
+.shop__hangingProductRopes {
+  // rope tied on the .shop__hangingProductMain
+  position: absolute;
+  top: 50%;
+  height: 0.375em;
+  width: 100%;
+  background-color: $thunder;
+  z-index: 1;
+
+  // ropes tied on the .shop__hangingProduct base
+  &::after,
+  &::before {
+    content: "";
+    height: 4.188em;
+    width: 0.25em;
+    background-color: $thunder;
+    position: absolute;
+    top: -3.938em;
+  }
+
+  &::after {
+    transform: rotate(25deg);
+    left: 0.875em;
+  }
+
+  &::before {
+    transform: rotate(-25deg);
+    right: 0.875em;
+  }
+}
+
+.shop__outerProducts {
+  position: absolute;
+  bottom: 2.813em;
+  left: -4.375em;
+  height: 5em;
+  width: 6.25em;
+  z-index: -1;
+}
+
+.shop__outerProductRounded {
+  @include absolute-horizontal-center;
+  top: -1.8em;
+  height: 5em;
+  width: 3.125em;
+  border-radius: 3.125em;
+  background-color: $sushi;
+}
+
+.shop__leafyProduct {
+  position: absolute;
+  bottom: 1.75em;
+
+  &:not(.shop__leafyProduct--isFullGreen) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  height: 1.875em;
+  width: 2.5em;
+  border-radius: 1.875em;
+  color: $jewel;
+  background-color: currentColor;
+  box-shadow: 0 -1.25em 0 -0.125em, 0 -2.5em 0 -0.25em;
+  z-index: 2;
+
+  // middle stem
+  &::after {
+    content: "";
+    @include absolute-horizontal-center;
+    width: 0.438em;
+    height: 3.75em;
+    top: -1.875em;
+    background-color: $sushi;
+  }
+}
+
+.shop__leafyProduct--isFullGreen {
+  color: $everglade;
+  z-index: 1;
+
+  &::after {
+    content: none;
+  }
+}
+
+.shop__leafyProductsWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .shop__leafyProduct:nth-child(2) {
+    transform: rotate(-20deg);
+    left: 1em;
+  }
+
+  .shop__leafyProduct:nth-child(3) {
+    transform: rotate(20deg);
+    right: 1em;
+  }
+}
+
+.shop__outerProductsBasket {
+  position: absolute;
+  left: 50%;
+  bottom: -0.188em;
+  height: 4.125em;
+  width: 5em;
+  transform: translateX(-50%) perspective(0.625em) rotateX(-2deg);
+  background-color: $copper;
+  z-index: 3;
+
+  // shadow
+  &::after {
+    content: "";
+    height: 100%;
+    width: 25%;
+    position: absolute;
+    background-color: $paarl;
+  }
+}
+
+.shop__outerProductsStairs {
+  position: absolute;
+  left: -2.5em;
+  bottom: -2.813em;
+  height: 1.688em;
+  width: 7.813em;
+  background-color: $old-lavender;
+  box-shadow: 1.438em -1.625em $mountbatten-pink;
+  z-index: 4;
+}
+
+.shop__lengthyProduct {
+  position: absolute;
+  height: 5em;
+  width: 0.438em;
+
+  &::after,
+  &::before {
+    content: "";
+    height: inherit;
+    width: inherit;
+    position: inherit;
+  }
+
+  &::before {
+    background-color: inherit;
+  }
+}
+
+.shop__lengthyProduc--group1 {
+  bottom: 2.5em;
+  left: 1.25em;
+  transform: rotate(-10deg);
+  background-color: $persian-red;
+
+  &::after {
+    top: -0.313em;
+    left: -0.5em;
+    transform: rotate(-12deg);
+    background-color: $flamingo;
+  }
+
+  &::before {
+    top: -0.625em;
+    left: -0.938em;
+    transform: rotate(-20deg);
+  }
+}
+
+.shop__lengthyProduc--group2 {
+  bottom: 2.25em;
+  left: 0.125em;
+  transform: rotate(-40deg);
+  background-color: $sushi;
+
+  &::after {
+    top: 0.063em;
+    left: -0.25em;
+    transform: rotate(-18deg);
+    background-color: $jewel;
+  }
+
+  &::before {
+    top: -0.875em;
+    left: -0.313em;
+    transform: rotate(-7deg);
+  }
+}
+
+.shop__squash {
+  position: absolute;
+  bottom: 0;
+  left: -1.875em;
+  height: 4.063em;
+  width: 4.063em;
+
+  // body
+  &::after {
+    content: "";
+    @include circle(inherit);
+    position: absolute;
+    color: $flamingo;
+    background-color: $tree-poppy;
+    box-shadow: 0 -1em 0 -0.813em $sushi, 1.25em 0, -1.25em 0;
+  }
+
+  // stem
+  &::before {
+    content: "";
+    position: absolute;
+    top: -1.375em;
+    left: 1.563em;
+    height: 1.563em;
+    width: 0.5em;
+    transform: rotate(-20deg);
+    background-color: $sushi;
+    box-shadow: -0.188em 0 $everglade;
+  }
+}
+
+.shop__hangingFruit {
+  --stem: #{$tango};
+  position: absolute;
+  right: 4.813em;
+  top: 11.813em;
+  height: 0.938em;
+  width: 0.438em;
+  background-color: var(--stem);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.625em;
+    left: -0.438em;
+    height: 0.625em;
+    width: 1.25em;
+    color: $carrot-orange;
+    background-color: currentColor;
+    transform: rotate(40deg);
+    box-shadow: 0.625em 0.625em var(--stem), 1.25em 1.25em;
+  }
+}
+
+.shop__hangingFruitMain {
+  position: absolute;
+  bottom: -2.813em;
+  left: -0.438em;
+  width: 0.625em;
+  height: 0.938em;
+  border-radius: 0.75em;
+  color: $texas-rose;
+  background-color: $grandis;
+  box-shadow: 0.188em 0, -0.188em 0;
+
+  &:nth-child(2) {
+    left: unset;
+    right: -0.75em;
+    bottom: -3.188em;
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+    background-color: inherit;
+    color: inherit;
+    box-shadow: inherit;
+    bottom: -0.938em;
+  }
+
+  &::before {
+    bottom: -1.875em;
+  }
+}
+
+.shop__hangingFruit--isSecond {
+  right: 2.188em;
+}
+
+.shop__hangingFruit--isThird {
+  --stem: #{$woodland};
+  right: 0;
+
+  &::before {
+    color: $fruit-salad;
+  }
+
+  .shop__hangingFruitMain {
+    width: 0.938em;
+    box-shadow: unset;
+    background: radial-gradient(
+      circle at 30% 30%,
+      $apricot 13%,
+      transparent 13%
+    );
+    background-color: $punch;
+
+    &::before,
+    &::after {
+      background: inherit;
+    }
+
+    &:nth-child(1):after,
+    &:nth-child(2):before {
+      background: unset;
+      background-color: $punch;
+    }
+  }
+}
+
+.shop__flower {
+  position: absolute;
+  bottom: 0;
+  right: -3.875em;
+  height: 5.5em;
+  width: 5em;
+  z-index: -1;
+}
+
+.shop__flowerPot {
+  position: absolute;
+  bottom: -0.313em;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-50%) perspective(0.625em) rotateX(-2deg);
+  background-color: $paarl;
+  z-index: 2;
+
+  // shadow vertical
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 25%;
+    background-color: $cumin;
+  }
+
+  // shadow horizontal
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 15%;
+    background-color: $copper;
+  }
+}
+
+.shop__flowerBase {
+  // body
+  position: absolute;
+  top: -3.125em;
+  width: inherit;
+  height: 6.25em;
+  border-radius: 5em;
+  background-color: $jewel;
+}
+
+.shop__flowerLeaves {
+  position: absolute;
+  top: -2.188em;
+  right: -1.063em;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 2.5em 0;
+  transform: rotate(-45deg);
+  color: $apple;
+  background-color: currentColor;
+  box-shadow: -2em -1.313em 0 -0.313em, -2.875em -2.625em 0 -0.313em;
+  z-index: 1;
+}
+
+.shop__sunflower {
+  // stem
+  position: absolute;
+  width: 0.563em;
+  height: 6.25em;
+  background-color: $jewel;
+
+  // petals
+  &::before {
+    content: "";
+    @include circle(3.125em);
+    @include absolute-horizontal-center;
+    top: -1.25em;
+    background: linear-gradient(-45deg, $bright-sun 50%, $fuel-yellow 50%);
+  }
+
+  // inner
+  &::after {
+    content: "";
+    @include circle(1.563em);
+    @include absolute-horizontal-center;
+    top: -0.5em;
+    background-color: $saddle;
+  }
+}
+
+.shop__sunflower:nth-of-type(1) {
+  transform: rotate(45deg);
+  top: -4.75em;
+  right: -0.25em;
+}
+
+.shop__sunflower:nth-of-type(2) {
+  transform: rotate(18deg);
+  top: -7.125em;
+  right: 0.375em;
+}
+
+.shop__sunflower:nth-of-type(3) {
+  top: -9.25em;
+  right: 2.375em;
+}
+
+.links {
+  font-size: 1.5em;
+  width: 8em;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 45px;
+
+  display: flex;
+  justify-content: space-between;
+  
+  @media screen and (max-height: 700px) {
+    display: none;
+  }
+}
+
+.link__item {
+  text-decoration: none;
+  position: relative;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.link__item--isActive {
+  opacity: 1;
+  pointer-events: none;
+  cursor: default;
+}
+
+// Styles below for demonstration purposes only
+body {
+  display: grid;
+  height: 100vh;
+  margin: 0;
+  place-items: center center;
+  background-color: $half-spanish-white;
+}
