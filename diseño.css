@@ -3,14 +3,14 @@ body {
   margin: 0;
 }
 .totalcontainer {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -2;
   overflow: hidden;
-  background-attachment: fixed;
+
 }
 .container1 {
   transform: scaleX(1.11);
