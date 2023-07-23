@@ -162,6 +162,23 @@ document.body.addEventListener('mouseenter', function (e) {
         }, 500);
     });
 });
+// Función para copiar la dirección al portapapeles
+function copyAddressToClipboard() {
+  const addressElement = document.getElementById('address');
+  const address = addressElement.textContent;
+
+  // Crear un elemento de texto temporal para copiar al portapapeles
+  const tempTextArea = document.createElement('textarea');
+  tempTextArea.value = address;
+  document.body.appendChild(tempTextArea);
+  tempTextArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(tempTextArea);
+
+  // Mostrar un mensaje o cambiar el estilo para indicar que se copió la dirección
+  alert('Dirección copiada al portapapeles: ' + address);
+}
+
 
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
