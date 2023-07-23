@@ -233,7 +233,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
   transition: transform 0.3s; /* Agrega una transición suave para el cambio de tamaño */
 
