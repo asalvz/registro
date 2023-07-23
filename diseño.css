@@ -10,7 +10,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  z-index: -1; /* Agregar un z-index para colocar el fondo detrás del contenido */
+  z-index: -3; /* Agregar un z-index para colocar el fondo detrás del contenido */
 }
 .container1 {
   transform: scaleX(1.11);
@@ -90,7 +90,7 @@ body {
   width: 100%;
   top: 0;
   left: 0px;
-  z-index: -1; /* Agregar un z-index para colocar el fondo detrás del contenido */
+  z-index: -3; /* Agregar un z-index para colocar el fondo detrás del contenido */
 
 
 }
