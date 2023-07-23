@@ -149,18 +149,7 @@ body {
   --color-5: #f9002f;
 }
 
-.wrapper {
-  background: rgba(0, 0.5, 0, 0); /* Utilizamos rgba en lugar de #000 para darle transparencia */
-  line-height: 1;
-  min-height: 50%;
-  display: grid;
-  place-items: center;
-  min-height: calc(50vh - 26px);
-  padding: 50px;
 
-
- 
-}
 
 
 h1 {
