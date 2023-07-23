@@ -243,24 +243,28 @@ h1 {
   }
 
 .title {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
   text-transform: uppercase;
   text-align: center;
-  padding: 5px 15px;
-  border-radius: 10px;
+  padding: 15px 30px;
+  border-radius: 50px; /* Un valor mayor para hacerlo más redondeado */
+  background-color: #ff0066; /* Color de fondo */
+  color: #ffffff; /* Color del texto en blanco para mayor contraste */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border: 2px solid #00a9e0;
   animation: rainbow 5s linear infinite; /* Aplicar la animación al título */
 }
+
 @keyframes rainbow {
-  0% { color: #00a9e0; }
-  25% { color: #ff0066; }
-  50% { color: #ffcc00; }
-  75% { color: #00ff99; }
-  100% { color: #00a9e0; }
+  0% { background-color: #ff0066; }
+  25% { background-color: #ffcc00; }
+  50% { background-color: #00ff99; }
+  75% { background-color: #00a9e0; }
+  100% { background-color: #ff0066; }
 }
+
 
 
 .chicken h2 {
