@@ -170,20 +170,22 @@ function generateReferralLink() {
   // Generar el enlace de referido con la dirección como parámetro
   const referralLink = `https://tusitio.com/registro?ref=${address}`;
 
-  // Mostrar el enlace generado en un cuadro de diálogo
-  alert('Enlace de referido generado: ' + referralLink);
+  // Mostrar el enlace generado en el elemento HTML
+  const linkElement = document.getElementById('link');
+  linkElement.textContent = referralLink;
 
-  // Copiar la dirección al portapapeles
+  // Copiar el enlace al portapapeles
   const tempTextArea = document.createElement('textarea');
-  tempTextArea.value = address;
+  tempTextArea.value = referralLink;
   document.body.appendChild(tempTextArea);
   tempTextArea.select();
   document.execCommand('copy');
   document.body.removeChild(tempTextArea);
 
-  // Mostrar un mensaje para indicar que se copió la dirección
-  alert('Dirección de Metamask copiada al portapapeles: ' + address);
+  // Mostrar un mensaje para indicar que se copió el enlace
+  alert('Enlace de referido copiado al portapapeles: ' + referralLink);
 }
+
 
 
 
