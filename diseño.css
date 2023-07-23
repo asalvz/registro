@@ -13,7 +13,9 @@ body {
   z-index: -3; /* Agregar un z-index para colocar el fondo detrás del contenido */
 }
 .container1 {
+  position: relative; /* Agregar posición relative */
   transform: scaleX(1.11);
+  z-index: -2; /* Z-index para colocar este fondo detrás del contenido */
 }
 .container2 {
   transform: scaleX(1.25);
