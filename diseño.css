@@ -365,3 +365,54 @@ h1 {
   margin: 5px 0;
   border-radius: 5px;
 }
+
+
+/* Contenedor de profitability */
+#profitability {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+#profitability h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333333;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Párrafos de información */
+#profitability p {
+  color: #666666;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+/* Animación de resaltado */
+@keyframes highlight {
+  0%, 100% {
+    background-color: #f8f8f8;
+  }
+  50% {
+    background-color: #ffd700;
+  }
+}
+
+/* Animación de rebote */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Aplicar animaciones al contenedor */
+#profitability {
+  animation: highlight 2s ease infinite, bounce 1s ease infinite;
+}
