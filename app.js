@@ -210,10 +210,6 @@ function generateReferralLink() {
   alert('Enlace de referido copiado al portapapeles: ' + referralLink);
 }
 
-
- 
-
-
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
   // Agregar evento click al botón para conectar a MetaMask
