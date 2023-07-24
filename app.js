@@ -9,7 +9,6 @@ if (typeof window.ethereum !== 'undefined') {
   console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
 }
 
-// Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
 async function connectToMetaMask() {
   try {
     // Solicitar al usuario que conecte su billetera MetaMask
@@ -17,7 +16,7 @@ async function connectToMetaMask() {
 
     // Obtener la dirección del usuario conectado
     const accounts = await web3.eth.getAccounts();
-    const userAddress = accounts[0];
+    userAddress = accounts[0]; // Quitamos la palabra clave 'const'
     console.log('Dirección del usuario:', userAddress);
 
     // Obtener el saldo del usuario conectado en BNB
@@ -32,8 +31,8 @@ async function connectToMetaMask() {
   } catch (error) {
     console.error('Error al conectarse a MetaMask:', error);
   }
- 
 }
+
 
 // Función para obtener el saldo del usuario en BNB
 async function getBalance(address) {
