@@ -164,11 +164,13 @@ document.body.addEventListener('mouseenter', function (e) {
 });
 // Función para generar el enlace de referido y copiar la dirección al portapapeles
 function generateReferralLink() {
-  const addressElement = document.getElementById('address');
-  const address = addressElement.textContent;
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
 
   // Generar el enlace de referido con la dirección como parámetro
-  const referralLink = `https://tusitio.com/registro?ref=${address}`;
+  const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
 
   // Mostrar el enlace generado en el elemento HTML
   const linkElement = document.getElementById('link');
@@ -185,8 +187,6 @@ function generateReferralLink() {
   // Mostrar un mensaje para indicar que se copió el enlace
   alert('Enlace de referido copiado al portapapeles: ' + referralLink);
 }
-
-
 
 
 // Conexión con MetaMask y eventos
