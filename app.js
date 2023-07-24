@@ -32,24 +32,7 @@ async function connectToMetaMask() {
   } catch (error) {
     console.error('Error al conectarse a MetaMask:', error);
   }
-   // Generar el enlace de referido con la dirección como parámetro
-  const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
-
-  // Mostrar el enlace generado en el elemento HTML
-  const linkElement = document.getElementById('link');
-  linkElement.textContent = referralLink;
-
-  // Copiar el enlace al portapapeles
-  const tempTextArea = document.createElement('textarea');
-  tempTextArea.value = referralLink;
-  document.body.appendChild(tempTextArea);
-  tempTextArea.select();
-  document.execCommand('copy');
-  document.body.removeChild(tempTextArea);
-
-  // Mostrar un mensaje para indicar que se copió el enlace
-  alert('Enlace de referido copiado al portapapeles: ' + referralLink);
-}
+ 
 }
 
 // Función para obtener el saldo del usuario en BNB
@@ -181,6 +164,51 @@ document.body.addEventListener('mouseenter', function (e) {
         }, 500);
     });
 });
+
+// Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
+async function connectToMetaMask() {
+  try {
+    // Solicitar al usuario que conecte su billetera MetaMask
+    await window.ethereum.enable();
+
+    // Obtener la dirección del usuario conectado
+    const accounts = await web3.eth.getAccounts();
+    userAddress = accounts[0];
+    console.log('Dirección del usuario:', userAddress);
+
+    // Mostrar la dirección en la página HTML
+    const addressElement = document.getElementById('address');
+    addressElement.textContent = userAddress;
+  } catch (error) {
+    console.error('Error al conectarse a MetaMask:', error);
+  }
+}
+
+// Función para generar el enlace de referido y copiar la dirección al portapapeles
+function generateReferralLink() {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  // Generar el enlace de referido con la dirección como parámetro
+  const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
+
+  // Mostrar el enlace generado en el elemento HTML
+  const linkElement = document.getElementById('link');
+  linkElement.textContent = referralLink;
+
+  // Copiar el enlace al portapapeles
+  const tempTextArea = document.createElement('textarea');
+  tempTextArea.value = referralLink;
+  document.body.appendChild(tempTextArea);
+  tempTextArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(tempTextArea);
+
+  // Mostrar un mensaje para indicar que se copió el enlace
+  alert('Enlace de referido copiado al portapapeles: ' + referralLink);
+}
 
 
  
