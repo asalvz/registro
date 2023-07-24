@@ -15,17 +15,13 @@
   <button id="connect-button" style="padding: 7px 15px; background: linear-gradient(to bottom, #ff9933, #ff6600); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Login Wallet</button>
   
   <ul style="list-style-type: none; padding: 0; margin: 0;">
-    <li style="color: #ffffff; font-size: 11px; margin: 0; padding: 1px 0;">Address: <span id="user-address" class="highlight"></span></li>
+    <li style="color: #ffffff; font-size: 11px; margin: 0; padding: 1px 0;">Address: <span id="user-address" id="address" class="highlight"></span></li>
     <li style="color: #ffffff; font-size: 11px; margin: 0; padding: 1px 0;">Available: <span id="user-balance" class="highlight"></span></li>
-    <li style="color: #ffffff; font-size: 11px; margin: 0; padding: 1px 0;">Update: <span id="user-progress" class="highlight"></span></li>
+    <li style="color: #ffffff; font-size: 11px; margin: 0; padding: 1px 0;">Refer <span id="referral-link" id="link" class="highlight"></span></li>
 
 
   </ul>
-<!-- Agregar un elemento para mostrar la dirección de Metamask -->
-<p id="user-address">Dirección de Metamask: <span id="address"></span></p>
 
-<!-- Agregar un elemento para mostrar el enlace de referido -->
-<p id="referral-link">Enlace de referido: <span id="link"></span></p>
 
 <!-- Agregar un botón para generar el enlace de referido y copiar dirección -->
 <button id="generate-referral-button" onclick="generateReferralLink()">Generar enlace de referido y copiar dirección</button>
