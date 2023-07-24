@@ -72,22 +72,7 @@ function updateChickenSlotUI() {
   });
 }
 
-// Función para actualizar el estado del botón "Alquilar" y su evento click
-function updateRentButton() {
-  const rentButton = document.getElementById('rent-button');
-  rentButton.innerHTML = '';
 
-  if (selectedChickens.length > 0) {
-    const button = document.createElement('button');
-    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
-    button.onclick = rentChickens;
-    rentButton.appendChild(button);
-  } else {
-    const info = document.createElement('p');
-    info.textContent = 'Selecciona al menos una gallina para alquilar.';
-    rentButton.appendChild(info);
-  }
-}
 
 // Función para actualizar el estado del botón "Alquilar" y su evento click
 function updateRentButton() {
@@ -165,24 +150,7 @@ document.body.addEventListener('mouseenter', function (e) {
     });
 });
 
-// Función para conectarse a MetaMask, obtener la dirección y saldo del usuario
-async function connectToMetaMask() {
-  try {
-    // Solicitar al usuario que conecte su billetera MetaMask
-    await window.ethereum.enable();
 
-    // Obtener la dirección del usuario conectado
-    const accounts = await web3.eth.getAccounts();
-    userAddress = accounts[0];
-    console.log('Dirección del usuario:', userAddress);
-
-    // Mostrar la dirección en la página HTML
-    const addressElement = document.getElementById('address');
-    addressElement.textContent = userAddress;
-  } catch (error) {
-    console.error('Error al conectarse a MetaMask:', error);
-  }
-}
 
 // Función para generar el enlace de referido y copiar la dirección al portapapeles
 function generateReferralLink() {
