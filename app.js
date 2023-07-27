@@ -176,6 +176,23 @@ function generateReferralLink() {
   // Mostrar un mensaje para indicar que se copió el enlace
   alert('Enlace de referido copiado al portapapeles: ' + referralLink);
 }
+// Función para mostrar el banner una vez cargada la página
+$(document).ready(function() {
+    // Ocultar el banner al inicio
+    $("#banner-dialog").hide();
+
+    // Comprobar si todos los elementos de la página están cargados
+    $(window).on("load", function() {
+        // Mostrar el banner una vez que todo esté cargado
+        $("#banner-dialog").fadeIn();
+    });
+});
+
+// Función para cerrar el banner al hacer clic en el botón "Cerrar"
+$("#close-btn").click(function() {
+    $("#banner-dialog").fadeOut();
+});
+
 
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
