@@ -462,3 +462,25 @@ h1 {
 #referral-link span:hover {
   color: #0056b3; /* Azul oscuro (cambiar según tus preferencias) */
 }
+#banner-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+}
+
+.banner-content img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
