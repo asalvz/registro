@@ -331,6 +331,17 @@ h1 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     display: none;
+    border-radius: 10px;
+}
+.slot-overlay input {
+    width: 80px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .chicken-count {
@@ -338,11 +349,9 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
     display: none;
 }
+
 
 
 .chicken-slot.selected {
