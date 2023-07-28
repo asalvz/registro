@@ -42,6 +42,30 @@ async function getBalance(address) {
 }
 let selectedChickens = [];
 
+// Función para agregar una gallina
+function addChicken(button) {
+    const chickenCard = button.parentNode;
+    const chickenId = chickenCard.getAttribute("data-id");
+    let count = selectedChickenCounts[chickenId] || 0;
+  
+    if (count < 60) {
+        count++;
+        selectedChickenCounts[chickenId] = count;
+        updateChickenCard(chickenCard, count);
+    }
+}
+
+// Función para actualizar la visualización de la carta de gallina
+function updateChickenCard(chickenCard, count) {
+    const addButton = chickenCard.querySelector(".add-chicken-button");
+    const selectButton = chickenCard.querySelector("button");
+  
+    // Mostrar la cantidad y habilitar/deshabilitar el botón "Select" según corresponda
+    addButton.textContent = count === 0 ? "+" : count;
+    selectButton.disabled = count === 0;
+}
+
+// Función para manejar la selección de la gallina
 function selectChicken(chickenCard) {
     const chickenId = chickenCard.getAttribute("data-id");
     let count = selectedChickenCounts[chickenId] || 0;
@@ -49,34 +73,28 @@ function selectChicken(chickenCard) {
     if (count < 60) {
         count++;
         selectedChickenCounts[chickenId] = count;
+        updateChickenCard(chickenCard, count);
     }
-
-    updateChickenCard(chickenCard, count);
 }
 
-
-// Función para colocar las gallinas seleccionadas en las ranuras inferiores
-function updateChickenSlotUI() {
-  const chickenSlots = document.querySelectorAll('.chicken-slot');
-  chickenSlots.forEach((slot, index) => {
-    const chickenId = selectedChickens[index];
-    const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-
-    if (chickenId) {
-      slot.innerHTML = chicken.outerHTML;
-    } else {
-      slot.innerHTML = '';
-    }
-  });
-}
+// Función para manejar el clic del botón "Select"
 function selectChickenSlot(slotNumber) {
     var slot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
     var overlay = slot.querySelector('.slot-overlay');
 
-    overlay.style.display = 'flex';
-    overlay.querySelector('input').focus();
+    if (!overlay.style.display || overlay.style.display === 'none') {
+        overlay.style.display = 'flex';
+        overlay.querySelector('input').focus();
+    } else {
+        overlay.style.display = 'none';
+        slot.dataset.chickenId = '';
+        selectedChickens[slotNumber - 1] = undefined;
+        updateChickenSlotUI();
+        updateRentButton();
+    }
 }
 
+// Función para actualizar el array "selectedChickens" y la visualización de las ranuras de las gallinas
 function updateChickenCount(input) {
     var slot = input.closest('.chicken-slot');
     var chickenCount = slot.querySelector('.chicken-count');
@@ -86,10 +104,14 @@ function updateChickenCount(input) {
         chickenCount.textContent = numberOfChickens;
         chickenCount.style.display = 'block';
         slot.dataset.chickenId = numberOfChickens;
+        selectedChickens[slot.dataset.index] = slot.dataset.chickenId;
     } else {
         chickenCount.style.display = 'none';
         slot.dataset.chickenId = '';
+        selectedChickens[slot.dataset.index] = undefined;
     }
+
+    updateRentButton();
 }
 
 
