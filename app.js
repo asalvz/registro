@@ -55,23 +55,7 @@ function selectChicken(chickenElement) {
   updateChickenSlotUI();
   updateRentButton();
 }
-function selectChickenSlot(slotNumber) {
-    var slot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
-    var overlay = slot.querySelector('.slot-overlay');
-    var chickenCount = slot.querySelector('.chicken-count');
 
-    // Ask user for the number of chickens to rent (using prompt)
-    var numberOfChickens = parseInt(prompt('Enter the number of chickens to rent (maximum 99):'));
-
-    // Validate the user input
-    if (!isNaN(numberOfChickens) && numberOfChickens > 0 && numberOfChickens <= 99) {
-        overlay.style.display = 'block';
-        chickenCount.textContent = numberOfChickens;
-        chickenCount.style.display = 'block';
-    } else {
-        alert('Please enter a valid number between 1 and 99.');
-    }
-}
 
 // Función para colocar las gallinas seleccionadas en las ranuras inferiores
 function updateChickenSlotUI() {
@@ -87,6 +71,29 @@ function updateChickenSlotUI() {
     }
   });
 }
+function selectChickenSlot(slotNumber) {
+    var slot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
+    var overlay = slot.querySelector('.slot-overlay');
+
+    overlay.style.display = 'flex';
+    overlay.querySelector('input').focus();
+}
+
+function updateChickenCount(input) {
+    var slot = input.closest('.chicken-slot');
+    var chickenCount = slot.querySelector('.chicken-count');
+
+    var numberOfChickens = parseInt(input.value);
+    if (!isNaN(numberOfChickens) && numberOfChickens > 0 && numberOfChickens <= 99) {
+        chickenCount.textContent = numberOfChickens;
+        chickenCount.style.display = 'block';
+        slot.dataset.chickenId = numberOfChickens;
+    } else {
+        chickenCount.style.display = 'none';
+        slot.dataset.chickenId = '';
+    }
+}
+
 
 
 
