@@ -57,20 +57,8 @@ function selectChicken(chickenElement) {
 }
 
 
-// Función para colocar las gallinas seleccionadas en las ranuras inferiores
-function updateChickenSlotUI() {
-  const chickenSlots = document.querySelectorAll('.chicken-slot');
-  chickenSlots.forEach((slot, index) => {
-    const chickenId = selectedChickens[index];
-    const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+let selectedChickens = [];
 
-    if (chickenId) {
-      slot.innerHTML = chicken.outerHTML;
-    } else {
-      slot.innerHTML = '';
-    }
-  });
-}
 function selectChickenSlot(slotNumber) {
     const slot = document.querySelector(`.chicken-slot:nth-child(${slotNumber})`);
     const overlay = slot.querySelector('.slot-overlay');
@@ -84,15 +72,14 @@ function updateChickenCount(input) {
     const numberOfChickens = parseInt(input.value);
 
     if (!isNaN(numberOfChickens) && numberOfChickens >= 1 && numberOfChickens <= 99) {
+        slot.dataset.chickenId = numberOfChickens;
         chickenCount.textContent = `Alquilar ${numberOfChickens} gallina(s)`;
         chickenCount.style.display = 'block';
-        slot.dataset.chickenId = numberOfChickens;
     } else {
-        chickenCount.style.display = 'none';
         slot.dataset.chickenId = '';
+        chickenCount.style.display = 'none';
     }
 }
-
 
 
 
