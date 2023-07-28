@@ -72,20 +72,19 @@ function updateChickenSlotUI() {
   });
 }
 function selectChickenSlot(slotNumber) {
-    var slot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
-    var overlay = slot.querySelector('.slot-overlay');
-
+    const slot = document.querySelector(`.chicken-slot:nth-child(${slotNumber})`);
+    const overlay = slot.querySelector('.slot-overlay');
     overlay.style.display = 'flex';
     overlay.querySelector('input').focus();
 }
 
 function updateChickenCount(input) {
-    var slot = input.closest('.chicken-slot');
-    var chickenCount = slot.querySelector('.chicken-count');
+    const slot = input.closest('.chicken-slot');
+    const chickenCount = slot.querySelector('.chicken-count');
+    const numberOfChickens = parseInt(input.value);
 
-    var numberOfChickens = parseInt(input.value);
-    if (!isNaN(numberOfChickens) && numberOfChickens > 0 && numberOfChickens <= 99) {
-        chickenCount.textContent = numberOfChickens;
+    if (!isNaN(numberOfChickens) && numberOfChickens >= 1 && numberOfChickens <= 99) {
+        chickenCount.textContent = `Alquilar ${numberOfChickens} gallina(s)`;
         chickenCount.style.display = 'block';
         slot.dataset.chickenId = numberOfChickens;
     } else {
