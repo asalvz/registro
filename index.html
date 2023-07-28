@@ -150,14 +150,24 @@
   </div>
    <div class="title">PROOF OF WORK</div>
    
- <div id="selected-chickens">
-    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(1)"></div>
-    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(2)"></div>
-    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(3)"></div>
-  </div>
-  <div id="rent-button">
-    <button onclick="rentChickens()">Work </button>
-  </div>
+<div id="selected-chickens">
+    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(1)">
+        <span class="slot-overlay"></span>
+        <span class="chicken-count"></span>
+    </div>
+    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(2)">
+        <span class="slot-overlay"></span>
+        <span class="chicken-count"></span>
+    </div>
+    <div class="chicken-slot" data-chicken-id="" onclick="selectChickenSlot(3)">
+        <span class="slot-overlay"></span>
+        <span class="chicken-count"></span>
+    </div>
+</div>
+<div id="rent-button">
+    <button onclick="rentChickens()">Work</button>
+</div>
+
 
 
 
