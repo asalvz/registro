@@ -57,29 +57,43 @@ function selectChicken(chickenElement) {
 }
 
 
-let selectedChickens = [];
+// Función para colocar las gallinas seleccionadas en las ranuras inferiores
+function updateChickenSlotUI() {
+  const chickenSlots = document.querySelectorAll('.chicken-slot');
+  chickenSlots.forEach((slot, index) => {
+    const chickenId = selectedChickens[index];
+    const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
 
+    if (chickenId) {
+      slot.innerHTML = chicken.outerHTML;
+    } else {
+      slot.innerHTML = '';
+    }
+  });
+}
 function selectChickenSlot(slotNumber) {
-    const slot = document.querySelector(`.chicken-slot:nth-child(${slotNumber})`);
-    const overlay = slot.querySelector('.slot-overlay');
+    var slot = document.querySelector('.chicken-slot:nth-child(' + slotNumber + ')');
+    var overlay = slot.querySelector('.slot-overlay');
+
     overlay.style.display = 'flex';
     overlay.querySelector('input').focus();
 }
 
 function updateChickenCount(input) {
-    const slot = input.closest('.chicken-slot');
-    const chickenCount = slot.querySelector('.chicken-count');
-    const numberOfChickens = parseInt(input.value);
+    var slot = input.closest('.chicken-slot');
+    var chickenCount = slot.querySelector('.chicken-count');
 
-    if (!isNaN(numberOfChickens) && numberOfChickens >= 1 && numberOfChickens <= 99) {
-        slot.dataset.chickenId = numberOfChickens;
-        chickenCount.textContent = `Alquilar ${numberOfChickens} gallina(s)`;
+    var numberOfChickens = parseInt(input.value);
+    if (!isNaN(numberOfChickens) && numberOfChickens > 0 && numberOfChickens <= 99) {
+        chickenCount.textContent = numberOfChickens;
         chickenCount.style.display = 'block';
+        slot.dataset.chickenId = numberOfChickens;
     } else {
-        slot.dataset.chickenId = '';
         chickenCount.style.display = 'none';
+        slot.dataset.chickenId = '';
     }
 }
+
 
 
 
