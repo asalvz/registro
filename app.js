@@ -145,22 +145,7 @@ function updateChickenSlotUI() {
 
 
 
-// Función para actualizar el estado del botón "Alquilar" y su evento click
-function updateRentButton() {
-  const rentButton = document.getElementById('rent-button');
-  rentButton.innerHTML = '';
 
-  if (selectedChickens.length > 0) {
-    const button = document.createElement('button');
-    button.textContent = 'ALQUILAR (' + selectedChickens.length + ')';
-    button.onclick = rentChickens;
-    rentButton.appendChild(button);
-  } else {
-    const info = document.createElement('p');
-    info.textContent = 'Selecciona al menos una gallina para alquilar.';
-    rentButton.appendChild(info);
-  }
-}
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
