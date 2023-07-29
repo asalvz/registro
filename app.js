@@ -88,8 +88,8 @@ function selectChickenSlot(slotNumber) {
     } else {
         overlay.style.display = 'none';
         slot.dataset.chickenId = '';
+        slot.querySelector('.chicken-count').style.display = 'none';
         selectedChickens[slotNumber - 1] = undefined;
-        updateChickenSlotUI();
         updateRentButton();
     }
 }
@@ -104,14 +104,42 @@ function updateChickenCount(input) {
         chickenCount.textContent = numberOfChickens;
         chickenCount.style.display = 'block';
         slot.dataset.chickenId = numberOfChickens;
-        selectedChickens[slot.dataset.index] = slot.dataset.chickenId;
+        selectedChickens[slot.dataset.index] = {
+            chickenId: slot.dataset.id,
+            count: numberOfChickens
+        };
     } else {
         chickenCount.style.display = 'none';
         slot.dataset.chickenId = '';
+        slot.querySelector('.chicken-count').style.display = 'none';
         selectedChickens[slot.dataset.index] = undefined;
     }
 
     updateRentButton();
+}
+
+// Función para colocar las gallinas seleccionadas en las ranuras inferiores
+function updateChickenSlotUI() {
+    const chickenSlots = document.querySelectorAll('.chicken-slot');
+    chickenSlots.forEach((slot, index) => {
+        const selectedChickenData = selectedChickens[index];
+
+        if (selectedChickenData) {
+            const chickenId = selectedChickenData.chickenId;
+            const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+            const count = selectedChickenData.count;
+
+            if (chicken) {
+                slot.innerHTML = chicken.outerHTML;
+                const chickenCount = slot.querySelector('.chicken-count');
+                chickenCount.textContent = count;
+                chickenCount.style.display = 'block';
+                slot.dataset.chickenId = count;
+            }
+        } else {
+            slot.innerHTML = '';
+        }
+    });
 }
 
 
