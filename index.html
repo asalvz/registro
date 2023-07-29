@@ -66,10 +66,9 @@
 
   </p>
 </div>
-         <button class="add-chicken-button" onclick="addChicken(this)">+</button>
-  <button class="remove-chicken-button" onclick="removeChicken(this)">-</button>
+      <button class="add-chicken-button" onclick="changeChickenCount(this, 1)">+</button>
+  <button class="remove-chicken-button" onclick="changeChickenCount(this, -1)">-</button>
 </div>
-
       <button onclick="buyChicken(1)">Select</button>
     </div>
     <div class="chicken" data-id="2" onclick="selectChicken(this)">
