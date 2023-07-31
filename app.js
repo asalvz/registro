@@ -43,15 +43,6 @@ async function getBalance(address) {
 }
 
 
-// Función para agregar una tarjeta al slot inferior
-function addToSlot(card, count) {
-  const slot = document.getElementById('selected-chickens');
-  for (let i = 0; i < count; i++) {
-    const clone = card.cloneNode(true);
-    slot.appendChild(clone);
-  }
-}
-
 // Función para manejar los botones + y - en cada tarjeta
 function handleCountButtonClick(card, increment) {
   let count = parseInt(card.dataset.count) || 1;
@@ -68,6 +59,27 @@ function handleCountButtonClick(card, increment) {
 
   card.dataset.count = count;
   updateCounter(card, count);
+}
+
+// Función para actualizar el número de cada tarjeta
+function updateCounter(card, count) {
+  const chickenCount = card.querySelector('.chicken-count');
+  chickenCount.textContent = count;
+}
+
+// Función para seleccionar un slot vacío y agregar la tarjeta
+function selectChickenSlot(chickenCard) {
+  const slots = document.querySelectorAll('.chicken-slot');
+  for (const slot of slots) {
+    if (!slot.dataset.chickenId) {
+      const chickenId = chickenCard.dataset.id;
+      slot.dataset.chickenId = chickenId;
+      const count = parseInt(chickenCard.dataset.count) || 1;
+      slot.dataset.count = count;
+      updateCounter(slot, count);
+      break;
+    }
+  }
 }
 
 // Agregar los event listeners después de cargar el DOM
@@ -91,11 +103,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     selectBtn.addEventListener('click', () => {
       const count = parseInt(card.dataset.count) || 1;
-      addToSlot(card, count);
+      card.dataset.count = count;
+      selectChickenSlot(card);
+    });
+  });
+
+  // Agregar event listeners para los slots inferiores
+  const slots = document.querySelectorAll('.chicken-slot');
+  slots.forEach((slot) => {
+    slot.addEventListener('click', () => {
+      slot.dataset.chickenId = '';
+      slot.dataset.count = 0;
+      updateCounter(slot, 0);
     });
   });
 });
-
 
 
 
