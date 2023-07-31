@@ -42,7 +42,7 @@ async function getBalance(address) {
 }
 
 
-let selectedChickenCounts = {};
+
 let selectedChickens = [];
 // Función para agregar una gallina al contador
 function addChicken(button) {
