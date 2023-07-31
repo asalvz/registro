@@ -93,6 +93,7 @@ function selectChickenSlot(slotNumber) {
 }
 
 
+// Función para colocar las gallinas seleccionadas en las ranuras inferiores
 function updateChickenSlotUI() {
   const chickenSlots = document.querySelectorAll(".chicken-slot");
   chickenSlots.forEach((slot, index) => {
@@ -108,26 +109,22 @@ function updateChickenSlotUI() {
         const chickenCount = slot.querySelector(".chicken-count");
         chickenCount.textContent = count;
         chickenCount.style.display = "block";
-        slot.dataset.chickenId = count;
-        slot.dataset.id = chickenId;
-        slot.dataset.index = index;
+        slot.dataset.chickenId = chickenId;
       }
     } else {
-      slot.innerHTML = ""; // Limpiar la ranura si no hay gallina seleccionada
+      slot.innerHTML = "";
     }
   });
 }
-// Función para cambiar la cantidad de gallinas
-function changeChickenCount(button, change) {
-  const chickenCard = button.closest(".chicken");
-  const chickenId = chickenCard.getAttribute("data-id");
-  let count = selectedChickenCounts[chickenId] || 0;
+function updateChickenCount(input) {
+  const slot = input.closest(".chicken-slot");
+  const index = parseInt(slot.dataset.index);
+  const count = parseInt(input.value);
 
-  // Asegurarse de que el número no sea negativo o mayor a 60
-  count = Math.max(0, Math.min(60, count + change));
-  selectedChickenCounts[chickenId] = count;
-
-  updateChickenCard(chickenCard, count);
+  if (!isNaN(index) && !isNaN(count)) {
+    selectedChickens[index].count = count;
+    updateRentButton();
+  }
 }
 // Función para actualizar la tarjeta de la gallina con la cantidad
 function updateChickenCard(chickenCard, count) {
