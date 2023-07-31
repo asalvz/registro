@@ -43,6 +43,8 @@ async function getBalance(address) {
 }
 
 
+
+
 // Función para manejar los botones + y - en cada tarjeta
 function handleCountButtonClick(card, increment) {
   let count = parseInt(card.dataset.count) || 1;
@@ -83,6 +85,13 @@ function selectChicken(chickenCard) {
   }
 }
 
+// Función para deseleccionar una tarjeta de un slot
+function deselectChickenSlot(slot) {
+  slot.dataset.chickenId = '';
+  slot.dataset.count = 0;
+  updateCounter(slot, 0);
+}
+
 // Agregar los event listeners después de cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   // Obtener todas las tarjetas
@@ -112,11 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const slots = document.querySelectorAll('.chicken-slot');
   slots.forEach((slot) => {
     slot.addEventListener('click', () => {
-      slot.dataset.chickenId = '';
-      slot.dataset.count = 0;
-      updateCounter(slot, 0);
+      deselectChickenSlot(slot);
     });
   });
+
+  // Función para alquilar gallinas (debes definir esta función)
+  function rentChickens() {
+    // Implementa tu lógica para alquilar gallinas aquí
+  }
+
+  // Función para comprar gallinas (debes definir esta función)
+  function buyChicken(chickenId) {
+    // Implementa tu lógica para comprar gallinas aquí
+  }
 });
 
 
