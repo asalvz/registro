@@ -67,9 +67,10 @@ function updateCounter(card, count) {
   chickenCount.textContent = count;
 }
 
-// Función para seleccionar un slot vacío y agregar la tarjeta
-function selectChickenSlot(chickenCard) {
+// Función para seleccionar una tarjeta y agregarla a un slot vacío
+function selectChicken(chickenCard) {
   const slots = document.querySelectorAll('.chicken-slot');
+
   for (const slot of slots) {
     if (!slot.dataset.chickenId) {
       const chickenId = chickenCard.dataset.id;
@@ -103,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', () => {
       const count = parseInt(card.dataset.count) || 1;
       card.dataset.count = count;
-      selectChickenSlot(card);
+      selectChicken(card);
     });
   });
 
@@ -117,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
 
 
 
