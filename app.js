@@ -43,119 +43,70 @@ async function getBalance(address) {
 }
 
 
-
-
-// Función para agregar una gallina al contador
-    function addChicken(button) {
-      const chickenCard = button.parentNode;
-      const chickenId = chickenCard.getAttribute("data-id");
-      let count = selectedChickenCounts[chickenId] || 0;
-
-      if (count < 60) {
-        count++;
-        selectedChickenCounts[chickenId] = count;
-      }
-
-      updateChickenCard(chickenCard, count);
-      updateRentButton();
-    }
-
-    // Function to remove a chicken from the counter
-    function removeChicken(button) {
-      const chickenCard = button.parentNode;
-      const chickenId = chickenCard.getAttribute("data-id");
-      let count = selectedChickenCounts[chickenId] || 0;
-
-      if (count > 0) {
-        count--;
-        selectedChickenCounts[chickenId] = count;
-      }
-
-      updateChickenCard(chickenCard, count);
-      updateRentButton();
-    }
- // Function to select a chicken slot
-    function selectChickenSlot(slotNumber) {
-      const slot = document.querySelector(".chicken-slot:nth-child(" + slotNumber + ")");
-      const overlay = slot.querySelector(".slot-overlay");
-
-      if (slot.innerHTML === "") {
-        overlay.style.display = "flex";
-        overlay.querySelector("input").focus();
-      } else {
-        const chickenCard = overlay.querySelector(".chicken");
-        if (chickenCard) {
-          const chickenId = chickenCard.getAttribute("data-id");
-          const count = parseInt(overlay.querySelector(".chicken-count").textContent);
-          selectedChickens[slotNumber - 1] = { chickenId, count };
-          updateChickenSlotUI();
-          updateRentButton();
-          overlay.style.display = "none";
-        }
-      }
-    }
-
-
-
-    // Function to update the chicken slot display
-    function updateChickenSlotUI() {
-      const chickenSlots = document.querySelectorAll(".chicken-slot");
-      chickenSlots.forEach((slot, index) => {
-        const selectedChickenData = selectedChickens[index];
-
-        if (selectedChickenData) {
-          const chickenId = selectedChickenData.chickenId;
-          const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-          const count = selectedChickenData.count;
-
-          if (chicken) {
-            slot.innerHTML = chicken.outerHTML;
-            const chickenCount = slot.querySelector(".chicken-count");
-            chickenCount.textContent = count;
-            chickenCount.style.display = "block";
-            slot.dataset.chickenId = chickenId;
-          }
-        } else {
-          slot.innerHTML = "";
-        }
-      });
-    }
-
-function updateChickenCount(input) {
-  const slot = input.closest(".chicken-slot");
-  const index = parseInt(slot.dataset.index);
-  const count = parseInt(input.value);
-
-  if (!isNaN(index) && !isNaN(count)) {
-    selectedChickens[index].count = count;
-    updateRentButton();
-  }
+// Función para actualizar el contador en la tarjeta
+function updateCounter(card, count) {
+  const counter = card.querySelector('.counter');
+  counter.textContent = count;
 }
- function updateChickenCard(chickenCard, count) {
-      const addButton = chickenCard.querySelector(".add-chicken-button");
-      const removeButton = chickenCard.querySelector(".remove-chicken-button");
 
-      // Display the count and enable/disable the buttons accordingly
-      addButton.textContent = count === 0 ? "+" : count;
-      removeButton.disabled = count === 0;
+// Función para manejar los botones + y - en cada tarjeta
+function handleCountButtonClick(card, increment) {
+  let count = parseInt(card.dataset.count) || 1;
+
+  if (increment) {
+    if (count < 12) {
+      count++;
     }
-// Function to update the rent button
-    function updateRentButton() {
-      const rentButton = document.getElementById("rent-button");
-      if (rentButton) {
-        // Check if there are any selected chickens
-        const anySelected = selectedChickens.some((chickenData) => chickenData && chickenData.count > 0);
+  } else {
+    if (count > 1) {
+      count--;
+    }
+  }
 
-        if (anySelected) {
-          rentButton.disabled = false; // Enable the button if there are selected chickens
-          rentButton.textContent = "Alquilar"; // You can change the button text according to your needs
-        } else {
-          rentButton.disabled = true; // Disable the button if no chickens are selected
-          rentButton.textContent = "Selecciona gallinas"; // You can change the button text according to your needs
-        }
+  card.dataset.count = count;
+  updateCounter(card, count);
+}
+
+// Función para agregar una tarjeta al slot inferior
+function addToSlot(card) {
+  const slot = document.getElementById('selected-chickens');
+  const clone = card.cloneNode(true);
+
+  // Agregar el evento onclick para eliminar la tarjeta del slot
+  clone.addEventListener('click', () => {
+    slot.removeChild(clone);
+  });
+
+  slot.appendChild(clone);
+}
+
+// Agregar los event listeners después de cargar el DOM
+document.addEventListener('DOMContentLoaded', () => {
+  // Obtener todas las tarjetas
+  const cards = document.querySelectorAll('.card');
+
+  // Agregar event listeners para los botones + y -
+  cards.forEach((card) => {
+    const plusBtn = card.querySelector('.plus-btn');
+    const minusBtn = card.querySelector('.minus-btn');
+
+    plusBtn.addEventListener('click', () => {
+      handleCountButtonClick(card, true);
+    });
+
+    minusBtn.addEventListener('click', () => {
+      handleCountButtonClick(card, false);
+    });
+
+    const selectBtn = card.querySelector('.select-btn');
+    selectBtn.addEventListener('click', () => {
+      const count = parseInt(card.dataset.count) || 1;
+      for (let i = 0; i < count; i++) {
+        addToSlot(card);
       }
-    }
-
+    });
+  });
+});
 
 
 
