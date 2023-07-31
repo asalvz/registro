@@ -40,6 +40,10 @@ async function getBalance(address) {
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
+
+
+let selectedChickenCounts = {};
+let selectedChickens = [];
 // Función para agregar una gallina al contador
 function addChicken(button) {
   const chickenCard = button.closest(".chicken");
