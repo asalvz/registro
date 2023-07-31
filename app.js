@@ -130,6 +130,31 @@ function changeChickenCount(button, change) {
 
   updateChickenCard(chickenCard, count);
 }
+// Función para actualizar la tarjeta de la gallina con la cantidad
+function updateChickenCard(chickenCard, count) {
+  const chickenCountElement = chickenCard.querySelector(".chicken-count");
+  if (chickenCountElement) {
+    chickenCountElement.textContent = count;
+  }
+}
+
+// Función para actualizar el botón de alquiler
+function updateRentButton() {
+  const rentButton = document.getElementById("rent-button"); // Reemplaza "rent-button" con el ID de tu botón de alquiler
+  if (rentButton) {
+    // Verificar si hay gallinas seleccionadas
+    const anySelected = selectedChickens.some((chickenData) => chickenData && chickenData.count > 0);
+
+    if (anySelected) {
+      rentButton.disabled = false; // Habilitar el botón si hay gallinas seleccionadas
+      rentButton.textContent = "Alquilar"; // Puedes cambiar el texto del botón según tu necesidad
+    } else {
+      rentButton.disabled = true; // Deshabilitar el botón si no hay gallinas seleccionadas
+      rentButton.textContent = "Selecciona gallinas"; // Puedes cambiar el texto del botón según tu necesidad
+    }
+  }
+}
+
 
 
 
