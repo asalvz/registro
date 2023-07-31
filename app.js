@@ -45,7 +45,6 @@ async function getBalance(address) {
 
 
 
-// Función para manejar los botones + y - en cada tarjeta
 function handleCountButtonClick(card, increment) {
   let count = parseInt(card.dataset.count) || 1;
 
@@ -125,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
 
 
 const elems = document.querySelectorAll('.laya-please');
