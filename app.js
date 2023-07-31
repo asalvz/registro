@@ -1,5 +1,6 @@
 let web3;
 let userAddress;
+const selectedChickenCounts = {};
 
 
 // Comprobar si web3 está disponible en el navegador
@@ -43,78 +44,83 @@ async function getBalance(address) {
 
 
 
-let selectedChickens = [];
+
 // Función para agregar una gallina al contador
-function addChicken(button) {
-  const chickenCard = button.closest(".chicken");
-  const chickenId = chickenCard.getAttribute("data-id");
-  let count = selectedChickenCounts[chickenId] || 0;
-
-  if (count < 60) {
-    count++;
-    selectedChickenCounts[chickenId] = count;
-  }
-
-  updateChickenCard(chickenCard, count);
-}
-
-// Función para eliminar una gallina del contador
-function removeChicken(button) {
-  const chickenCard = button.closest(".chicken");
-  const chickenId = chickenCard.getAttribute("data-id");
-  let count = selectedChickenCounts[chickenId] || 0;
-
-  if (count > 0) {
-    count--;
-    selectedChickenCounts[chickenId] = count;
-  }
-
-  updateChickenCard(chickenCard, count);
-}
-
-function selectChickenSlot(slotNumber) {
-  const slot = document.querySelector(".chicken-slot:nth-child(" + slotNumber + ")");
-  const overlay = slot.querySelector(".slot-overlay");
-
-  if (slot.innerHTML === "") {
-    overlay.style.display = "flex";
-    overlay.querySelector("input").focus();
-  } else {
-    const chickenCard = overlay.querySelector(".chicken");
-    if (chickenCard) {
+    function addChicken(button) {
+      const chickenCard = button.parentNode;
       const chickenId = chickenCard.getAttribute("data-id");
-      const count = parseInt(overlay.querySelector(".chicken-count").textContent);
-      selectedChickens[slotNumber - 1] = { chickenId, count };
-      updateChickenSlotUI();
-      updateRentButton();
-      overlay.style.display = "none";
-    }
-  }
-}
+      let count = selectedChickenCounts[chickenId] || 0;
 
-// Función para colocar las gallinas seleccionadas en las ranuras inferiores
-function updateChickenSlotUI() {
-  const chickenSlots = document.querySelectorAll(".chicken-slot");
-  chickenSlots.forEach((slot, index) => {
-    const selectedChickenData = selectedChickens[index];
-
-    if (selectedChickenData) {
-      const chickenId = selectedChickenData.chickenId;
-      const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-      const count = selectedChickenData.count;
-
-      if (chicken) {
-        slot.innerHTML = chicken.outerHTML;
-        const chickenCount = slot.querySelector(".chicken-count");
-        chickenCount.textContent = count;
-        chickenCount.style.display = "block";
-        slot.dataset.chickenId = chickenId;
+      if (count < 60) {
+        count++;
+        selectedChickenCounts[chickenId] = count;
       }
-    } else {
-      slot.innerHTML = "";
+
+      updateChickenCard(chickenCard, count);
+      updateRentButton();
     }
-  });
-}
+
+    // Function to remove a chicken from the counter
+    function removeChicken(button) {
+      const chickenCard = button.parentNode;
+      const chickenId = chickenCard.getAttribute("data-id");
+      let count = selectedChickenCounts[chickenId] || 0;
+
+      if (count > 0) {
+        count--;
+        selectedChickenCounts[chickenId] = count;
+      }
+
+      updateChickenCard(chickenCard, count);
+      updateRentButton();
+    }
+ // Function to select a chicken slot
+    function selectChickenSlot(slotNumber) {
+      const slot = document.querySelector(".chicken-slot:nth-child(" + slotNumber + ")");
+      const overlay = slot.querySelector(".slot-overlay");
+
+      if (slot.innerHTML === "") {
+        overlay.style.display = "flex";
+        overlay.querySelector("input").focus();
+      } else {
+        const chickenCard = overlay.querySelector(".chicken");
+        if (chickenCard) {
+          const chickenId = chickenCard.getAttribute("data-id");
+          const count = parseInt(overlay.querySelector(".chicken-count").textContent);
+          selectedChickens[slotNumber - 1] = { chickenId, count };
+          updateChickenSlotUI();
+          updateRentButton();
+          overlay.style.display = "none";
+        }
+      }
+    }
+
+
+
+    // Function to update the chicken slot display
+    function updateChickenSlotUI() {
+      const chickenSlots = document.querySelectorAll(".chicken-slot");
+      chickenSlots.forEach((slot, index) => {
+        const selectedChickenData = selectedChickens[index];
+
+        if (selectedChickenData) {
+          const chickenId = selectedChickenData.chickenId;
+          const chicken = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+          const count = selectedChickenData.count;
+
+          if (chicken) {
+            slot.innerHTML = chicken.outerHTML;
+            const chickenCount = slot.querySelector(".chicken-count");
+            chickenCount.textContent = count;
+            chickenCount.style.display = "block";
+            slot.dataset.chickenId = chickenId;
+          }
+        } else {
+          slot.innerHTML = "";
+        }
+      });
+    }
+
 function updateChickenCount(input) {
   const slot = input.closest(".chicken-slot");
   const index = parseInt(slot.dataset.index);
@@ -125,31 +131,30 @@ function updateChickenCount(input) {
     updateRentButton();
   }
 }
-// Función para actualizar la tarjeta de la gallina con la cantidad
-function updateChickenCard(chickenCard, count) {
-  const chickenCountElement = chickenCard.querySelector(".chicken-count");
-  if (chickenCountElement) {
-    chickenCountElement.textContent = count;
-  }
-}
+ function updateChickenCard(chickenCard, count) {
+      const addButton = chickenCard.querySelector(".add-chicken-button");
+      const removeButton = chickenCard.querySelector(".remove-chicken-button");
 
-// Función para actualizar el botón de alquiler
-function updateRentButton() {
-  const rentButton = document.getElementById("rent-button"); // Reemplaza "rent-button" con el ID de tu botón de alquiler
-  if (rentButton) {
-    // Verificar si hay gallinas seleccionadas
-    const anySelected = selectedChickens.some((chickenData) => chickenData && chickenData.count > 0);
-
-    if (anySelected) {
-      rentButton.disabled = false; // Habilitar el botón si hay gallinas seleccionadas
-      rentButton.textContent = "Alquilar"; // Puedes cambiar el texto del botón según tu necesidad
-    } else {
-      rentButton.disabled = true; // Deshabilitar el botón si no hay gallinas seleccionadas
-      rentButton.textContent = "Selecciona gallinas"; // Puedes cambiar el texto del botón según tu necesidad
+      // Display the count and enable/disable the buttons accordingly
+      addButton.textContent = count === 0 ? "+" : count;
+      removeButton.disabled = count === 0;
     }
-  }
-}
+// Function to update the rent button
+    function updateRentButton() {
+      const rentButton = document.getElementById("rent-button");
+      if (rentButton) {
+        // Check if there are any selected chickens
+        const anySelected = selectedChickens.some((chickenData) => chickenData && chickenData.count > 0);
 
+        if (anySelected) {
+          rentButton.disabled = false; // Enable the button if there are selected chickens
+          rentButton.textContent = "Alquilar"; // You can change the button text according to your needs
+        } else {
+          rentButton.disabled = true; // Disable the button if no chickens are selected
+          rentButton.textContent = "Selecciona gallinas"; // You can change the button text according to your needs
+        }
+      }
+    }
 
 
 
