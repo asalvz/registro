@@ -40,9 +40,6 @@ async function getBalance(address) {
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
-let selectedChickenCounts = {};
-let selectedChickens = [];
-
 // Función para agregar una gallina al contador
 function addChicken(button) {
   const chickenCard = button.closest(".chicken");
@@ -91,6 +88,7 @@ function selectChickenSlot(slotNumber) {
   }
 }
 
+
 // Función para colocar las gallinas seleccionadas en las ranuras inferiores
 function updateChickenSlotUI() {
   const chickenSlots = document.querySelectorAll(".chicken-slot");
@@ -108,39 +106,27 @@ function updateChickenSlotUI() {
         chickenCount.textContent = count;
         chickenCount.style.display = "block";
         slot.dataset.chickenId = count;
-        slot.dataset.id = chickenId;
-        slot.dataset.index = index;
+        slot.dataset.id = chickenId; // Agregar el atributo "data-id" con el id de la gallina seleccionada
+        slot.dataset.index = index; // Agregar el atributo "data-index" con el índice de la ranura
       }
     } else {
       slot.innerHTML = "";
     }
   });
 }
+// Función para cambiar la cantidad de gallinas
+function changeChickenCount(button, change) {
+  const chickenCard = button.closest(".chicken");
+  const chickenId = chickenCard.getAttribute("data-id");
+  let count = selectedChickenCounts[chickenId] || 0;
 
-// Función para actualizar la tarjeta de la gallina con la cantidad
-function updateChickenCard(chickenCard, count) {
-  const chickenCountElement = chickenCard.querySelector(".chicken-count");
-  if (chickenCountElement) {
-    chickenCountElement.textContent = count;
-  }
+  // Asegurarse de que el número no sea negativo o mayor a 60
+  count = Math.max(0, Math.min(60, count + change));
+  selectedChickenCounts[chickenId] = count;
+
+  updateChickenCard(chickenCard, count);
 }
 
-// Función para actualizar el botón de alquiler
-function updateRentButton() {
-  const rentButton = document.getElementById("rent-button"); // Reemplaza "rent-button" con el ID de tu botón de alquiler
-  if (rentButton) {
-    // Verificar si hay gallinas seleccionadas
-    const anySelected = selectedChickens.some((chickenData) => chickenData && chickenData.count > 0);
-
-    if (anySelected) {
-      rentButton.disabled = false; // Habilitar el botón si hay gallinas seleccionadas
-      rentButton.textContent = "Alquilar"; // Puedes cambiar el texto del botón según tu necesidad
-    } else {
-      rentButton.disabled = true; // Deshabilitar el botón si no hay gallinas seleccionadas
-      rentButton.textContent = "Selecciona gallinas"; // Puedes cambiar el texto del botón según tu necesidad
-    }
-  }
-}
 
 
 
