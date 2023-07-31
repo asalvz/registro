@@ -1,6 +1,6 @@
 let web3;
 let userAddress;
-const selectedChickenCounts = {};
+
 
 
 // Comprobar si web3 está disponible en el navegador
