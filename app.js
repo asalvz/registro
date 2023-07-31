@@ -43,10 +43,13 @@ async function getBalance(address) {
 }
 
 
-// Función para actualizar el contador en la tarjeta
-function updateCounter(card, count) {
-  const counter = card.querySelector('.counter');
-  counter.textContent = count;
+// Función para agregar una tarjeta al slot inferior
+function addToSlot(card, count) {
+  const slot = document.getElementById('selected-chickens');
+  for (let i = 0; i < count; i++) {
+    const clone = card.cloneNode(true);
+    slot.appendChild(clone);
+  }
 }
 
 // Función para manejar los botones + y - en cada tarjeta
@@ -67,28 +70,16 @@ function handleCountButtonClick(card, increment) {
   updateCounter(card, count);
 }
 
-// Función para agregar una tarjeta al slot inferior
-function addToSlot(card) {
-  const slot = document.getElementById('selected-chickens');
-  const clone = card.cloneNode(true);
-
-  // Agregar el evento onclick para eliminar la tarjeta del slot
-  clone.addEventListener('click', () => {
-    slot.removeChild(clone);
-  });
-
-  slot.appendChild(clone);
-}
-
 // Agregar los event listeners después de cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
   // Obtener todas las tarjetas
-  const cards = document.querySelectorAll('.card');
+  const cards = document.querySelectorAll('.chicken');
 
   // Agregar event listeners para los botones + y -
   cards.forEach((card) => {
-    const plusBtn = card.querySelector('.plus-btn');
-    const minusBtn = card.querySelector('.minus-btn');
+    const plusBtn = card.querySelector('.add-chicken-button');
+    const minusBtn = card.querySelector('.remove-chicken-button');
+    const selectBtn = card.querySelector('button');
 
     plusBtn.addEventListener('click', () => {
       handleCountButtonClick(card, true);
@@ -98,15 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
       handleCountButtonClick(card, false);
     });
 
-    const selectBtn = card.querySelector('.select-btn');
     selectBtn.addEventListener('click', () => {
       const count = parseInt(card.dataset.count) || 1;
-      for (let i = 0; i < count; i++) {
-        addToSlot(card);
-      }
+      addToSlot(card, count);
     });
   });
 });
+
 
 
 
