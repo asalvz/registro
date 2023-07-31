@@ -93,7 +93,6 @@ function selectChickenSlot(slotNumber) {
 }
 
 
-// Función para colocar las gallinas seleccionadas en las ranuras inferiores
 function updateChickenSlotUI() {
   const chickenSlots = document.querySelectorAll(".chicken-slot");
   chickenSlots.forEach((slot, index) => {
@@ -110,11 +109,11 @@ function updateChickenSlotUI() {
         chickenCount.textContent = count;
         chickenCount.style.display = "block";
         slot.dataset.chickenId = count;
-        slot.dataset.id = chickenId; // Agregar el atributo "data-id" con el id de la gallina seleccionada
-        slot.dataset.index = index; // Agregar el atributo "data-index" con el índice de la ranura
+        slot.dataset.id = chickenId;
+        slot.dataset.index = index;
       }
     } else {
-      slot.innerHTML = "";
+      slot.innerHTML = ""; // Limpiar la ranura si no hay gallina seleccionada
     }
   });
 }
