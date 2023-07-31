@@ -76,7 +76,7 @@ function selectChickenSlot(slotNumber) {
   const slot = document.querySelector(".chicken-slot:nth-child(" + slotNumber + ")");
   const overlay = slot.querySelector(".slot-overlay");
 
-  if (!overlay.style.display || overlay.style.display === "none") {
+  if (slot.innerHTML === "") {
     overlay.style.display = "flex";
     overlay.querySelector("input").focus();
   } else {
@@ -91,7 +91,6 @@ function selectChickenSlot(slotNumber) {
     }
   }
 }
-
 
 // Función para colocar las gallinas seleccionadas en las ranuras inferiores
 function updateChickenSlotUI() {
