@@ -45,6 +45,8 @@ async function getBalance(address) {
 
 
 
+// Archivo app.js
+
 // Función para manejar los botones + y - en cada tarjeta
 function handleCountButtonClick(card, increment) {
   let count = parseInt(card.dataset.count) || 1;
@@ -124,18 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       deselectChickenSlot(slot);
     });
   });
-
-  // Función para alquilar gallinas (debes definir esta función)
-  function rentChickens() {
-    // Implementa tu lógica para alquilar gallinas aquí
-  }
-
-  // Función para comprar gallinas (debes definir esta función)
-  function buyChicken(chickenId) {
-    // Implementa tu lógica para comprar gallinas aquí
-  }
 });
-
 
 
 const elems = document.querySelectorAll('.laya-please');
