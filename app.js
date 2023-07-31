@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
   cards.forEach((card) => {
     const plusBtn = card.querySelector('.add-chicken-button');
     const minusBtn = card.querySelector('.remove-chicken-button');
-    const selectBtn = card.querySelector('button');
 
     plusBtn.addEventListener('click', () => {
       handleCountButtonClick(card, true);
@@ -101,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       handleCountButtonClick(card, false);
     });
 
-    selectBtn.addEventListener('click', () => {
+    card.addEventListener('click', () => {
       const count = parseInt(card.dataset.count) || 1;
       card.dataset.count = count;
       selectChickenSlot(card);
@@ -118,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
 
 
 
