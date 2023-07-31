@@ -259,32 +259,7 @@ $(document).ready(function() {
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
 });
-// Global variable to store the selected chicken counts
-const selectedChickenCounts = {};
 
-// Function to add a chicken count
-function addChicken(button) {
-    const chickenCard = button.parentNode;
-    const chickenId = chickenCard.getAttribute("data-id");
-    let count = selectedChickenCounts[chickenId] || 0;
-  
-    if (count < 60) {
-        count++;
-        selectedChickenCounts[chickenId] = count;
-    }
-
-    updateChickenCard(chickenCard, count);
-}
-
-// Function to update the chicken card display
-function updateChickenCard(chickenCard, count) {
-    const addButton = chickenCard.querySelector(".add-chicken-button");
-    const selectButton = chickenCard.querySelector("button");
-  
-    // Display the count and enable/disable the select button accordingly
-    addButton.textContent = count === 0 ? "+" : count;
-    selectButton.disabled = count === 0;
-}
 
 // Conexión con MetaMask y eventos
 window.addEventListener('DOMContentLoaded', () => {
