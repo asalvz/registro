@@ -45,8 +45,6 @@ async function getBalance(address) {
 
 
 
-// Archivo app.js
-
 // Función para manejar los botones + y - en cada tarjeta
 function handleCountButtonClick(card, increment) {
   let count = parseInt(card.dataset.count) || 1;
