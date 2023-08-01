@@ -183,32 +183,32 @@ $("#close-btn").click(function() {
 // Variable para almacenar la cantidad de gallinas seleccionadas
 
 
-  let selectedChickenCount = 0;
+ let selectedChickenCount = 0;
 
-// Agregar eventos click a los botones de aumentar y el de select
-const addChickenButtons = document.querySelectorAll('.add-chicken-button');
-const selectChickenButtons = document.querySelectorAll('.chicken-select-button');
+    // Agregar eventos click a los botones de aumentar y disminuir
+    const addChickenButtons = document.querySelectorAll('.add-chicken-button');
+    const removeChickenButtons = document.querySelectorAll('.remove-chicken-button');
 
-addChickenButtons.forEach((button) => {
-  button.addEventListener('click', () => changeChickenCount(button, 1));
-});
+    addChickenButtons.forEach((button) => {
+      button.addEventListener('click', () => changeChickenCount(button, 1));
+    });
 
-selectChickenButtons.forEach((button) => {
-  button.addEventListener('click', () => addToMarketCart(button.parentElement.dataset.id));
-});
+    removeChickenButtons.forEach((button) => {
+      button.addEventListener('click', () => changeChickenCount(button, -1));
+    });
 
-function changeChickenCount(button, increment) {
-  const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
-  if (chickenCountElement) {
-    let currentCount = parseInt(chickenCountElement.innerText);
-    currentCount += increment;
-    if (currentCount < 0) {
-      currentCount = 0;
+    // Función para aumentar y disminuir la cantidad de gallinas
+    function changeChickenCount(button, increment) {
+      const chickenCountElement = button.parentElement.parentElement.querySelector(".chicken-selected-count");
+      if (chickenCountElement) {
+        let currentCount = parseInt(chickenCountElement.innerText);
+        currentCount += increment;
+        if (currentCount < 0) {
+          currentCount = 0;
+        }
+        chickenCountElement.innerText = currentCount;
+      }
     }
-    chickenCountElement.innerText = currentCount;
-  }
-}
-
 
   // Función para agregar los datos del card y la cantidad al cotizador de mercado
   function addToMarketCart(chickenId) {
