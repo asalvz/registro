@@ -45,7 +45,7 @@ async function getBalance(address) {
 
 
 
- const chickenSlots = document.querySelectorAll('.chicken-slot');
+const chickenSlots = document.querySelectorAll('.chicken-slot');
 
   function buyChicken(chickenId) {
     // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
