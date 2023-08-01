@@ -44,17 +44,13 @@ async function getBalance(address) {
 
 
 
-
-const chickenSlots = document.querySelectorAll('.chicken-slot');
+ const chickenSlots = document.querySelectorAll('.chicken-slot');
 
   function buyChicken(chickenId) {
     // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
     for (const slot of chickenSlots) {
       if (!slot.dataset.chickenId) {
         slot.dataset.chickenId = chickenId;
-        slot.querySelector('.chicken-count').textContent = '1';
-
-        // Mostrar los detalles de la gallina seleccionada en el slot
         const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
         const slotOverlay = slot.querySelector('.slot-overlay');
         slotOverlay.innerHTML = chickenCard.innerHTML;
@@ -89,11 +85,12 @@ const chickenSlots = document.querySelectorAll('.chicken-slot');
     const chickenCard = button.closest('.chicken');
     const chickenCountElement = chickenCard.querySelector('.chicken-count');
     let currentCount = parseInt(chickenCountElement.textContent);
-    if (!isNaN(currentCount)) {
-      currentCount += change;
-      if (currentCount >= 1 && currentCount <= 99) {
-        chickenCountElement.textContent = currentCount;
-      }
+    if (isNaN(currentCount)) {
+      currentCount = 0;
+    }
+    currentCount += change;
+    if (currentCount >= 1 && currentCount <= 99) {
+      chickenCountElement.textContent = currentCount;
     }
   }
 const elems = document.querySelectorAll('.laya-please');
