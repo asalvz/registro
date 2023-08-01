@@ -49,10 +49,8 @@
  
   
  
-  <div id="chickens-panel">
-
-   
-  <div class="chicken" data-id="1">
+ <div id="chicken-container">
+    <div class="chicken" data-id="1">
         <div class="chicken-controls">
             <h2>Nugget</h2>
             <img src="https://sunny-brigadeiros-470a39.netlify.app/508addc969c6bc018a3862a3dea852b2.gif" alt="Gallina 1">
@@ -60,7 +58,8 @@
             <p>Cantidad de huevos: 15 a 26</p>
             <p>Calidad de huevos: chico - mediano</p>
             <div id="rent-button-1" style="display: flex; justify-content: center; align-items: center;">
-                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">Price 4 USDT
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
                     <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
                 </p>
             </div>
@@ -70,90 +69,107 @@
         <button onclick="buyChicken(1)">Select</button>
     </div>
 
-
-   
-    <div class="chicken" data-id="2" onclick="selectChicken(this)">
-
-      
-      <h2> Daisy</h2>
-      <img src="https://sunny-brigadeiros-470a39.netlify.app/luiz-aquino-idle-exp.gif" alt="Gallina 2">
-        <p>Tiempo en poner huevos: 30 dias</p>
-      <p>Cantidad de huevos: 19 a 26</p>
-      <p>Calidad de huevos: chico - mediano</p>
-     <div id="rent-button" style="display: flex; justify-content: center; align-items: center;">
-  <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">   Price 4 USDT
-    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
-
-  </p>
-</div>
-      <button onclick="buyChicken(2)">Select</button>
+    <!-- Card 2 -->
+    <div class="chicken" data-id="2">
+        <div class="chicken-controls">
+            <h2>Daisy</h2>
+            <img src="https://sunny-brigadeiros-470a39.netlify.app/luiz-aquino-idle-exp.gif" alt="Gallina 2">
+            <p>Tiempo en poner huevos: 30 dias</p>
+            <p>Cantidad de huevos: 19 a 26</p>
+            <p>Calidad de huevos: chico - mediano</p>
+            <div id="rent-button-2" style="display: flex; justify-content: center; align-items: center;">
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
+                    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+                </p>
+            </div>
+            <button class="add-chicken-button" onclick="changeChickenCount(this, 2)">+</button>
+            <button class="remove-chicken-button" onclick="changeChickenCount(this, -2)">-</button>
+        </div>
+        <button onclick="buyChicken(2)">Select</button>
     </div>
-    <div class="chicken" data-id="3" onclick="selectChicken(this)">
 
-      <h2> Fluffy</h2>
-      <img src="https://sunny-brigadeiros-470a39.netlify.app/saino-idle.gif" alt="Gallina 3">
-       <p>Tiempo en poner huevos: 30 dias</p>
-      <p>Cantidad de huevos: 15 a 26</p>
-      <p>Calidad de huevos:  mediano</p>
-     <div id="rent-button" style="display: flex; justify-content: center; align-items: center;">
-  <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">   Price 4 USDT
-    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
-
-  </p>
-</div>
-      <button onclick="buyChicken(3)">Select</button>
+    <!-- Card 3 -->
+    <div class="chicken" data-id="3">
+        <div class="chicken-controls">
+            <h2>Fluffy</h2>
+            <img src="https://sunny-brigadeiros-470a39.netlify.app/saino-idle.gif" alt="Gallina 3">
+            <p>Tiempo en poner huevos: 30 dias</p>
+            <p>Cantidad de huevos: 15 a 26</p>
+            <p>Calidad de huevos: mediano</p>
+            <div id="rent-button-3" style="display: flex; justify-content: center; align-items: center;">
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
+                    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+                </p>
+            </div>
+            <button class="add-chicken-button" onclick="changeChickenCount(this, 3)">+</button>
+            <button class="remove-chicken-button" onclick="changeChickenCount(this, -3)">-</button>
+        </div>
+        <button onclick="buyChicken(3)">Select</button>
     </div>
-    <div class="chicken" data-id="4" onclick="selectChicken(this)">
 
-      
-      <h2> Sunny</h2>
-      <img src="https://sunny-brigadeiros-470a39.netlify.app/rooster.gif" alt="Gallina 4">
-      <p>Tiempo en poner huevos: 30 dias</p>
-      <p>Cantidad de huevos: 24 a 32</p>
-      <p>Calidad de huevos: chico </p>
-     <div id="rent-button" style="display: flex; justify-content: center; align-items: center;">
-  <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">   Price 4 USDT
-    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
-
-  </p>
-</div>
-      <button onclick="buyChicken(4)">Select</button>
+    <!-- Card 4 -->
+    <div class="chicken" data-id="4">
+        <div class="chicken-controls">
+            <h2>Sunny</h2>
+            <img src="https://sunny-brigadeiros-470a39.netlify.app/rooster.gif" alt="Gallina 4">
+            <p>Tiempo en poner huevos: 30 dias</p>
+            <p>Cantidad de huevos: 24 a 32</p>
+            <p>Calidad de huevos: chico</p>
+            <div id="rent-button-4" style="display: flex; justify-content: center; align-items: center;">
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
+                    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+                </p>
+            </div>
+            <button class="add-chicken-button" onclick="changeChickenCount(this, 4)">+</button>
+            <button class="remove-chicken-button" onclick="changeChickenCount(this, -4)">-</button>
+        </div>
+        <button onclick="buyChicken(4)">Select</button>
     </div>
-    <div class="chicken" data-id="5" onclick="selectChicken(this)">
 
-      <h2> Buttercup</h2>
-      <img src="https://sunny-brigadeiros-470a39.netlify.app/Medium-brown-chicken-3.gif" alt="Gallina 5">
-       <p>Tiempo en poner huevos: 30 dias</p>
-      <p>Cantidad de huevos: 22 a 29</p>
-      <p>Calidad de huevos: mediano - grande</p>
-<div id="rent-button" style="display: flex; justify-content: center; align-items: center;">
-  <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">   Price 4 USDT
-    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+    <!-- Card 5 -->
+    <div class="chicken" data-id="5">
+        <div class="chicken-controls">
+            <h2>Buttercup</h2>
+            <img src="https://sunny-brigadeiros-470a39.netlify.app/Medium-brown-chicken-3.gif" alt="Gallina 5">
+            <p>Tiempo en poner huevos: 30 dias</p>
+            <p>Cantidad de huevos: 22 a 29</p>
+            <p>Calidad de huevos: mediano - grande</p>
+            <div id="rent-button-5" style="display: flex; justify-content: center; align-items: center;">
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
+                    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+                </p>
+            </div>
+            <button class="add-chicken-button" onclick="changeChickenCount(this, 5)">+</button>
+            <button class="remove-chicken-button" onclick="changeChickenCount(this, -5)">-</button>
+        </div>
+        <button onclick="buyChicken(5)">Select</button>
+    </div>
 
-  </p>
+    <!-- Card 6 -->
+    <div class="chicken" data-id="6">
+        <div class="chicken-controls">
+            <h2>Peepers</h2>
+            <img src="https://sunny-brigadeiros-470a39.netlify.app/d09daa111d8a1e41bddc1f8f0eb715e2.gif" alt="Gallina 6">
+            <p>Tiempo en poner huevos: 30 dias</p>
+            <p>Cantidad de huevos: 22 a 35</p>
+            <p>Calidad de huevos: grande</p>
+            <div id="rent-button-6" style="display: flex; justify-content: center; align-items: center;">
+                <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">
+                    Price 4 USDT
+                    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
+                </p>
+            </div>
+            <button class="add-chicken-button" onclick="changeChickenCount(this, 6)">+</button>
+            <button class="remove-chicken-button" onclick="changeChickenCount(this, -6)">-</button>
+        </div>
+        <button onclick="buyChicken(6)">Select</button>
+    </div>
 </div>
 
-
-
-      <button onclick="buyChicken(5)">Select</button>
-    </div>
-    <div class="chicken" data-id="6" onclick="selectChicken(this)">
-
-      
-      <h2> Peepers</h2>
-      <img src="https://sunny-brigadeiros-470a39.netlify.app/d09daa111d8a1e41bddc1f8f0eb715e2.gif" alt="Gallina 6">
-      <p>Tiempo en poner huevos: 30 dias</p>
-      <p>Cantidad de huevos: 22 a 35</p>
-      <p>Calidad de huevos:  grande</p>
-      <div id="rent-button" style="display: flex; justify-content: center; align-items: center;">
-  <p style="font-size: 16px; color: #FDFEFE; display: flex; align-items: center;">   Price 4 USDT
-    <img src="https://sunny-brigadeiros-470a39.netlify.app/photo_5033033172593519426_x.jpg" alt="Icono Tether" style="width: 20px; height: 20px; margin-left: 5px;">
-
-  </p>
-</div>
-      <button onclick="buyChicken(6)">Select</button>
-    </div>
-  </div>
    <div class="title">PROOF OF WORK</div>
    
 <div id="selected-chickens">
