@@ -197,10 +197,9 @@ selectChickenButtons.forEach((button) => {
   button.addEventListener('click', () => addToMarketCart(button.parentElement.dataset.id));
 });
 
-
-  // Función para incrementar y decrementar la cantidad de gallinas en cada card
-  function changeChickenCount(button, increment) {
-    const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
+function changeChickenCount(button, increment) {
+  const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
+  if (chickenCountElement) {
     let currentCount = parseInt(chickenCountElement.innerText);
     currentCount += increment;
     if (currentCount < 0) {
@@ -208,6 +207,8 @@ selectChickenButtons.forEach((button) => {
     }
     chickenCountElement.innerText = currentCount;
   }
+}
+
 
   // Función para agregar los datos del card y la cantidad al cotizador de mercado
   function addToMarketCart(chickenId) {
