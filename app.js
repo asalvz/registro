@@ -43,95 +43,47 @@ async function getBalance(address) {
 }
 
 
-// Variables globales
-const chickenSlots = document.querySelectorAll('.chicken-slot');
-const maxChickenCount = 12;
+// Variable para almacenar la cantidad de cada tipo de gallina seleccionada
+const selectedChickens = {};
 
-// Función para cambiar el color de fondo de los botones de rentar
-function changeButtonColor(button) {
-  if (button.style.backgroundColor === 'gray') {
-    button.style.background = 'linear-gradient(to bottom, #ff9933, #ff6600)';
-  } else {
-    button.style.background = 'gray';
-  }
-}
-
-// Función para agregar o quitar gallinas a los slots inferiores
-function buyChicken(chickenId) {
-  // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
-  for (const slot of chickenSlots) {
-    if (!slot.dataset.chickenId) {
-      slot.dataset.chickenId = chickenId;
-      const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-      const slotOverlay = slot.querySelector('.slot-overlay');
-      slotOverlay.innerHTML = chickenCard.innerHTML;
-      const addRemoveButtons = slotOverlay.querySelector('.add-remove-buttons');
-      if (addRemoveButtons) {
-        addRemoveButtons.remove(); // Removemos los botones de agregar y quitar si existen
-      }
-      slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
-
-      // Mostramos la cantidad de gallinas seleccionadas en el slot
-      const chickenCountElement = slotOverlay.querySelector('.chicken-count');
-      chickenCountElement.textContent = '1';
-
-      updateChickenCount(slotOverlay.querySelector('.add-chicken-button'), 0); // Inicializamos el contador a 1
-      return;
-    }
-  }
-  alert('Todos los slots están ocupados. Debes liberar un slot antes de seleccionar más gallinas.');
-}
-
-// Función para seleccionar un slot y mostrar los detalles de la gallina en el slot seleccionado
-function selectChickenSlot(slotIndex) {
-  const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
-  const chickenId = selectedSlot.dataset.chickenId;
-  if (chickenId) {
-    // Mostrar los detalles de la gallina seleccionada en el slot
-    const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-    const slotOverlay = selectedSlot.querySelector('.slot-overlay');
-    slotOverlay.innerHTML = chickenCard.innerHTML;
-    slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
-
-    alert(`Gallina ${chickenId} seleccionada en el slot ${slotIndex}`);
-  } else {
-    alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
-  }
-}
-
-// Función para aumentar o disminuir la cantidad de gallinas en un card
+// Función para cambiar la cantidad de una gallina
 function changeChickenCount(button, change) {
-  const chickenCard = button.closest('.chicken');
-  const chickenCountElement = chickenCard.querySelector('.chicken-count');
-  let currentCount = parseInt(chickenCountElement.textContent);
-  if (isNaN(currentCount)) {
-    currentCount = 0;
+  const card = button.parentElement.parentElement;
+  const chickenId = card.getAttribute("data-id");
+  const currentCount = selectedChickens[chickenId] || 0;
+  const newCount = currentCount + change;
+
+  if (newCount >= 0 && newCount <= 12) {
+    selectedChickens[chickenId] = newCount;
+    updateSelectedCount(chickenId);
   }
-  currentCount += change;
-  if (currentCount >= 0 && currentCount <= maxChickenCount) {
-    chickenCountElement.textContent = currentCount;
+}
+
+// Función para actualizar el contador de una gallina seleccionada
+function updateSelectedCount(chickenId) {
+  const card = document.querySelector(`[data-id="${chickenId}"]`);
+  const countSpan = card.querySelector(".chicken-selected-count");
+  countSpan.textContent = selectedChickens[chickenId] || 0;
+}
+
+// Función para comprar una gallina seleccionada
+function buyChicken(chickenId) {
+  const count = selectedChickens[chickenId] || 0;
+  if (count > 0) {
+    // Aquí puedes implementar la lógica para la compra de la gallina seleccionada
+    console.log(`Has comprado ${count} gallinas del tipo ${chickenId}`);
+  } else {
+    console.log("Selecciona al menos una gallina antes de comprar.");
   }
 }
 
-// Inicializar los botones de rentar con el color de fondo correcto
-const rentButtons = document.querySelectorAll('#rent-button-1');
-rentButtons.forEach((button) => {
-  changeButtonColor(button);
-});
-
-// Función para generar el enlace de referido y copiar dirección (ya existente en el HTML)
-function generateReferralLink() {
-  // Código para generar el enlace de referido y copiar dirección
-  // ...
+// Función para cambiar el color del botón de alquiler
+function changeButtonColor(button) {
+  // Aquí puedes implementar la lógica para cambiar el color del botón de alquiler
+  // Puedes usar esta función para realizar alguna acción visual en respuesta al clic en el botón
+  console.log("Botón de alquiler clicado");
 }
 
-// Función para alquilar las gallinas seleccionadas (ya existente en el HTML)
-function rentChickens() {
-  // Código para alquilar las gallinas seleccionadas
-  // ...
-}
-
-// Resto del código JavaScript sin cambios
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
