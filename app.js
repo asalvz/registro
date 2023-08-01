@@ -1,5 +1,7 @@
 let web3;
 let userAddress;
+let selectedChickenCount = 0;
+
 
 
 
@@ -183,7 +185,6 @@ $("#close-btn").click(function() {
 
 
 
-  let selectedChickenCount = 0;
 
 // Agregar eventos click a los botones de aumentar y el de select
 const addChickenButtons = document.querySelectorAll('.add-chicken-button');
@@ -231,16 +232,16 @@ function changeChickenCount(button, increment) {
     const totalAmountElement = document.getElementById("total-amount");
     totalAmountElement.innerText = `${totalAmount} BNB`;
   }
-function changeButtonColor(button) {
-  // Cambiar el color del fondo del botón
-  if (button.style.backgroundColor === 'gray') {
-    button.style.backgroundColor = 'blue';
-    button.style.color = 'white';
-  } else {
-    button.style.backgroundColor = 'gray';
-    button.style.color = 'white';
-  }
-}
+ // Función para cambiar el color del botón
+    function changeButtonColor(button) {
+      if (button.style.backgroundColor === 'gray') {
+        button.style.backgroundColor = 'blue';
+        button.style.color = 'white';
+      } else {
+        button.style.backgroundColor = 'gray';
+        button.style.color = 'white';
+      }
+    }
 
 
 
