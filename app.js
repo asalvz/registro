@@ -185,6 +185,19 @@ $("#close-btn").click(function() {
 
   let selectedChickenCount = 0;
 
+// Agregar eventos click a los botones de aumentar y el de select
+const addChickenButtons = document.querySelectorAll('.add-chicken-button');
+const selectChickenButtons = document.querySelectorAll('.chicken-select-button');
+
+addChickenButtons.forEach((button) => {
+  button.addEventListener('click', () => changeChickenCount(button, 1));
+});
+
+selectChickenButtons.forEach((button) => {
+  button.addEventListener('click', () => addToMarketCart(button.parentElement.dataset.id));
+});
+
+
   // Función para incrementar y decrementar la cantidad de gallinas en cada card
   function changeChickenCount(button, increment) {
     const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
