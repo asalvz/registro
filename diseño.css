@@ -554,8 +554,8 @@ h1 {
 
   .add-chicken-button,
   .remove-chicken-button {
-    width: 40px; /* Ajustar el ancho de los botones */
-    height: 40px; /* Ajustar el alto de los botones */
+    width: 25px; /* Ajustar el ancho de los botones */
+    height: 25px; /* Ajustar el alto de los botones */
     background-color: lightblue !important; /* Forzar el color celeste */
     color: white;
     cursor: pointer;
@@ -569,6 +569,6 @@ h1 {
 
   /* Estilo específico para el botón de agregar */
   .add-chicken-button {
-    margin-right: 5px; /* Espacio entre los botones */
+    margin-right: 1px; /* Espacio entre los botones */
   }
 </style>
