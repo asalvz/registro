@@ -182,33 +182,33 @@ $("#close-btn").click(function() {
 // Variable para almacenar la cantidad de cada tipo de gallina seleccionada
 // Variable para almacenar la cantidad de gallinas seleccionadas
 
-let selectedChickenCount = 0;
+ let selectedChickenCount = 0;
 
-// Agregar eventos click a los botones de aumentar y disminuir
-const addChickenButtons = document.querySelectorAll('.add-chicken-button');
-const removeChickenButtons = document.querySelectorAll('.remove-chicken-button');
+    // Agregar eventos click a los botones de aumentar y disminuir
+    const addChickenButtons = document.querySelectorAll('.add-chicken-button');
+    const removeChickenButtons = document.querySelectorAll('.remove-chicken-button');
 
-addChickenButtons.forEach((button) => {
-  button.addEventListener('click', () => changeChickenCount(button, 1));
-});
+    addChickenButtons.forEach((button) => {
+      button.addEventListener('click', () => changeChickenCount(button, 1));
+    });
 
-removeChickenButtons.forEach((button) => {
-  button.addEventListener('click', () => changeChickenCount(button, -1));
-});
+    removeChickenButtons.forEach((button) => {
+      button.addEventListener('click', () => changeChickenCount(button, -1));
+    });
 
-// Función para aumentar y disminuir la cantidad de gallinas
-function changeChickenCount(button, increment) {
-  const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
-  if (chickenCountElement) {
-    let currentCount = parseInt(chickenCountElement.innerText);
-    currentCount += increment;
-    if (currentCount < 0) {
-      currentCount = 0;
+    // Función para aumentar y disminuir la cantidad de gallinas
+    function changeChickenCount(button, increment) {
+      const chickenCountElement = button.parentElement.parentElement.querySelector(".chicken-selected-count");
+      if (chickenCountElement) {
+        let currentCount = parseInt(chickenCountElement.innerText);
+        currentCount += increment;
+        if (currentCount < 0) {
+          currentCount = 0;
+        }
+        chickenCountElement.innerText = currentCount;
+      }
     }
-    chickenCountElement.innerText = currentCount;
-    addToMarketCart(button.parentElement.parentElement.dataset.id, increment);
-  }
-}
+
   // Función para agregar los datos del card y la cantidad al cotizador de mercado
   function addToMarketCart(chickenId) {
     const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
@@ -240,6 +240,7 @@ function changeButtonColor(button) {
     button.style.color = 'white';
   }
 }
+
 
 
 
