@@ -231,6 +231,17 @@ function changeChickenCount(button, increment) {
     const totalAmountElement = document.getElementById("total-amount");
     totalAmountElement.innerText = `${totalAmount} BNB`;
   }
+function changeButtonColor(button) {
+  // Cambiar el color del fondo del botón
+  if (button.style.backgroundColor === 'gray') {
+    button.style.backgroundColor = 'blue';
+    button.style.color = 'white';
+  } else {
+    button.style.backgroundColor = 'gray';
+    button.style.color = 'white';
+  }
+}
+
 
 
 // Conexión con MetaMask y eventos
