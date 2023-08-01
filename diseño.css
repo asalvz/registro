@@ -542,29 +542,33 @@ h1 {
 #close-btn:hover {
     background-color: #e04242;
 }
-  .chicken-controls {
+.chicken-controls {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .chicken-controls .add-remove-buttons {
+  .add-remove-buttons {
     display: flex;
   }
 
   .add-chicken-button,
   .remove-chicken-button {
-    margin: 0; /* Eliminar el margen para que los botones estén bien pegados */
-    width: 50px; /* Ancho cuadrado de los botones */
-    height: 50px; /* Alto cuadrado de los botones */
-    background-color: lightblue; /* Color celeste */
+    width: 40px; /* Ajustar el ancho de los botones */
+    height: 40px; /* Ajustar el alto de los botones */
+    background-color: lightblue !important; /* Forzar el color celeste */
     color: white;
     cursor: pointer;
-    border: none; /* Eliminar el borde de los botones */
+    border: none;
     font-size: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: none; /* Eliminar el resaltado al hacer clic */
+    outline: none;
+  }
+
+  /* Estilo específico para el botón de agregar */
+  .add-chicken-button {
+    margin-right: 5px; /* Espacio entre los botones */
   }
 </style>
