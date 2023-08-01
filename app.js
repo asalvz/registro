@@ -183,64 +183,49 @@ $("#close-btn").click(function() {
 // Variable para almacenar la cantidad de gallinas seleccionadas
 
 
- let selectedChickenCount = 0;
+let selectedChickenCount = 0;
 
-    // Agregar eventos click a los botones de aumentar y disminuir
-    const addChickenButtons = document.querySelectorAll('.add-chicken-button');
-    const removeChickenButtons = document.querySelectorAll('.remove-chicken-button');
-
-    addChickenButtons.forEach((button) => {
-      button.addEventListener('click', () => changeChickenCount(button, 1));
-    });
-
-    removeChickenButtons.forEach((button) => {
-      button.addEventListener('click', () => changeChickenCount(button, -1));
-    });
-
-    // Función para aumentar y disminuir la cantidad de gallinas
-    function changeChickenCount(button, increment) {
-      const chickenCountElement = button.parentElement.parentElement.querySelector(".chicken-selected-count");
-      if (chickenCountElement) {
-        let currentCount = parseInt(chickenCountElement.innerText);
-        currentCount += increment;
-        if (currentCount < 0) {
-          currentCount = 0;
-        }
-        chickenCountElement.innerText = currentCount;
-      }
+// Función para aumentar y disminuir la cantidad de gallinas
+function changeChickenCount(button, increment) {
+  const chickenCountElement = button.parentElement.parentElement.querySelector(".chicken-selected-count");
+  if (chickenCountElement) {
+    let currentCount = parseInt(chickenCountElement.innerText);
+    currentCount += increment;
+    if (currentCount < 0) {
+      currentCount = 0;
     }
-
-  // Función para agregar los datos del card y la cantidad al cotizador de mercado
-  function addToMarketCart(chickenId) {
-    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
-    const selectedCount = parseInt(chickenCountElement.innerText);
-    selectedChickenCount += selectedCount;
-
-    // Actualizar la cantidad de gallinas seleccionada en el cotizador
-    const selectedChickenCountElement = document.getElementById("selected-chicken-count");
-    selectedChickenCountElement.innerText = selectedChickenCount;
-
-    // Calcular el monto total
-    const smallEggPayment = 0.001;
-    const mediumEggPayment = 0.003;
-    const largeEggPayment = 0.005;
-
-    const totalAmount = (selectedCount * smallEggPayment) + (selectedCount * mediumEggPayment) + (selectedCount * largeEggPayment);
-
-    // Actualizar el monto total en el cotizador
-    const totalAmountElement = document.getElementById("total-amount");
-    totalAmountElement.innerText = `${totalAmount} BNB`;
-  }
-function changeButtonColor(button) {
-  // Cambiar el color del fondo del botón
-  if (button.style.backgroundColor === 'gray') {
-    button.style.backgroundColor = 'blue';
-    button.style.color = 'white';
-  } else {
-    button.style.backgroundColor = 'gray';
-    button.style.color = 'white';
+    chickenCountElement.innerText = currentCount;
+    updateMarketCart();
   }
 }
+
+// Función para agregar los datos del card y la cantidad al cotizador de mercado
+function updateMarketCart() {
+  selectedChickenCount = 0;
+  const chickenCards = document.querySelectorAll('.chicken-card');
+  chickenCards.forEach((card) => {
+    const chickenId = card.dataset.id;
+    const chickenCountElement = card.querySelector(".chicken-selected-count");
+    const selectedCount = parseInt(chickenCountElement.innerText);
+    selectedChickenCount += selectedCount;
+  });
+
+  // Actualizar la cantidad de gallinas seleccionada en el cotizador
+  const selectedChickenCountElement = document.getElementById("selected-chicken-count");
+  selectedChickenCountElement.innerText = selectedChickenCount;
+
+  // Calcular el monto total
+  const smallEggPayment = 0.001;
+  const mediumEggPayment = 0.003;
+  const largeEggPayment = 0.005;
+
+  const totalAmount = (selectedChickenCount * smallEggPayment) + (selectedChickenCount * mediumEggPayment) + (selectedChickenCount * largeEggPayment);
+
+  // Actualizar el monto total en el cotizador
+  const totalAmountElement = document.getElementById("total-amount");
+  totalAmountElement.innerText = `${totalAmount.toFixed(4)} BNB`;
+}
+
 
 
 
