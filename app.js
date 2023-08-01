@@ -53,9 +53,8 @@ const eggPrices = {
   large: 0.005,
 };
 
-// Función para cambiar la cantidad de una gallina
 function changeChickenCount(button, change) {
-  const card = button.parentElement.parentElement;
+  const card = button.parentElement;
   const chickenId = card.getAttribute("data-id");
   const currentCount = selectedChickens[chickenId] || 0;
   const newCount = currentCount + change;
@@ -66,6 +65,7 @@ function changeChickenCount(button, change) {
     updateTotalAmount();
   }
 }
+
 
 // Función para actualizar el contador de una gallina seleccionada
 function updateSelectedCount(chickenId) {
