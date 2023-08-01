@@ -199,42 +199,37 @@ function changeChickenCount(button, increment) {
   }
 }
 
-// Función para agregar los datos del card y la cantidad al cotizador de mercado
-function updateMarketCart() {
-  selectedChickenCount = 0;
-  const chickenCards = document.querySelectorAll('.chicken-card');
-  chickenCards.forEach((card) => {
-    const chickenId = card.dataset.id;
-    const chickenCountElement = card.querySelector(".chicken-selected-count");
+  // Función para agregar los datos del card y la cantidad al cotizador de mercado
+  function addToMarketCart(chickenId) {
+    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
     const selectedCount = parseInt(chickenCountElement.innerText);
     selectedChickenCount += selectedCount;
-  });
 
-  // Actualizar la cantidad de gallinas seleccionada en el cotizador
-  const selectedChickenCountElement = document.getElementById("selected-chicken-count");
-  selectedChickenCountElement.innerText = selectedChickenCount;
+    // Actualizar la cantidad de gallinas seleccionada en el cotizador
+    const selectedChickenCountElement = document.getElementById("selected-chicken-count");
+    selectedChickenCountElement.innerText = selectedChickenCount;
 
-  // Calcular el monto total
-  const smallEggPayment = 0.001;
-  const mediumEggPayment = 0.003;
-  const largeEggPayment = 0.005;
+    // Calcular el monto total
+    const smallEggPayment = 0.001;
+    const mediumEggPayment = 0.003;
+    const largeEggPayment = 0.005;
 
-  const totalAmount = (selectedChickenCount * smallEggPayment) + (selectedChickenCount * mediumEggPayment) + (selectedChickenCount * largeEggPayment);
+    const totalAmount = (selectedCount * smallEggPayment) + (selectedCount * mediumEggPayment) + (selectedCount * largeEggPayment);
 
-  // Actualizar el monto total en el cotizador
-  const totalAmountElement = document.getElementById("total-amount");
-  totalAmountElement.innerText = `${totalAmount.toFixed(4)} BNB`;
-}
- function buyChicken(chickenId) {
-    // Aquí puedes agregar la lógica para comprar la gallina con el id proporcionado
-    // Por ejemplo, puedes enviar una transacción a la blockchain o realizar una operación similar
-    // Después de realizar la compra, puedes actualizar los datos en el cotizador llamando a updateMarketCart()
-    // Por ahora, vamos a simular la compra y agregar 1 gallina al cotizador
-    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
-    const currentCount = parseInt(chickenCountElement.innerText);
-    chickenCountElement.innerText = currentCount + 1;
-    updateMarketCart();
+    // Actualizar el monto total en el cotizador
+    const totalAmountElement = document.getElementById("total-amount");
+    totalAmountElement.innerText = `${totalAmount} BNB`;
   }
+function changeButtonColor(button) {
+  // Cambiar el color del fondo del botón
+  if (button.style.backgroundColor === 'gray') {
+    button.style.backgroundColor = 'blue';
+    button.style.color = 'white';
+  } else {
+    button.style.backgroundColor = 'gray';
+    button.style.color = 'white';
+  }
+}
 
 
 // Conexión con MetaMask y eventos
