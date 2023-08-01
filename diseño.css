@@ -571,4 +571,21 @@ h1 {
   .add-chicken-button {
     margin-right: 1px; /* Espacio entre los botones */
   }
+.custom-button {
+    width: 25px;
+    height: 25px;
+    background-color: lightblue;
+    color: white;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+  }
+
+  .add-remove-buttons .custom-button {
+    margin-right: 1px;
+  }
 </style>
