@@ -102,6 +102,13 @@ function changeButtonColor(button) {
   // Puedes usar esta función para realizar alguna acción visual en respuesta al clic en el botón
   console.log("Botón de alquiler clicado");
 }
+const rentButtons = document.querySelectorAll('.rent-button');
+rentButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    changeButtonColor(this);
+  });
+});
+
 
 
 const elems = document.querySelectorAll('.laya-please');
