@@ -45,15 +45,22 @@ async function getBalance(address) {
 
 
 
- const selectedChickens = document.getElementById('selected-chickens');
-  const chickenSlots = document.querySelectorAll('.chicken-slot');
+ const chickenSlots = document.querySelectorAll('.chicken-slot');
 
- function buyChicken(chickenId) {
+  function buyChicken(chickenId) {
     // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
     for (const slot of chickenSlots) {
       if (!slot.dataset.chickenId) {
         slot.dataset.chickenId = chickenId;
         slot.querySelector('.chicken-count').textContent = '1';
+
+        // Mostrar los detalles de la gallina seleccionada en el slot
+        const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+        const slotOverlay = slot.querySelector('.slot-overlay');
+        slotOverlay.innerHTML = chickenCard.innerHTML;
+        slotOverlay.querySelector('.add-remove-buttons').remove(); // Removemos los botones de agregar y quitar
+        slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
+
         alert(`Gallina ${chickenId} seleccionada en el slot ${slot.dataset.slot}`);
         return;
       }
@@ -65,6 +72,12 @@ async function getBalance(address) {
     const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
     const chickenId = selectedSlot.dataset.chickenId;
     if (chickenId) {
+      // Mostrar los detalles de la gallina seleccionada en el slot
+      const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+      const slotOverlay = selectedSlot.querySelector('.slot-overlay');
+      slotOverlay.innerHTML = chickenCard.innerHTML;
+      slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
+
       alert(`Gallina ${chickenId} seleccionada en el slot ${slotIndex}`);
     } else {
       alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
@@ -83,24 +96,6 @@ async function getBalance(address) {
       }
     }
   }
-
-  // Función para alquilar las gallinas seleccionadas
-  function rentChickens() {
-    // Aquí puedes implementar la lógica para alquilar las gallinas seleccionadas.
-    // Por ahora, simplemente alertaremos las IDs y cantidades de las gallinas seleccionadas.
-    const selectedChickens = Array.from(chickenSlots).filter(slot => slot.dataset.chickenId);
-    if (selectedChickens.length > 0) {
-      const selectedChickenDetails = selectedChickens.map(slot => ({
-        id: slot.dataset.chickenId,
-        count: parseInt(slot.querySelector('.chicken-count').textContent, 10) || 0
-      }));
-      alert('Gallinas seleccionadas para alquilar:\n' + JSON.stringify(selectedChickenDetails, null, 2));
-    } else {
-      alert('No hay gallinas seleccionadas para alquilar.');
-    }
-  }
-
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
