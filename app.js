@@ -45,85 +45,70 @@ async function getBalance(address) {
 
 
 
-function handleCountButtonClick(card, increment) {
-  let count = parseInt(card.dataset.count) || 1;
+ const selectedChickens = document.getElementById('selected-chickens');
+  const chickenSlots = document.querySelectorAll('.chicken-slot');
 
-  if (increment) {
-    if (count < 12) {
-      count++;
+  function buyChicken(chickenId) {
+    // Aquí puedes implementar la lógica para comprar la gallina con el ID especificado.
+    // Por ahora, simplemente agregaremos la gallina seleccionada al primer slot disponible.
+    for (const slot of chickenSlots) {
+      if (!slot.dataset.chickenId) {
+        slot.dataset.chickenId = chickenId;
+        slot.querySelector('.chicken-count').textContent = '1';
+        return;
+      }
     }
-  } else {
-    if (count > 1) {
-      count--;
+    alert('Todos los slots están ocupados. Debes liberar un slot antes de seleccionar más gallinas.');
+  }
+
+  function selectChickenSlot(slotIndex) {
+    const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
+    const chickenId = selectedSlot.dataset.chickenId;
+    if (chickenId) {
+      // Aquí puedes implementar la lógica para mostrar los detalles de la gallina en el slot seleccionado.
+      // Por ahora, simplemente alertaremos el ID de la gallina seleccionada.
+      alert(`Gallina seleccionada: ${chickenId}`);
+    } else {
+      alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
     }
   }
 
-  card.dataset.count = count;
-  updateCounter(card, count);
-}
-
-// Función para actualizar el número de cada tarjeta
-function updateCounter(card, count) {
-  const chickenCount = card.querySelector('.chicken-count');
-  chickenCount.textContent = count;
-}
-
-// Función para seleccionar una tarjeta y agregarla a un slot vacío
-function selectChicken(chickenCard) {
-  const slots = document.querySelectorAll('.chicken-slot');
-
-  for (const slot of slots) {
-    if (!slot.dataset.chickenId) {
-      const chickenId = chickenCard.dataset.id;
-      slot.dataset.chickenId = chickenId;
-      const count = parseInt(chickenCard.dataset.count) || 1;
-      slot.dataset.count = count;
-      updateCounter(slot, count);
-      break;
+  function updateChickenCount(input) {
+    const selectedSlot = input.closest('.chicken-slot');
+    const chickenId = selectedSlot.dataset.chickenId;
+    if (chickenId) {
+      const chickenCount = parseInt(input.value, 10) || 0;
+      selectedSlot.querySelector('.chicken-count').textContent = chickenCount.toString();
     }
   }
-}
 
-// Función para deseleccionar una tarjeta de un slot
-function deselectChickenSlot(slot) {
-  slot.dataset.chickenId = '';
-  slot.dataset.count = 0;
-  updateCounter(slot, 0);
-}
+  function changeChickenCount(button, amount) {
+    const selectedSlot = button.closest('.chicken-slot');
+    const chickenId = selectedSlot.dataset.chickenId;
+    if (chickenId) {
+      const chickenCountElement = selectedSlot.querySelector('.chicken-count');
+      let chickenCount = parseInt(chickenCountElement.textContent, 10) || 0;
+      chickenCount += amount;
+      chickenCount = Math.max(0, chickenCount); // No permitir valores negativos
+      chickenCountElement.textContent = chickenCount.toString();
+    }
+  }
 
-// Agregar los event listeners después de cargar el DOM
-document.addEventListener('DOMContentLoaded', () => {
-  // Obtener todas las tarjetas
-  const cards = document.querySelectorAll('.chicken');
-
-  // Agregar event listeners para los botones + y -
-  cards.forEach((card) => {
-    const plusBtn = card.querySelector('.add-chicken-button');
-    const minusBtn = card.querySelector('.remove-chicken-button');
-
-    plusBtn.addEventListener('click', () => {
-      handleCountButtonClick(card, true);
-    });
-
-    minusBtn.addEventListener('click', () => {
-      handleCountButtonClick(card, false);
-    });
-
-    card.addEventListener('click', () => {
-      const count = parseInt(card.dataset.count) || 1;
-      card.dataset.count = count;
-      selectChicken(card);
-    });
-  });
-
-  // Agregar event listeners para los slots inferiores
-  const slots = document.querySelectorAll('.chicken-slot');
-  slots.forEach((slot) => {
-    slot.addEventListener('click', () => {
-      deselectChickenSlot(slot);
-    });
-  });
-});
+  // Función para alquilar las gallinas seleccionadas
+  function rentChickens() {
+    // Aquí puedes implementar la lógica para alquilar las gallinas seleccionadas.
+    // Por ahora, simplemente alertaremos las IDs y cantidades de las gallinas seleccionadas.
+    const selectedChickens = Array.from(chickenSlots).filter(slot => slot.dataset.chickenId);
+    if (selectedChickens.length > 0) {
+      const selectedChickenDetails = selectedChickens.map(slot => ({
+        id: slot.dataset.chickenId,
+        count: parseInt(slot.querySelector('.chicken-count').textContent, 10) || 0
+      }));
+      alert('Gallinas seleccionadas para alquilar:\n' + JSON.stringify(selectedChickenDetails, null, 2));
+    } else {
+      alert('No hay gallinas seleccionadas para alquilar.');
+    }
+  }
 
 
 const elems = document.querySelectorAll('.laya-please');
