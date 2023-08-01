@@ -188,31 +188,39 @@ document.body.addEventListener('mouseenter', function (e) {
 
 
 
-// Función para generar el enlace de referido y copiar la dirección al portapapeles
-function generateReferralLink() {
-  if (!userAddress) {
-    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
-    return;
+ function generateReferralLink() {
+    if (!userAddress) {
+      alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+      return;
+    }
+
+    // Generar el enlace de referido con la dirección como parámetro
+    const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
+
+    // Abreviar el enlace de referido para mostrar solo los primeros 10 caracteres
+    const shortenedLink = `${referralLink.substring(0, 10)}...`;
+
+    // Actualizar el contenido del elemento con el enlace abreviado
+    const linkElement = document.getElementById('link');
+    linkElement.textContent = shortenedLink;
+
+    // Cambiar el texto y el evento onclick del botón para que ahora copie el enlace abreviado
+    const generateButton = document.getElementById('generate-referral-button');
+    generateButton.textContent = 'Copiar enlace';
+    generateButton.onclick = function() {
+      copyToClipboard(referralLink);
+      alert('Enlace copiado al portapapeles: ' + referralLink);
+    };
   }
 
-  // Generar el enlace de referido con la dirección como parámetro
-  const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
-
-  // Mostrar el enlace generado en el elemento HTML
-  const linkElement = document.getElementById('link');
-  linkElement.textContent = referralLink;
-
-  // Copiar el enlace al portapapeles
-  const tempTextArea = document.createElement('textarea');
-  tempTextArea.value = referralLink;
-  document.body.appendChild(tempTextArea);
-  tempTextArea.select();
-  document.execCommand('copy');
-  document.body.removeChild(tempTextArea);
-
-  // Mostrar un mensaje para indicar que se copió el enlace
-  alert('Enlace de referido copiado al portapapeles: ' + referralLink);
-}
+  function copyToClipboard(text) {
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = text;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextArea);
+  }
 // Función para mostrar el banner una vez cargada la página
 $(document).ready(function() {
     // Ocultar el banner al inicio
