@@ -183,11 +183,22 @@ $("#close-btn").click(function() {
 // Variable para almacenar la cantidad de gallinas seleccionadas
 
 
-let selectedChickenCount = 0;
+  let selectedChickenCount = 0;
 
-// Función para aumentar y disminuir la cantidad de gallinas
+// Agregar eventos click a los botones de aumentar y el de select
+const addChickenButtons = document.querySelectorAll('.add-chicken-button');
+const selectChickenButtons = document.querySelectorAll('.chicken-select-button');
+
+addChickenButtons.forEach((button) => {
+  button.addEventListener('click', () => changeChickenCount(button, 1));
+});
+
+selectChickenButtons.forEach((button) => {
+  button.addEventListener('click', () => addToMarketCart(button.parentElement.dataset.id));
+});
+
 function changeChickenCount(button, increment) {
-  const chickenCountElement = button.parentElement.parentElement.querySelector(".chicken-selected-count");
+  const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
   if (chickenCountElement) {
     let currentCount = parseInt(chickenCountElement.innerText);
     currentCount += increment;
@@ -195,9 +206,9 @@ function changeChickenCount(button, increment) {
       currentCount = 0;
     }
     chickenCountElement.innerText = currentCount;
-    updateMarketCart();
   }
 }
+
 
   // Función para agregar los datos del card y la cantidad al cotizador de mercado
   function addToMarketCart(chickenId) {
@@ -230,6 +241,7 @@ function changeButtonColor(button) {
     button.style.color = 'white';
   }
 }
+
 
 
 // Conexión con MetaMask y eventos
