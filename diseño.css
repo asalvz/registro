@@ -401,7 +401,6 @@ h1 {
   border-radius: 5px;
 }
 
-
 #center-container {
   display: flex;
   flex-direction: column;
@@ -410,7 +409,7 @@ h1 {
   height: 100vh;
 }
 
-#rent-button-2 {
+#center-container > * {
   margin-bottom: 20px;
 }
 
