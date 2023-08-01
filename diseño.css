@@ -402,7 +402,29 @@ h1 {
 }
 
 
-/* Contenedor de profitability */
+#center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#rent-button-2 {
+  margin-bottom: 20px;
+}
+
+#rent-button-2 button {
+  padding: 7px 15px;
+  background: linear-gradient(to bottom, #ff9933, #ff6600);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+
 #profitability {
   background-color: #ffffff;
   border-radius: 10px;
@@ -411,7 +433,6 @@ h1 {
   text-align: center;
 }
 
-/* Título */
 #profitability h2 {
   font-size: 32px;
   font-weight: bold;
@@ -421,7 +442,6 @@ h1 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Párrafos de información */
 #profitability p {
   color: #333333;
   font-size: 20px;
@@ -457,6 +477,7 @@ h1 {
 #profitability {
   animation: highlight 2s ease infinite, shine 2s ease infinite;
 }
+
 /* Estilos para el botón de generar enlace de referido y copiar dirección */
 /* Estilos para el botón de generar enlace de referido y copiar dirección */
 #generate-referral-button {
