@@ -229,6 +229,28 @@ $(document).ready(function() {
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
 });
+ // Obtener el botón por su ID
+  const connectButton = document.getElementById("connect-button");
+
+  // Variable para controlar el estado de conexión
+  let isConnected = false;
+
+  // Función para cambiar el texto del botón
+  function updateButtonText() {
+    connectButton.textContent = isConnected ? "Conectado" : "Login Wallet";
+  }
+
+  // Agregar un evento de clic al botón
+  connectButton.addEventListener("click", function () {
+    // Simulación de cambio de estado de conexión (debes implementar la lógica real)
+    isConnected = !isConnected;
+
+    // Actualizar el texto del botón
+    updateButtonText();
+  });
+
+  // Llamar a la función inicial para establecer el texto del botón
+  updateButtonText();
 
 
 // Conexión con MetaMask y eventos
