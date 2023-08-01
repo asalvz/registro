@@ -46,6 +46,13 @@ async function getBalance(address) {
 // Variable para almacenar la cantidad de cada tipo de gallina seleccionada
 const selectedChickens = {};
 
+// Precio de cada tipo de huevo en BNB
+const eggPrices = {
+  small: 0.001,
+  medium: 0.003,
+  large: 0.005,
+};
+
 // Función para cambiar la cantidad de una gallina
 function changeChickenCount(button, change) {
   const card = button.parentElement.parentElement;
@@ -56,6 +63,7 @@ function changeChickenCount(button, change) {
   if (newCount >= 0 && newCount <= 12) {
     selectedChickens[chickenId] = newCount;
     updateSelectedCount(chickenId);
+    updateTotalAmount();
   }
 }
 
@@ -64,6 +72,17 @@ function updateSelectedCount(chickenId) {
   const card = document.querySelector(`[data-id="${chickenId}"]`);
   const countSpan = card.querySelector(".chicken-selected-count");
   countSpan.textContent = selectedChickens[chickenId] || 0;
+}
+
+// Función para actualizar el monto total en el cotizador de mercado
+function updateTotalAmount() {
+  let totalAmount = 0;
+  for (const chickenId in selectedChickens) {
+    const count = selectedChickens[chickenId];
+    totalAmount += count * eggPrices.medium; // Utiliza el precio medio por huevo como ejemplo
+  }
+  const totalAmountSpan = document.getElementById("total-amount");
+  totalAmountSpan.textContent = `${totalAmount.toFixed(3)} BNB`;
 }
 
 // Función para comprar una gallina seleccionada
