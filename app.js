@@ -198,7 +198,7 @@ document.body.addEventListener('mouseenter', function (e) {
     const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
 
     // Abreviar el enlace de referido para mostrar solo los primeros 10 caracteres
-    const shortenedLink = `${referralLink.substring(0, 20)}...`;
+    const shortenedLink = `${referralLink.substring(0, 30)}...`;
 
     // Actualizar el contenido del elemento con el enlace abreviado
     const linkElement = document.getElementById('link');
