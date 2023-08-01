@@ -542,4 +542,20 @@ h1 {
 #close-btn:hover {
     background-color: #e04242;
 }
+.chicken-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .chicken-controls .add-remove-buttons {
+    display: flex;
+  }
+
+  .add-chicken-button,
+  .remove-chicken-button {
+    margin: 5px;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+  }
