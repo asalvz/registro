@@ -225,10 +225,16 @@ function updateMarketCart() {
   const totalAmountElement = document.getElementById("total-amount");
   totalAmountElement.innerText = `${totalAmount.toFixed(4)} BNB`;
 }
-
-// Conexión con MetaMask y eventos (puedes mantener este bloque de código)
-// ...
-
+ function buyChicken(chickenId) {
+    // Aquí puedes agregar la lógica para comprar la gallina con el id proporcionado
+    // Por ejemplo, puedes enviar una transacción a la blockchain o realizar una operación similar
+    // Después de realizar la compra, puedes actualizar los datos en el cotizador llamando a updateMarketCart()
+    // Por ahora, vamos a simular la compra y agregar 1 gallina al cotizador
+    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
+    const currentCount = parseInt(chickenCountElement.innerText);
+    chickenCountElement.innerText = currentCount + 1;
+    updateMarketCart();
+  }
 
 
 // Conexión con MetaMask y eventos
