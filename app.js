@@ -179,72 +179,44 @@ $("#close-btn").click(function() {
   // Llamar a la función inicial para establecer el texto del botón
   updateButtonText();
 // Variable para almacenar la cantidad de cada tipo de gallina seleccionada
-const selectedChickens = {};
+// Variable para almacenar la cantidad de gallinas seleccionadas
 
-// Precio de cada tipo de huevo en BNB
-const eggPrices = {
-  small: 0.001,
-  medium: 0.003,
-  large: 0.005,
-};
 
-function changeChickenCount(button, change) {
-  const card = button.parentElement;
-  const chickenId = card.getAttribute("data-id");
-  const currentCount = selectedChickens[chickenId] || 0;
-  const newCount = currentCount + change;
 
-  if (newCount >= 0 && newCount <= 12) {
-    selectedChickens[chickenId] = newCount;
-    updateSelectedCount(chickenId);
-    updateTotalAmount();
+  let selectedChickenCount = 0;
+
+  // Función para incrementar y decrementar la cantidad de gallinas en cada card
+  function changeChickenCount(button, increment) {
+    const chickenCountElement = button.parentElement.querySelector(".chicken-selected-count");
+    let currentCount = parseInt(chickenCountElement.innerText);
+    currentCount += increment;
+    if (currentCount < 0) {
+      currentCount = 0;
+    }
+    chickenCountElement.innerText = currentCount;
   }
-}
 
-// Función para actualizar el contador de una gallina seleccionada
-function updateSelectedCount(chickenId) {
-  const card = document.querySelector(`[data-id="${chickenId}"]`);
-  const countSpan = card.querySelector(".chicken-selected-count");
-  countSpan.textContent = selectedChickens[chickenId] || 0;
-}
+  // Función para agregar los datos del card y la cantidad al cotizador de mercado
+  function addToMarketCart(chickenId) {
+    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
+    const selectedCount = parseInt(chickenCountElement.innerText);
+    selectedChickenCount += selectedCount;
 
+    // Actualizar la cantidad de gallinas seleccionada en el cotizador
+    const selectedChickenCountElement = document.getElementById("selected-chicken-count");
+    selectedChickenCountElement.innerText = selectedChickenCount;
 
-// Función para actualizar el monto total en el cotizador de mercado
-function updateTotalAmount() {
-  let totalAmount = 0;
-  for (const chickenId in selectedChickens) {
-    const count = selectedChickens[chickenId];
-    totalAmount += count * eggPrices.medium; // Utiliza el precio medio por huevo como ejemplo
+    // Calcular el monto total
+    const smallEggPayment = 0.001;
+    const mediumEggPayment = 0.003;
+    const largeEggPayment = 0.005;
+
+    const totalAmount = (selectedCount * smallEggPayment) + (selectedCount * mediumEggPayment) + (selectedCount * largeEggPayment);
+
+    // Actualizar el monto total en el cotizador
+    const totalAmountElement = document.getElementById("total-amount");
+    totalAmountElement.innerText = `${totalAmount} BNB`;
   }
-  const totalAmountSpan = document.getElementById("total-amount");
-  totalAmountSpan.textContent = `${totalAmount.toFixed(3)} BNB`;
-}
-
-// Función para comprar una gallina seleccionada
-function buyChicken(chickenId) {
-  const count = selectedChickens[chickenId] || 0;
-  if (count > 0) {
-    // Aquí puedes implementar la lógica para la compra de la gallina seleccionada
-    console.log(`Has comprado ${count} gallinas del tipo ${chickenId}`);
-  } else {
-    console.log("Selecciona al menos una gallina antes de comprar.");
-  }
-}
-
-// Función para cambiar el color del botón de alquiler
-function changeButtonColor(button) {
-  // Aquí puedes implementar la lógica para cambiar el color del botón de alquiler
-  // Puedes usar esta función para realizar alguna acción visual en respuesta al clic en el botón
-  console.log("Botón de alquiler clicado");
-}
-const rentButtons = document.querySelectorAll('.rent-button');
-rentButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    changeButtonColor(this);
-  });
-});
-
-
 
 
 // Conexión con MetaMask y eventos
