@@ -44,7 +44,7 @@ async function getBalance(address) {
 
 
 
- const chickenSlots = document.querySelectorAll('.chicken-slot');
+const chickenSlots = document.querySelectorAll('.chicken-slot');
 
   function buyChicken(chickenId) {
     // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
@@ -54,7 +54,10 @@ async function getBalance(address) {
         const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
         const slotOverlay = slot.querySelector('.slot-overlay');
         slotOverlay.innerHTML = chickenCard.innerHTML;
-        slotOverlay.querySelector('.add-remove-buttons').remove(); // Removemos los botones de agregar y quitar
+        const addRemoveButtons = slotOverlay.querySelector('.add-remove-buttons');
+        if (addRemoveButtons) {
+          addRemoveButtons.remove(); // Removemos los botones de agregar y quitar si existen
+        }
         slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
 
         alert(`Gallina ${chickenId} seleccionada en el slot ${slot.dataset.slot}`);
