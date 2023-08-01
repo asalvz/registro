@@ -48,13 +48,13 @@ async function getBalance(address) {
  const selectedChickens = document.getElementById('selected-chickens');
   const chickenSlots = document.querySelectorAll('.chicken-slot');
 
-  function buyChicken(chickenId) {
-    // Aquí puedes implementar la lógica para comprar la gallina con el ID especificado.
-    // Por ahora, simplemente agregaremos la gallina seleccionada al primer slot disponible.
+ function buyChicken(chickenId) {
+    // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
     for (const slot of chickenSlots) {
       if (!slot.dataset.chickenId) {
         slot.dataset.chickenId = chickenId;
         slot.querySelector('.chicken-count').textContent = '1';
+        alert(`Gallina ${chickenId} seleccionada en el slot ${slot.dataset.slot}`);
         return;
       }
     }
@@ -65,32 +65,22 @@ async function getBalance(address) {
     const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
     const chickenId = selectedSlot.dataset.chickenId;
     if (chickenId) {
-      // Aquí puedes implementar la lógica para mostrar los detalles de la gallina en el slot seleccionado.
-      // Por ahora, simplemente alertaremos el ID de la gallina seleccionada.
-      alert(`Gallina seleccionada: ${chickenId}`);
+      alert(`Gallina ${chickenId} seleccionada en el slot ${slotIndex}`);
     } else {
       alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
     }
   }
 
-  function updateChickenCount(input) {
-    const selectedSlot = input.closest('.chicken-slot');
-    const chickenId = selectedSlot.dataset.chickenId;
-    if (chickenId) {
-      const chickenCount = parseInt(input.value, 10) || 0;
-      selectedSlot.querySelector('.chicken-count').textContent = chickenCount.toString();
-    }
-  }
-
-  function changeChickenCount(button, amount) {
-    const selectedSlot = button.closest('.chicken-slot');
-    const chickenId = selectedSlot.dataset.chickenId;
-    if (chickenId) {
-      const chickenCountElement = selectedSlot.querySelector('.chicken-count');
-      let chickenCount = parseInt(chickenCountElement.textContent, 10) || 0;
-      chickenCount += amount;
-      chickenCount = Math.max(0, chickenCount); // No permitir valores negativos
-      chickenCountElement.textContent = chickenCount.toString();
+  // Función para aumentar o disminuir la cantidad de gallinas en un card
+  function changeChickenCount(button, change) {
+    const chickenCard = button.closest('.chicken');
+    const chickenCountElement = chickenCard.querySelector('.chicken-count');
+    let currentCount = parseInt(chickenCountElement.textContent);
+    if (!isNaN(currentCount)) {
+      currentCount += change;
+      if (currentCount >= 1 && currentCount <= 99) {
+        chickenCountElement.textContent = currentCount;
+      }
     }
   }
 
