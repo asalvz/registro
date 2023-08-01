@@ -66,13 +66,13 @@ function changeChickenCount(button, change) {
   }
 }
 
-
 // Función para actualizar el contador de una gallina seleccionada
 function updateSelectedCount(chickenId) {
   const card = document.querySelector(`[data-id="${chickenId}"]`);
   const countSpan = card.querySelector(".chicken-selected-count");
   countSpan.textContent = selectedChickens[chickenId] || 0;
 }
+
 
 // Función para actualizar el monto total en el cotizador de mercado
 function updateTotalAmount() {
