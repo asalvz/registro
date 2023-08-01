@@ -43,59 +43,96 @@ async function getBalance(address) {
 }
 
 
-
+// Variables globales
 const chickenSlots = document.querySelectorAll('.chicken-slot');
+const maxChickenCount = 12;
 
-  function buyChicken(chickenId) {
-    // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
-    for (const slot of chickenSlots) {
-      if (!slot.dataset.chickenId) {
-        slot.dataset.chickenId = chickenId;
-        const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-        const slotOverlay = slot.querySelector('.slot-overlay');
-        slotOverlay.innerHTML = chickenCard.innerHTML;
-        const addRemoveButtons = slotOverlay.querySelector('.add-remove-buttons');
-        if (addRemoveButtons) {
-          addRemoveButtons.remove(); // Removemos los botones de agregar y quitar si existen
-        }
-        slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
-
-        alert(`Gallina ${chickenId} seleccionada en el slot ${slot.dataset.slot}`);
-        return;
-      }
-    }
-    alert('Todos los slots están ocupados. Debes liberar un slot antes de seleccionar más gallinas.');
+// Función para cambiar el color de fondo de los botones de rentar
+function changeButtonColor(button) {
+  if (button.style.backgroundColor === 'gray') {
+    button.style.background = 'linear-gradient(to bottom, #ff9933, #ff6600)';
+  } else {
+    button.style.background = 'gray';
   }
+}
 
-  function selectChickenSlot(slotIndex) {
-    const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
-    const chickenId = selectedSlot.dataset.chickenId;
-    if (chickenId) {
-      // Mostrar los detalles de la gallina seleccionada en el slot
+// Función para agregar o quitar gallinas a los slots inferiores
+function buyChicken(chickenId) {
+  // Buscar el primer slot vacío y asignar la gallina seleccionada a ese slot
+  for (const slot of chickenSlots) {
+    if (!slot.dataset.chickenId) {
+      slot.dataset.chickenId = chickenId;
       const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
-      const slotOverlay = selectedSlot.querySelector('.slot-overlay');
+      const slotOverlay = slot.querySelector('.slot-overlay');
       slotOverlay.innerHTML = chickenCard.innerHTML;
+      const addRemoveButtons = slotOverlay.querySelector('.add-remove-buttons');
+      if (addRemoveButtons) {
+        addRemoveButtons.remove(); // Removemos los botones de agregar y quitar si existen
+      }
       slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
 
-      alert(`Gallina ${chickenId} seleccionada en el slot ${slotIndex}`);
-    } else {
-      alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
-    }
-  }
+      // Mostramos la cantidad de gallinas seleccionadas en el slot
+      const chickenCountElement = slotOverlay.querySelector('.chicken-count');
+      chickenCountElement.textContent = '1';
 
-  // Función para aumentar o disminuir la cantidad de gallinas en un card
-  function changeChickenCount(button, change) {
-    const chickenCard = button.closest('.chicken');
-    const chickenCountElement = chickenCard.querySelector('.chicken-count');
-    let currentCount = parseInt(chickenCountElement.textContent);
-    if (isNaN(currentCount)) {
-      currentCount = 0;
-    }
-    currentCount += change;
-    if (currentCount >= 1 && currentCount <= 99) {
-      chickenCountElement.textContent = currentCount;
+      updateChickenCount(slotOverlay.querySelector('.add-chicken-button'), 0); // Inicializamos el contador a 1
+      return;
     }
   }
+  alert('Todos los slots están ocupados. Debes liberar un slot antes de seleccionar más gallinas.');
+}
+
+// Función para seleccionar un slot y mostrar los detalles de la gallina en el slot seleccionado
+function selectChickenSlot(slotIndex) {
+  const selectedSlot = document.querySelector(`.chicken-slot:nth-child(${slotIndex})`);
+  const chickenId = selectedSlot.dataset.chickenId;
+  if (chickenId) {
+    // Mostrar los detalles de la gallina seleccionada en el slot
+    const chickenCard = document.querySelector(`.chicken[data-id="${chickenId}"]`);
+    const slotOverlay = selectedSlot.querySelector('.slot-overlay');
+    slotOverlay.innerHTML = chickenCard.innerHTML;
+    slotOverlay.style.pointerEvents = 'none'; // Evitamos que se pueda interactuar con los detalles en el slot
+
+    alert(`Gallina ${chickenId} seleccionada en el slot ${slotIndex}`);
+  } else {
+    alert('Este slot está vacío. Seleccione una gallina para asignar a este slot.');
+  }
+}
+
+// Función para aumentar o disminuir la cantidad de gallinas en un card
+function changeChickenCount(button, change) {
+  const chickenCard = button.closest('.chicken');
+  const chickenCountElement = chickenCard.querySelector('.chicken-count');
+  let currentCount = parseInt(chickenCountElement.textContent);
+  if (isNaN(currentCount)) {
+    currentCount = 0;
+  }
+  currentCount += change;
+  if (currentCount >= 0 && currentCount <= maxChickenCount) {
+    chickenCountElement.textContent = currentCount;
+  }
+}
+
+// Inicializar los botones de rentar con el color de fondo correcto
+const rentButtons = document.querySelectorAll('#rent-button-1');
+rentButtons.forEach((button) => {
+  changeButtonColor(button);
+});
+
+// Función para generar el enlace de referido y copiar dirección (ya existente en el HTML)
+function generateReferralLink() {
+  // Código para generar el enlace de referido y copiar dirección
+  // ...
+}
+
+// Función para alquilar las gallinas seleccionadas (ya existente en el HTML)
+function rentChickens() {
+  // Código para alquilar las gallinas seleccionadas
+  // ...
+}
+
+// Resto del código JavaScript sin cambios
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
