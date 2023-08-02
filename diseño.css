@@ -240,8 +240,8 @@ h1 {
 
 
 .chicken:hover {
-    transform: scale(1.2); /* Escala el card al 120% cuando el puntero está encima */
-  }
+  filter: brightness(0.7); /* Oscurece el card al 70% cuando el puntero está encima */
+}
 
 .title {
   font-size: 32px;
@@ -311,38 +311,7 @@ h1 {
   padding: 20px;
 }
 
-.chicken-slot {
-  border: 1px dashed #ffffff;
-  border-radius: 90px;
-  padding: 10px;
-  margin: 10px;
-  width: 180px;
-  height: 400px;
-  text-align: center;
-  background: linear-gradient(to bottom, rgba(153, 204, 255, 0.7), rgba(77, 210, 255, 0.7)); /* Blue gradient with 70% opacity */
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.slot-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
-    border-radius: 10px;
-}
-.slot-overlay input {
-    width: 80px;
-    padding: 5px;
-    font-size: 16px;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.2);
-}
+
 
 .chicken-count {
     position: absolute;
