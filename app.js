@@ -209,27 +209,68 @@ $("#close-btn").click(function() {
       }
     }
 
-  // Función para agregar los datos del card y la cantidad al cotizador de mercado
-  function addToMarketCart(chickenId) {
-    const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
-    const selectedCount = parseInt(chickenCountElement.innerText);
-    selectedChickenCount += selectedCount;
+ let totalEggs = 0;
+let smallEggsCount = 0;
+let mediumEggsCount = 0;
+let largeEggsCount = 0;
+let corralCapacity = 0;
+let chickenPrice = 0.1; // Precio de una gallina (ejemplo, puedes ajustarlo según tus necesidades)
 
-    // Actualizar la cantidad de gallinas seleccionada en el cotizador
-    const selectedChickenCountElement = document.getElementById("selected-chicken-count");
-    selectedChickenCountElement.innerText = selectedChickenCount;
+function addToMarketCart(chickenId, increment) {
+  const chickenCountElement = document.querySelector(`[data-id="${chickenId}"] .chicken-selected-count`);
+  const selectedCount = parseInt(chickenCountElement.innerText);
+  selectedChickenCount += increment;
 
-    // Calcular el monto total
-    const smallEggPayment = 0.001;
-    const mediumEggPayment = 0.003;
-    const largeEggPayment = 0.005;
+  // Actualizar la cantidad de gallinas seleccionada en el cotizador
+  const selectedChickenCountElement = document.getElementById("selected-chicken-count");
+  selectedChickenCountElement.innerText = selectedChickenCount;
 
-    const totalAmount = (selectedCount * smallEggPayment) + (selectedCount * mediumEggPayment) + (selectedCount * largeEggPayment);
+  // Calcular el monto total de las gallinas
+  const totalChickenPrice = selectedChickenCount * chickenPrice;
 
-    // Actualizar el monto total en el cotizador
-    const totalAmountElement = document.getElementById("total-amount");
-    totalAmountElement.innerText = `${totalAmount} BNB`;
-  }
+  // Actualizar el monto total de las gallinas en el cotizador
+  const totalChickenPriceElement = document.getElementById("total-chicken-price");
+  totalChickenPriceElement.innerText = `${totalChickenPrice} BNB`;
+
+  // Actualizar la capacidad de corral (ejemplo: capacidad = gallinas seleccionadas * 3)
+  corralCapacity = selectedChickenCount * 3;
+
+  // Actualizar la capacidad de corral en el cotizador
+  const corralCapacityElement = document.getElementById("corral-capacity");
+  corralCapacityElement.innerText = corralCapacity;
+
+  // Actualizar la cantidad total de huevos con la categoría que le corresponde
+  const smallEggCountElement = document.getElementById("small-egg-count");
+  const mediumEggCountElement = document.getElementById("medium-egg-count");
+  const largeEggCountElement = document.getElementById("large-egg-count");
+
+  smallEggsCount = selectedChickenCount * 2; // Ejemplo: 2 huevos pequeños por gallina
+  mediumEggsCount = selectedChickenCount * 3; // Ejemplo: 3 huevos medianos por gallina
+  largeEggsCount = selectedChickenCount * 4; // Ejemplo: 4 huevos grandes por gallina
+
+  // Actualizar los contadores de huevos en el cotizador
+  smallEggCountElement.innerText = smallEggsCount;
+  mediumEggCountElement.innerText = mediumEggsCount;
+  largeEggCountElement.innerText = largeEggsCount;
+
+  // Calcular el total de huevos
+  totalEggs = smallEggsCount + mediumEggsCount + largeEggsCount;
+
+  // Actualizar el total de huevos en el cotizador
+  const totalEggsElement = document.getElementById("total-eggs");
+  totalEggsElement.innerText = totalEggs;
+
+  // Calcular el monto total
+  const smallEggPayment = 0.001;
+  const mediumEggPayment = 0.003;
+  const largeEggPayment = 0.005;
+  const totalAmount = (smallEggsCount * smallEggPayment) + (mediumEggsCount * mediumEggPayment) + (largeEggsCount * largeEggPayment);
+
+  // Actualizar el monto total en el cotizador
+  const totalAmountElement = document.getElementById("total-amount");
+  totalAmountElement.innerText = `${totalAmount} BNB`;
+}
+
 function changeButtonColor(button) {
   // Cambiar el color del fondo del botón
   if (button.style.backgroundColor === 'gray') {
