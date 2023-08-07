@@ -588,4 +588,28 @@ h1 {
   .add-remove-buttons .custom-button {
     margin-right: 1px;
   }
+
+/* Estilos para el panel "MARKET" */
+.panel {
+  background-color: #ffffff; /* Color de fondo del panel */
+  border: 1px solid #dddddd; /* Borde del panel */
+  border-radius: 8px; /* Borde redondeado */
+  padding: 20px; /* Espacio interno del panel */
+  max-width: 400px; /* Ancho máximo del panel */
+  margin: 0 auto; /* Centrar el panel horizontalmente */
+}
+
+/* Estilos para el título "MERCADO" */
+.panel h2 {
+  font-size: 24px; /* Tamaño de fuente del título */
+  margin-bottom: 10px; /* Espacio inferior después del título */
+}
+
+/* Estilos para los párrafos del contenido */
+.panel p {
+  font-size: 16px; /* Tamaño de fuente del contenido */
+  line-height: 1.6; /* Espaciado entre líneas */
+  margin-bottom: 8px; /* Espacio inferior después de cada párrafo */
+}
+
 </style>
