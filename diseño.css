@@ -2,6 +2,10 @@ body {
   padding: 0;
   margin: 0;
 }
+#header {
+  display: flex;
+  flex-wrap: wrap;
+}
 .totalcontainer {
   width: 100vw;
   height: 100vh;
@@ -405,7 +409,7 @@ h1 {
 }
 
 #profitability {
-  background-color: #ffffff;
+  background-color: ##f9f9f9;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -418,6 +422,8 @@ h1 {
   color: #0080ff;
   text-transform: uppercase;
   margin-bottom: 20px;
+   flex: 1; /* Esto hace que el cotizador ocupe el espacio disponible */
+  margin-left: 20px; /* Ajusta este valor según el espacio que desees entre el cotizador y el contenedor de gallinas */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -611,6 +617,9 @@ h1 {
   font-size: 16px; /* Tamaño de fuente del contenido */
   line-height: 1.6; /* Espaciado entre líneas */
   margin-bottom: 8px; /* Espacio inferior después de cada párrafo */
+}
+#chicken-container {
+  flex: 1; /* Esto hace que el contenedor de las gallinas ocupe el espacio disponible */
 }
 
 
