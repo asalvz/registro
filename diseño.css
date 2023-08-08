@@ -574,86 +574,32 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f0f0f0;
+  padding: 20px;
 }
+
 
 .cards-container {
   display: flex;
   gap: 20px;
+  max-width: 1000px;
+  width: 100%;
 }
 
 .panel-container {
-  background-color: #ffffff;
+  flex: 1;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 20px;
-  flex: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.panel {
+  padding: 20px;
 }
 
 .panel.dark-background {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
-
-.panel h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.panel p {
-  margin: 5px 0;
-}
-
-.panel ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.panel li {
-  margin: 3px 0;
-}
-
-.panel span {
-  font-weight: bold;
-}
-
-#market-panel {
-  background-color: white;
-  position: relative;
-  z-index: 1;
-}
-
-#market-panel .panel {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-
-#market-panel .panel.dark-background {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-
-
-
-
-@media screen and (max-width: 768px) {
-  .cards-container {
-    flex-direction: column;
-  }
-}
-
-
-
