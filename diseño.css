@@ -624,6 +624,21 @@ h1 {
   background-color: white;
 }
 
+#market-panel .panel {
+  position: relative;
+  z-index: 1;
+}
+
+#market-panel .panel.dark-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
 
 
 
