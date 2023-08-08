@@ -603,3 +603,7 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
+.title3 {
+  margin-top: 50px; /* Ajusta el valor según sea necesario */
+}
+
