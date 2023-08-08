@@ -587,7 +587,7 @@ h1 {
   width: 100%;
 }
 
-.panel-container {
+.panel3-container {
   flex: 1;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -595,11 +595,11 @@ h1 {
   background-color: white;
 }
 
-.panel {
+.panel3 {
   padding: 20px;
 }
 
-.panel.dark-background {
+.panel3.dark-background {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
