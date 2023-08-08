@@ -329,15 +329,9 @@ h1 {
 
 
 
-.chicken-slot.selected {
-  background: linear-gradient(to bottom, #4dd2ff, #1a8cff);
-}
 
-#rent-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
+
 
 #rent-button button {
   padding: 10px 20px;
@@ -561,10 +555,7 @@ h1 {
     outline: none;
   }
 
-  /* Estilo específico para el botón de agregar */
-  .add-chicken-button {
-    margin-right: 1px; /* Espacio entre los botones */
-  }
+
 .custom-button {
     width: 25px;
     height: 25px;
@@ -636,9 +627,8 @@ h1 {
   background-color: white;
 }
 
-#profitability {
-  background-color: white;
-}
+
+
 
 @media screen and (max-width: 768px) {
   .cards-container {
