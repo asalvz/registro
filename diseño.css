@@ -11,18 +11,9 @@ body {
   height: 100vh;
   overflow: hidden;
    z-index: -1; 
-   .container {
-      display: flex;
-      gap: 20px;
-      margin: 20px;
-    }
 
-    .panel {
-      padding: 20px;
-      border: 1px solid #ccc;
-      flex: 1;
-    }
-}
+
+  
 .container1 {
   transform: scaleX(1.11);
    position: fixed; /* O cambia a "position: fixed" si quieres que sean fijos en la ventana del navegador */
@@ -391,9 +382,6 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
-
-#center-container > * {
   margin-bottom: 20px;
 }
 
