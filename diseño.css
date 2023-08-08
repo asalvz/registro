@@ -594,7 +594,7 @@ h1 {
   .add-remove-buttons .custom-button {
     margin-right: 1px;
   }
-.main-container {
+ .main-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -602,7 +602,15 @@ h1 {
     padding: 20px;
   }
 
-  .1panel-container {
+
+
+  .panel {
+    padding: 20px;
+    border: 1px solid #ccc;
+    flex: 1;
+  }
+
+  .panel-container { /* Cambia "1panel-container" a "panel-container" */
     background-color: #f0f0f0;
     padding: 20px;
     flex: 0 1 45%;
@@ -615,8 +623,6 @@ h1 {
     border-radius: 10px;
     z-index: -1;
   }
-
-
 
 
 </style>
