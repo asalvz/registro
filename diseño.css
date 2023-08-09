@@ -573,7 +573,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 1000vh;
   background-color: #f0f0f0;
   padding: 20px;
 }
