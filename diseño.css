@@ -595,9 +595,7 @@ h1 {
   background-color: white;
 }
 
-.panel3 {
-  padding: 20px;
-}
+
 
 .panel3.dark-background {
   background-color: rgba(0, 0, 0, 0.5);
@@ -606,4 +604,12 @@ h1 {
 .title3 {
   margin-top: 150px; /* Ajusta el valor según sea necesario */
 }
+.panel {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Distribuir el espacio disponible de manera equitativa entre los paneles */
+}
+
 
