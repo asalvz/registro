@@ -214,13 +214,14 @@ h1 {
   }
 }
 
- #chickens-panel {
+.chicken-panel {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  padding: 20px;
-
+  justify-content: center;
+  background-color: #f5f5f5; /* Puedes ajustar el color de fondo según tu diseño */
+  padding: 20px; /* Espaciado interior para separar del resto de elementos */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px; /* Bordes redondeados */
 }
 
 .chicken {
