@@ -437,13 +437,6 @@ h1 {
   }
 }
 
-/* Aplicar animaciones al contenedor */
-#profitability {
-  animation: highlight 2s ease infinite, shine 2s ease infinite;
-}
-
-/* Estilos para el botón de generar enlace de referido y copiar dirección */
-/* Estilos para el botón de generar enlace de referido y copiar dirección */
 #generate-referral-button {
   padding: 8px 16px;
   background-color: #007bff; /* Azul (cambiar según tus preferencias) */
