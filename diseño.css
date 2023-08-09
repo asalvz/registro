@@ -582,28 +582,12 @@ h1 {
 
 .cards-container {
   display: flex;
-  gap: 20px;
+  justify-content: space-between; /* Distribuye los paneles de manera equitativa a lo largo del contenedor */
   max-width: 1000px;
-  width: 100%;
+  margin: 0 auto; /* Centra el contenedor en la página */
+  padding: 20px; /* Añade espacio alrededor de los paneles */
 }
 
-.panel3-container {
-  flex: 1;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: white;
-}
-
-
-
-.panel3.dark-background {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-}
-.title3 {
-  margin-top: 150px; /* Ajusta el valor según sea necesario */
-}
 .panel {
   background-color: #f0f0f0;
   padding: 20px;
@@ -611,5 +595,6 @@ h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1; /* Distribuir el espacio disponible de manera equitativa entre los paneles */
 }
+
 
 
