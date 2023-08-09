@@ -249,15 +249,16 @@ h1 {
 .title {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin: 0; /* Elimina el margen inferior para que no afecte la disposición */
   text-transform: uppercase;
   text-align: center;
   padding: 15px 30px;
-  border-radius: 50px; /* Un valor mayor para hacerlo más redondeado */
-  background: linear-gradient(135deg, #000, #1a1a1a); /* Degradado desde negro (#000) a un gris oscuro (#1a1a1a) */
-  color: #ffffff; /* Texto en color blanco para mayor contraste */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Sombra para dar sensación de luz negra */
+  border-radius: 50px;
+  background: linear-gradient(135deg, #000, #1a1a1a);
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
+
 
 /* Opcional: animación para darle un efecto de destello */
 @keyframes flash {
