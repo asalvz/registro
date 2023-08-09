@@ -603,7 +603,52 @@ h1 {
   flex: 1;
   margin: 0 10px; /* Añade un espacio entre los paneles */
 }
+@media (max-width: 400px) {
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
 
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap; /* Añadir flex-wrap para asegurarse de que los paneles no se sobrepongan */
+  }
+
+  /* Ajustar el margen de los paneles en pantallas pequeñas */
+  .panel {
+    margin: 10px 0;
+  }
+}
+
+/* Estilos para pantallas más grandes */
+@media (min-width: 401px) {
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap; /* Añadir flex-wrap para asegurarse de que los paneles no se sobrepongan */
+  }
+
+  /* Ajustar el margen de los paneles en pantallas más grandes */
+  .panel {
+    margin: 10px 0;
+  }
+}
 
 
 
