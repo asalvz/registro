@@ -709,3 +709,8 @@ h1 {
   font-size: 14px;
 }
 
+#header {
+  max-height: 250px;  /* Establecer la altura máxima inicial del panel */
+  overflow: hidden;   /* Ocultar contenido que exceda la altura máxima */
+  transition: max-height 0.5s; /* Animación de transición para cambiar la altura */
+}
