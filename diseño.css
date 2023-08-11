@@ -684,7 +684,7 @@ h1 {
 
 
 .egg-image {
-  width: 50px; /* Ajusta el tamaño según tus preferencias */
+  width: 5px; /* Ajusta el tamaño según tus preferencias */
   height: auto; /* Esto mantendrá la proporción original de la imagen */
   margin-bottom: 2px;
 }
