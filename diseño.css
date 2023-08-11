@@ -709,9 +709,3 @@ h1 {
   font-size: 14px;
 }
 
-.farm-containerr {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
