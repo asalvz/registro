@@ -682,10 +682,13 @@ h1 {
 }
 
 
-/* Estilo para la imagen de huevo */
+
 .egg-image {
+  width: 50px; /* Ajusta el tamaño según tus preferencias */
+  height: auto; /* Esto mantendrá la proporción original de la imagen */
   margin-bottom: 2px;
 }
+
 
 /* Estilo para el casillero */
 .user-count-card {
