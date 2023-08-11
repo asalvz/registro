@@ -651,39 +651,3 @@ h1 {
 }
 
 
-
-/* Estilo para el contenedor de imágenes y casillero */
-.farm-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
-
-/* Estilo para la imagen de huevo */
-.egg-image {
-  margin-bottom: 10px;
-}
-
-/* Estilo para el casillero */
-.user-count-card {
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.user-count {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.user-count-label {
-  font-size: 14px;
-}
-
-
-
-
-
