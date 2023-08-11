@@ -281,7 +281,12 @@ function changeButtonColor(button) {
     button.style.color = 'white';
   }
 }
-
+function expandPanel() {
+  var panel = document.getElementById("header");
+  panel.style.height = "auto";  // Cambiar la altura para mostrar todo el panel
+  var expandButton = document.getElementById("expand-button");
+  expandButton.style.display = "none";  // Ocultar el botón de expansión
+}
 
 
 
