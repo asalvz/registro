@@ -12,7 +12,7 @@
 </head>
 <body>
  
-
+<div style="position: relative;">
 <div id="header" style="position: fixed; top: 10px; left: 10px; background-color: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 10px;">
   <button id="connect-button" style="padding: 7px 15px; background: linear-gradient(to bottom, #ff9933, #ff6600); color: #ffffff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; font-size: 16px;">Login Wallet</button>
   <ul style="list-style-type: none; padding: 0; margin: 0;">
@@ -50,7 +50,7 @@
 
    </div>
 
- <button id="expand-button" style="position: fixed; bottom: 0; left: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 0 0 10px 10px; padding: 5px 10px; cursor: pointer; font-size: 14px;" onclick="expandPanel()">Mostrar más</button>
+  <div id="expand-button" style="position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 10px; padding: 5px 10px; cursor: pointer; font-size: 14px; transition: bottom 0.5s;" onclick="expandPanel()">Mostrar más</div>
 
 
    
