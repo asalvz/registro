@@ -292,7 +292,7 @@ function expandPanel() {
   } else {
     panel.style.maxHeight = "250px";
     expandButton.innerHTML = "Mostrar más";
-    expandButton.style.bottom = "-20px";
+    expandButton.style.bottom = "-30px";
   }
 }
 
