@@ -288,11 +288,9 @@ function expandPanel() {
   if (panel.style.maxHeight === "250px") {
     panel.style.maxHeight = "100%";
     expandButton.innerHTML = "Mostrar menos";
-    expandButton.style.bottom = "0";
   } else {
     panel.style.maxHeight = "250px";
     expandButton.innerHTML = "Mostrar más";
-    expandButton.style.bottom = "-20px";
   }
 }
 
