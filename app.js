@@ -283,12 +283,16 @@ function changeButtonColor(button) {
 }
 function expandPanel() {
   var panel = document.getElementById("header");
-  panel.style.height = "auto";  // Cambiar la altura para mostrar todo el panel
   var expandButton = document.getElementById("expand-button");
-  expandButton.style.display = "none";  // Ocultar el botón de expansión
+  
+  if (panel.style.maxHeight === "250px") {
+    panel.style.maxHeight = "100%";
+    expandButton.innerHTML = "Mostrar menos";
+  } else {
+    panel.style.maxHeight = "250px";
+    expandButton.innerHTML = "Mostrar más";
+  }
 }
-
-
 
 
 // Conexión con MetaMask y eventos
