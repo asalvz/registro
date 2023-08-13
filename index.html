@@ -25,21 +25,36 @@
 
  <!-- Agregar un botón para desplegar el resto del panel -->
 
+  <div class="cards" style="position: fixed; top: 10px; left: 10px; background-color: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 10px; max-height: 250px; overflow: hidden; transition: max-height 0.5s;">
   <h2 class="panel-title">Farmeo de Usuarios</h2>
-   
 
+  <div class="user-count-card">
     <div class="egg-image">
-
       <img src="https://sunny-brigadeiros-470a39.netlify.app/egg1.png" alt="Huevo chico" width="25">
     </div>
-    <div class="user-count-card">
-      <div class="user-count">0</div>
+    <div class="user-count">0</div>
+  </div>
 
-
+  <div class="user-count-card">
+    <div class="egg-image">
       <img src="https://sunny-brigadeiros-470a39.netlify.app/egg3.png" alt="Huevo mediano" width="25">
     </div>
-    <div class="user-count-card">
-      <div class="user-count">0</div>
+    <div class="user-count">0</div>
+  </div>
+
+  <div class="user-count-card">
+    <div class="egg-image">
+      <img src="https://sunny-brigadeiros-470a39.netlify.app/ghnjm.png" alt="Huevo grande" width="25">
+    </div>
+    <div class="user-count">0</div>
+  </div>
+
+  <div class="user-count-card">
+    <div class="user-count">0</div>
+  </div>
+
+  <button id="expand-button" style="position: absolute; bottom: 0; left: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 0 0 10px 10px; padding: 5px 10px; cursor: pointer; font-size: 14px;" onclick="expandPanel()">Mostrar más</button>
+</div>
 
       <img src="https://sunny-brigadeiros-470a39.netlify.app/ghnjm.png" alt="Huevo grande" width="25">
       </div>
