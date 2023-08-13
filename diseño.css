@@ -710,6 +710,7 @@ h1 {
 .user-count {
   font-size: 24px;
   font-weight: bold;
+  background: white;
 }
 
 .user-count-label {
