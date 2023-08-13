@@ -644,12 +644,13 @@ h1 {
     padding: 20px;
   }
 
-  .cards-container {
+ .cards-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Cambiado de "center" a "flex-start" */
     flex-wrap: wrap; /* Añadir flex-wrap para asegurarse de que los paneles no se sobrepongan */
-  }
+}
+
 
   /* Ajustar el margen de los paneles en pantallas pequeñas */
   .panel {
