@@ -684,14 +684,17 @@ h1 {
 
 
 .egg-image {
-   width: 100px;
+   width: 25px;
   height: auto;
   margin-right: 10px;
+}
+.cardss {
+  display: inline-block;
 }
 
 
 /* Estilo para el casillero */
-.user-count-card {
+.user-count-cardss {
   background-color: transparent;
   padding: 10px;
   border-radius: 8px;
@@ -699,6 +702,8 @@ h1 {
   text-align: center;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
+
 }
 
 
