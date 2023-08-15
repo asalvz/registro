@@ -293,6 +293,15 @@ function changeButtonColor(button) {
     expandButton.innerHTML = "Mostrar más";
   }
 }
+function increaseCount() {
+  var chickenCount = document.getElementById("chicken-count");
+  var originalBackgroundColor = chickenCount.style.backgroundColor;
+  chickenCount.style.backgroundColor = "yellow";
+  setTimeout(function() {
+    chickenCount.style.backgroundColor = originalBackgroundColor;
+  }, 300);
+}
+
 
 
 // Conexión con MetaMask y eventos
