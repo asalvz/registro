@@ -217,23 +217,39 @@
         <p><span style="font-family: 'Roboto', sans-serif;">Payment for large egg:</span> <span style="font-family: 'Roboto Mono', monospace; color: green;">0.005 BNB</span> <button style="background-color: red; color: white;">Sell</button></p>
         <p>On Sunday, all eggs can be purchased, but at a lower price. <button style="background-color: red; color: white;">Sell</button></p>
     </div>
-
- <div class="panel" id="calculator-panel" style="flex: 1; border: 1px solid #ccc; padding: 10px;background-color: white;">
+<div class="panel" id="calculator-panel" style="flex: 1; border: 1px solid #ccc; padding: 10px;background-color: white;">
     <div class="panel-title" style="font-family: 'Roboto', sans-serif;">MARKET Calculator</div>
-        <p>Corral: <span id="corral-capacity">0</span> Chicken</p>
-        <p><span style="font-family: 'Roboto', sans-serif;">Profits in market profit</span></p>
-       <ul>
-            <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Small eggs:</span> <span id="small-egg-count">0</span></li>
-            <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Medium eggs:</span> <span id="medium-egg-count">0</span></li>
-            <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Large eggs:</span> <span id="large-egg-count">0</span></li>
-        </ul>
-        <p><span style="font-family: 'Roboto', sans-serif;">total amount earned</span> <span id="total-amount" style="color: green;">0 BNB</span></p>
-        <p><span style="font-family: 'Roboto', sans-serif;">Current Corral Level:</span> <span id="nivel-amount">1</span></p>
-        <p><span style="font-family: 'Roboto', sans-serif;">Current Corral Level:</span> <span id="corral-capacity">12</span>Chiken</p>
-     <h2>Corral Actions</h2>
-  <button id="buy-extension-button" onclick="buyCorralExtension()">Buy Corral Extension</button>
+    <p>Corral: <span id="corral-capacity">0</span> Chicken</p>
+    <p><span style="font-family: 'Roboto', sans-serif;">Profits in market profit</span></p>
+    <ul>
+        <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Small eggs:</span> <span id="small-egg-count">0</span></li>
+        <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Medium eggs:</span> <span id="medium-egg-count">0</span></li>
+        <li style="background-color: black; color: white;"><span style="font-family: 'Roboto', sans-serif;">Large eggs:</span> <span id="large-egg-count">0</span></li>
+    </ul>
+    <p><span style="font-family: 'Roboto', sans-serif;">total amount earned</span> <span id="total-amount" style="color: green;">0 BNB</span></p>
+    <p><span style="font-family: 'Roboto', sans-serif;">Current Corral Level:</span> <span id="nivel-amount">1</span></p>
+    <p><span style="font-family: 'Roboto', sans-serif;">Current Corral Level:</span> <span id="corral-capacity">12</span> Chicken</p>
 
-    </div>
+    <h2>Corral Actions</h2>
+    <button id="buy-extension-button" onclick="buyCorralExtension()">Buy Corral Extension</button>
+    
+    <h2>Boost Productivity</h2>
+    <button id="buy-boost-button" onclick="buyBoost()">Buy Boost</button>
+    <button id="boost-productivity-button" onclick="boostProductivity()">Boost Productivity</button>
+    <p>Boosts used: <span id="boosts-used">0</span></p>
+
+    <h2>Reduce Cooldown Time</h2>
+    <button id="buy-reduction-button" onclick="buyReduction()">Buy Reduction</button>
+    <button id="reduce-cooldown-button" onclick="reduceCooldownTime()">Reduce Cooldown Time</button>
+    <p>Reductions used: <span id="reductions-used">0</span></p>
+
+    <h2>Sell Eggs at Higher Price</h2>
+    <button id="buy-sell-eggs-button" onclick="buySellEggsBoost()">Buy Sell Eggs Boost</button>
+    <button id="sell-eggs-button" onclick="sellEggsAtHigherPrice()">Sell Eggs at Higher Price</button>
+    <p>Sell boosts used: <span id="sell-boosts-used">0</span></p>
+</div>
+
+
   <div class="panel" id="calculator-panel" style="flex: 1; border: 1px solid #ccc; padding: 10px;background-color: white;">
     <div class="panel-title" style="font-family: 'Roboto', sans-serif;">NFT Marketplce</div>
        <ul>
