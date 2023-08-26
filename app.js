@@ -203,40 +203,205 @@ function changeButtonColor(button) {
   }
 }
 // Función para comprar gallinas
-function buyChickens(amount) {
-  // Lógica para comprar gallinas
-  // Actualizar el estado y balance del contrato
-  // Actualizar el balance del usuario
+async function buyChicken(type) {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  const quantityInput = document.getElementById(`gallina${type}-quantity`);
+  const amount = parseInt(quantityInput.value);
+
+  if (isNaN(amount) || amount <= 0) {
+    alert('Ingresa una cantidad válida.');
+    return;
+  }
+
+  try {
+    // Obtener el precio de la gallina según el tipo (debes definir los precios)
+    let chickenPrice;
+    if (type === 1) {
+      chickenPrice = 0.04;
+    } else if (type === 2) {
+      chickenPrice = 0.05;
+    } else if (type === 3) {
+      chickenPrice = 0.07;
+    } else if (type === 4) {
+      chickenPrice = 0.08;
+    } else if (type === 5) {
+      chickenPrice = 0.1;
+    } else if (type === 6) {
+      chickenPrice = 0.2;
+    }
+    // Agrega más tipos de gallinas con sus respectivos precios aquí
+
+    const totalCost = amount * chickenPrice;
+
+    // Enviar la transacción al contrato para comprar las gallinas
+    await contractInstance.methods.buyChicken(type, amount).send({ from: userAddress, value: web3.utils.toWei(totalCost.toString(), 'ether') });
+
+    // Actualizar el balance del usuario y el estado del contrato
+    const newBalance = await getBalance(userAddress);
+    const contractState = await contractInstance.methods.getContractState().call();
+
+    // Actualizar el balance del usuario en la interfaz
+    const balanceElement = document.getElementById('user-balance');
+    balanceElement.textContent = newBalance + ' BNB';
+
+    // Actualizar el estado del contrato en la interfaz (ejemplo)
+    const contractStateElement = document.getElementById('contract-state');
+    contractStateElement.textContent = contractState;
+
+    alert(`¡Has comprado ${amount} gallina(s) de tipo ${type}!`);
+  } catch (error) {
+    console.error('Error al comprar gallinas:', error);
+  }
 }
 
 // Función para ampliar el corral
-function expandCorral() {
-  // Lógica para ampliar el corral
-  // Actualizar el estado y balance del contrato
+async function expandCorral() {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  try {
+    // Enviar la transacción al contrato para ampliar el corral
+    await contractInstance.methods.expandCorral().send({ from: userAddress });
+
+    // Actualizar el estado del contrato y el balance del usuario
+    const contractState = await contractInstance.methods.getContractState().call();
+    const newBalance = await getBalance(userAddress);
+
+    // Actualizar el estado del contrato en la interfaz (ejemplo)
+    const contractStateElement = document.getElementById('contract-state');
+    contractStateElement.textContent = contractState;
+
+    // Actualizar el balance del usuario en la interfaz
+    const balanceElement = document.getElementById('user-balance');
+    balanceElement.textContent = newBalance + ' BNB';
+
+    alert('¡Has ampliado el corral!');
+  } catch (error) {
+    console.error('Error al ampliar el corral:', error);
+  }
 }
 
 // Función para reducir el enfriamiento
-function reduceCooldown() {
-  // Lógica para reducir el enfriamiento
-  // Actualizar el estado y balance del contrato
+async function reduceCooldown() {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  try {
+    // Enviar la transacción al contrato para reducir el enfriamiento
+    await contractInstance.methods.reduceCooldown().send({ from: userAddress });
+
+    // Actualizar el estado del contrato y el balance del usuario
+    const contractState = await contractInstance.methods.getContractState().call();
+    const newBalance = await getBalance(userAddress);
+
+    // Actualizar el estado del contrato en la interfaz (ejemplo)
+    const contractStateElement = document.getElementById('contract-state');
+    contractStateElement.textContent = contractState;
+
+    // Actualizar el balance del usuario en la interfaz
+    const balanceElement = document.getElementById('user-balance');
+    balanceElement.textContent = newBalance + ' BNB';
+
+    alert('¡Has reducido el enfriamiento!');
+  } catch (error) {
+    console.error('Error al reducir el enfriamiento:', error);
+  }
 }
 
 // Función para aumentar el precio de venta
-function increaseSalePrice() {
-  // Lógica para aumentar el precio de venta
-  // Actualizar el estado y balance del contrato
+async function increaseSalePrice() {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  try {
+    // Enviar la transacción al contrato para aumentar el precio de venta
+    await contractInstance.methods.increaseSalePrice().send({ from: userAddress });
+
+    // Actualizar el estado del contrato y el balance del usuario
+    const contractState = await contractInstance.methods.getContractState().call();
+    const newBalance = await getBalance(userAddress);
+
+    // Actualizar el estado del contrato en la interfaz (ejemplo)
+    const contractStateElement = document.getElementById('contract-state');
+    contractStateElement.textContent = contractState;
+
+    // Actualizar el balance del usuario en la interfaz
+    const balanceElement = document.getElementById('user-balance');
+    balanceElement.textContent = newBalance + ' BNB';
+
+    alert('¡Has aumentado el precio de venta!');
+  } catch (error) {
+    console.error('Error al aumentar el precio de venta:', error);
+  }
 }
 
+
 // Función para aumentar la producción
-function increaseProduction() {
-  // Lógica para aumentar la producción
-  // Actualizar el estado y balance del contrato
+async function increaseProduction() {
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  try {
+    // Enviar la transacción al contrato para aumentar la producción
+    await contractInstance.methods.increaseProduction().send({ from: userAddress });
+
+    // Actualizar el estado del contrato y el balance del usuario
+    const contractState = await contractInstance.methods.getContractState().call();
+    const newBalance = await getBalance(userAddress);
+
+    // Actualizar el estado del contrato en la interfaz (ejemplo)
+    const contractStateElement = document.getElementById('contract-state');
+    contractStateElement.textContent = contractState;
+
+    // Actualizar el balance del usuario en la interfaz
+    const balanceElement = document.getElementById('user-balance');
+    balanceElement.textContent = newBalance + ' BNB';
+
+    alert('¡Has aumentado la producción!');
+  } catch (error) {
+    console.error('Error al aumentar la producción:', error);
+  }
 }
+
 
 // Función para generar el enlace de referido
 function generateReferralLink() {
-  // Lógica para generar el enlace de referido
+  if (!userAddress) {
+    alert('Conéctate a MetaMask para obtener la dirección de tu billetera.');
+    return;
+  }
+
+  // Generar el enlace de referido con la dirección como parámetro
+  const referralLink = `https://tusitio.com/registro?ref=${userAddress}`;
+
+  // Abreviar el enlace de referido para mostrar solo los primeros 10 caracteres
+  const shortenedLink = `${referralLink.substring(0, 30)}...`;
+
+  // Actualizar el contenido del elemento con el enlace abreviado
+  const linkElement = document.getElementById('link');
+  linkElement.textContent = shortenedLink;
+
+  // Cambiar el texto y el evento onclick del botón para que ahora copie el enlace abreviado
+  const generateButton = document.getElementById('generate-referral-button');
+  generateButton.textContent = 'Copiar enlace';
+  generateButton.onclick = function() {
+    copyToClipboard(referralLink);
+    alert('Enlace copiado al portapapeles: ' + referralLink);
+  };
 }
+
 
 // Evento al hacer clic en el botón para comprar gallinas
 document.getElementById('buy-chickens-button').addEventListener('click', () => {
