@@ -1519,7 +1519,8 @@ function generateReferralLink() {
 
 document.addEventListener('DOMContentLoaded', function() {
   const buyChickensButton = document.getElementById('buy-chickens-button');
-  buyChickensButton.addEventListener('click', () => {
+  document.addEventListener('DOMContentLoaded', function() {
+
     // Aquí va el código para manejar el evento de clic en el botón de compra de pollos
   });
 
