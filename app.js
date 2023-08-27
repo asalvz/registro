@@ -1117,41 +1117,45 @@ const contractAbi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]; // Tu ABI aquí
-const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C'; // Tu dirección de contrato aquí
+]; 
+const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C'; 
 
-if (typeof window.ethereum !== 'undefined') {
-  web3 = new Web3(window.ethereum);
-  contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
-} else {
-  console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
-}
+ document.addEventListener('DOMContentLoaded', async function() {
+            const connectButton = document.getElementById('connect-button');
+            const userAddressElement = document.getElementById('user-address');
+            const balanceElement = document.getElementById('user-balance');
 
-async function connectToMetaMask() {
-  try {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+            if (typeof window.ethereum !== 'undefined') {
+                const web3 = new Web3(window.ethereum);
+                const contractInstance = new web3.eth.Contract(contractAbi, contractAddress);
 
-    const accounts = await web3.eth.getAccounts();
-    userAddress = accounts[0];
-    console.log('Dirección del usuario:', userAddress);
+                connectButton.addEventListener('click', async () => {
+                    try {
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    const balance = await getBalance(userAddress);
-    console.log('Saldo del usuario:', balance + ' BNB');
+                        const accounts = await web3.eth.getAccounts();
+                        const userAddress = accounts[0];
+                        console.log('Dirección del usuario:', userAddress);
 
-    const userAddressElement = document.getElementById('user-address');
-    const balanceElement = document.getElementById('user-balance');
-    userAddressElement.textContent = userAddress;
-    balanceElement.textContent = balance + ' BNB';
-  } catch (error) {
-    console.error('Error al conectarse a MetaMask:', error);
-  }
-}
+                        const balance = await getBalance(userAddress);
+                        console.log('Saldo del usuario:', balance + ' BNB');
 
-async function getBalance(address) {
-  const weiBalance = await web3.eth.getBalance(address);
-  const balance = web3.utils.fromWei(weiBalance, 'ether');
-  return parseFloat(balance).toFixed(4);
-}
+                        userAddressElement.textContent = userAddress;
+                        balanceElement.textContent = balance + ' BNB';
+                    } catch (error) {
+                        console.error('Error al conectarse a MetaMask:', error);
+                    }
+                });
+            } else {
+                console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
+            }
+
+            async function getBalance(address) {
+                const weiBalance = await web3.eth.getBalance(address);
+                const balance = web3.utils.fromWei(weiBalance, 'ether');
+                return parseFloat(balance).toFixed(4);
+            }
+        });
 
 
 
