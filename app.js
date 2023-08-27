@@ -1,6 +1,6 @@
 let web3;
 let userAddress;
-let contractInstance; 
+let contractInstance;
 
 const contractAbi = [
 	{
@@ -1117,9 +1117,8 @@ const contractAbi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
-
-const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
+]; // Tu ABI aquí
+const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C'; // Tu dirección de contrato aquí
 
 if (typeof window.ethereum !== 'undefined') {
   web3 = new Web3(window.ethereum);
@@ -1128,15 +1127,12 @@ if (typeof window.ethereum !== 'undefined') {
   console.log('No se detectó la billetera MetaMask. Asegúrate de tener instalada la extensión MetaMask en tu navegador.');
 }
 
-
 async function connectToMetaMask() {
   try {
-    
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-   
     const accounts = await web3.eth.getAccounts();
-    userAddress = accounts[0]; 
+    userAddress = accounts[0];
     console.log('Dirección del usuario:', userAddress);
 
     const balance = await getBalance(userAddress);
@@ -1151,12 +1147,16 @@ async function connectToMetaMask() {
   }
 }
 
-
 async function getBalance(address) {
   const weiBalance = await web3.eth.getBalance(address);
   const balance = web3.utils.fromWei(weiBalance, 'ether');
   return parseFloat(balance).toFixed(4);
 }
+
+// Llama a la función connectToMetaMask cuando el botón sea presionado
+const connectButton = document.getElementById('connect-button');
+connectButton.addEventListener('click', connectToMetaMask);
+
 
 
 
@@ -1540,12 +1540,3 @@ document.getElementById('generate-referral-button').addEventListener('click', ge
 
 
 
-// Conexión con MetaMask y eventos
-window.addEventListener('DOMContentLoaded', () => {
-  // Agregar evento click al botón para conectar a MetaMask
-  const connectButton = document.getElementById('connect-button');
-  connectButton.addEventListener('click', connectToMetaMask);
-  // Resto del código omitido por brevedad...
-  
- 
-});
