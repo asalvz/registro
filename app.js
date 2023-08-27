@@ -1537,6 +1537,4 @@ document.getElementById('generate-referral-button').addEventListener('click', ge
 
 
 
-// Llama a la función connectToMetaMask cuando el botón sea presionado
-const connectButton = document.getElementById('connect-button');
-connectButton.addEventListener('click', connectToMetaMask);
+
