@@ -1514,11 +1514,9 @@ function generateReferralLink() {
 }
 
 
-// Evento al hacer clic en el botón para comprar gallinas
-document.getElementById('buy-chickens-button').addEventListener('click', () => {
-  const amount = parseInt(document.getElementById('chicken-amount').value);
-  buyChickens(amount);
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const buyChickensButton = document.getElementById('buy-chickens-button');
+    buyChickensButton.addEventListener('click', () => {
 
 // Evento al hacer clic en el botón para ampliar el corral
 document.getElementById('expand-corral-button').addEventListener('click', expandCorral);
@@ -1534,13 +1532,7 @@ document.getElementById('increase-production-button').addEventListener('click', 
 
 // Evento al hacer clic en el botón para generar el enlace de referido
 document.getElementById('generate-referral-button').addEventListener('click', generateReferralLink);
-document.addEventListener('DOMContentLoaded', function() {
-    // Tu código aquí, incluyendo la manipulación de elementos y la adición de eventos
-    const connectButton = document.querySelector('#connectButton');
-    connectButton.addEventListener('click', function() {
-        // Manejo del evento click
-    });
-});
+
 
 
 
