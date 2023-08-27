@@ -1,6 +1,8 @@
 let web3;
 let userAddress;
 let contractInstance;
+import Web3 from 'web3';
+
 
 const contractAbi = [
 	{
