@@ -1,8 +1,7 @@
 let web3;
 let userAddress;
-let contractInstance; // Asigna la instancia del contrato aquí (reemplaza 'ContractAbi' y 'ContractAddress')
+let contractInstance; 
 
-// Define el ABI del contrato (reemplaza con tu ABI real)
 const contractAbi = [
 	{
 		"inputs": [],
@@ -1120,7 +1119,6 @@ const contractAbi = [
 	}
 ];
 
-// Define la dirección del contrato (reemplaza con tu dirección real)
 const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
 if (typeof window.ethereum !== 'undefined') {
@@ -1133,19 +1131,17 @@ if (typeof window.ethereum !== 'undefined') {
 
 async function connectToMetaMask() {
   try {
-    // Solicitar al usuario que conecte su billetera MetaMask
+    
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-    // Obtener la dirección del usuario conectado
+   
     const accounts = await web3.eth.getAccounts();
-    userAddress = accounts[0]; // Quitamos la palabra clave 'const'
+    userAddress = accounts[0]; 
     console.log('Dirección del usuario:', userAddress);
 
-    // Obtener el saldo del usuario conectado en BNB
     const balance = await getBalance(userAddress);
     console.log('Saldo del usuario:', balance + ' BNB');
 
-    // Imprimir la dirección y saldo en la página HTML
     const userAddressElement = document.getElementById('user-address');
     const balanceElement = document.getElementById('user-balance');
     userAddressElement.textContent = userAddress;
@@ -1156,7 +1152,6 @@ async function connectToMetaMask() {
 }
 
 
-// Función para obtener el saldo del usuario en BNB
 async function getBalance(address) {
   const weiBalance = await web3.eth.getBalance(address);
   const balance = web3.utils.fromWei(weiBalance, 'ether');
