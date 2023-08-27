@@ -1517,28 +1517,25 @@ function generateReferralLink() {
   };
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    const buyChickensButton = document.getElementById('buy-chickens-button');
-    buyChickensButton.addEventListener('click', () => {
+  const buyChickensButton = document.getElementById('buy-chickens-button');
+  buyChickensButton.addEventListener('click', () => {
+    // Aquí va el código para manejar el evento de clic en el botón de compra de pollos
+  });
 
-// Evento al hacer clic en el botón para ampliar el corral
-document.getElementById('expand-corral-button').addEventListener('click', expandCorral);
+  // Evento al hacer clic en el botón para ampliar el corral
+  document.getElementById('expand-corral-button').addEventListener('click', expandCorral);
 
-// Evento al hacer clic en el botón para reducir el enfriamiento
-document.getElementById('reduce-cooldown-button').addEventListener('click', reduceCooldown);
+  // Evento al hacer clic en el botón para reducir el enfriamiento
+  document.getElementById('reduce-cooldown-button').addEventListener('click', reduceCooldown);
 
-// Evento al hacer clic en el botón para aumentar el precio de venta
-document.getElementById('increase-price-button').addEventListener('click', increaseSalePrice);
+  // Evento al hacer clic en el botón para aumentar el precio de venta
+  document.getElementById('increase-price-button').addEventListener('click', increaseSalePrice);
 
-// Evento al hacer clic en el botón para aumentar la producción
-document.getElementById('increase-production-button').addEventListener('click', increaseProduction);
+  // Evento al hacer clic en el botón para aumentar la producción
+  document.getElementById('increase-production-button').addEventListener('click', increaseProduction);
 
-// Evento al hacer clic en el botón para generar el enlace de referido
-document.getElementById('generate-referral-button').addEventListener('click', generateReferralLink);
-    }})
-
-
-
-
+  // Evento al hacer clic en el botón para generar el enlace de referido
+  document.getElementById('generate-referral-button').addEventListener('click', generateReferralLink);
+});
 
