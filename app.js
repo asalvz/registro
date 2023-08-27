@@ -1536,7 +1536,7 @@ document.getElementById('increase-production-button').addEventListener('click', 
 
 // Evento al hacer clic en el botón para generar el enlace de referido
 document.getElementById('generate-referral-button').addEventListener('click', generateReferralLink);
-    }}
+    }})
 
 
 
