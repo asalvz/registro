@@ -1534,6 +1534,13 @@ document.getElementById('increase-production-button').addEventListener('click', 
 
 // Evento al hacer clic en el botón para generar el enlace de referido
 document.getElementById('generate-referral-button').addEventListener('click', generateReferralLink);
+document.addEventListener('DOMContentLoaded', function() {
+    // Tu código aquí, incluyendo la manipulación de elementos y la adición de eventos
+    const connectButton = document.querySelector('#connectButton');
+    connectButton.addEventListener('click', function() {
+        // Manejo del evento click
+    });
+});
 
 
 
