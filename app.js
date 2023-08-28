@@ -1197,13 +1197,11 @@
         console.error(error);
       }
     });
-async function buyGallina(selectedGallinaType) {
+// Conectar el evento click al botón de compra
+buyButton.addEventListener('click', async () => {
   try {
-    // Verificar si MetaMask está instalado
-    if (typeof window.ethereum === 'undefined') {
-      alert('Please install MetaMask to use this feature.');
-      return;
-    }
+    // Obtener el tipo de gallina seleccionado del dropdown
+    const selectedGallinaType = gallinaTypeSelect.value;
 
     // Solicitar acceso a la billetera del usuario a través de MetaMask
     await window.ethereum.enable();
@@ -1221,15 +1219,6 @@ async function buyGallina(selectedGallinaType) {
   } catch (error) {
     console.error(error);
   }
-}
-
-// Conectar el evento click al botón de compra
-buyButton.addEventListener('click', async () => {
-  // Obtener el tipo de gallina seleccionado del dropdown
-  const selectedGallinaType = gallinaTypeSelect.value;
-
-  // Llamar a la función buyGallina con el tipo de gallina seleccionado
-  await buyGallina(selectedGallinaType);
 });
 
 const elems = document.querySelectorAll('.laya-please');
