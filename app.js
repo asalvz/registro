@@ -1201,9 +1201,9 @@ document.addEventListener('DOMContentLoaded', () => {
 buyButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     try {
-      // Obtener el tipo de gallina, el valor del parámetro y el precio de la tarjeta clickeada
+      // Obtener el tipo de gallina, el índice del card y el precio de la tarjeta clickeada
       const selectedGallinaType = button.getAttribute('data-gallina-type');
-      const selectedGallinaParam = button.getAttribute('data-gallina-param');
+      const selectedGallinaIndex = parseInt(button.closest('.chicken').querySelector('h2').textContent);
       const gallinaPrice = button.closest('.chicken').getAttribute('data-price');
 
       // Solicitar acceso a la billetera del usuario a través de MetaMask
@@ -1214,10 +1214,10 @@ buyButtons.forEach((button) => {
       const accounts = await web3.eth.getAccounts();
       const senderAddress = accounts[0];
 
-      // Llamar a la función buyGallina en el contrato con el valor del parámetro
-      await contract.methods.buyGallina(selectedGallinaParam).send({ from: senderAddress, value: web3.utils.toWei(gallinaPrice, 'ether') });
+      // Llamar a la función buyGallina en el contrato con el índice como parámetro
+      await contract.methods.buyGallina(selectedGallinaIndex).send({ from: senderAddress, value: web3.utils.toWei(gallinaPrice, 'ether') });
 
-      alert(`Successfully bought ${selectedGallinaType}`);
+      alert(`Successfully bought ${selectedGallinaType} at index ${selectedGallinaIndex}`);
 
     } catch (error) {
       console.error(error);
