@@ -1209,21 +1209,36 @@ buyButtons.forEach((button) => {
       // Solicitar acceso a la billetera del usuario a través de MetaMask
       await window.ethereum.enable();
 
+      // Crear una instancia de Web3 y del contrato
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+      // Obtener la dirección del usuario actual
       const accounts = await web3.eth.getAccounts();
       const senderAddress = accounts[0];
 
       // Llamar a la función buyGallina en el contrato con el índice como parámetro
-      await contract.methods.buyGallina(selectedGallinaIndex).send({ from: senderAddress, value: web3.utils.toWei(gallinaPrice, 'ether') });
+      const transaction = await contract.methods.buyGallina(selectedGallinaIndex).send({
+        from: senderAddress,
+        value: web3.utils.toWei(gallinaPrice, 'ether'),
+        gas: 200000 // Ajusta el valor del gas según sea necesario
+      });
 
+      // Mostrar un mensaje de éxito
       alert(`Successfully bought ${selectedGallinaType} at index ${selectedGallinaIndex}`);
+
+      // Escuchar el evento GallinaPurchased después de realizar la transacción
+      const gallinaPurchasedEvent = contract.events.GallinaPurchased();
+      gallinaPurchasedEvent.on('data', event => {
+        console.log('Gallina purchased event:', event.returnValues);
+      });
 
     } catch (error) {
       console.error(error);
     }
   });
 });
+
 
 
 const elems = document.querySelectorAll('.laya-please');
