@@ -1,3 +1,5 @@
+console.log("Archivo JavaScript cargado");
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const connectButton = document.getElementById('connect-button');
