@@ -1198,6 +1198,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(error);
       }
     });
+	async function getReferrer(userAddress) {
+  const referrer = await contract.methods.getUserReferrer(userAddress).call();
+  return referrer;
+}
 	// Función para actualizar el valor del referido en el elemento HTML
 async function updateReferrerSpan() {
   try {
