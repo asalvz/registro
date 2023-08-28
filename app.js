@@ -1195,6 +1195,7 @@
         console.error(error);
       }
     });
+function buyGallina(gallinaType) {
  buyButton.addEventListener('click', async () => {
       try {
         // Verificar si MetaMask está instalado
