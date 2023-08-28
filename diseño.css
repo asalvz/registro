@@ -614,12 +614,12 @@ h1 {
 
 /* Estilo para los títulos dentro de los paneles */
 .panel-title {
-  font-size: 24px;
+  font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
   background-color: #f9f9f9;
-  padding: 10px;
+  padding: 1px;
   border-radius: 8px 8px 0 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
