@@ -1195,6 +1195,14 @@
         console.error(error);
       }
     });
+// Conectar el evento click al botón de compra
+buyButton.addEventListener('click', async () => {
+  // Obtener el tipo de gallina seleccionado del dropdown
+  const selectedGallinaType = gallinaTypeSelect.value;
+
+  // Llamar a la función buyGallina con el tipo de gallina seleccionado
+  await buyGallina(selectedGallinaType);
+});
 async function buyGallina() {
   try {
     // Verificar si MetaMask está instalado
