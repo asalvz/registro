@@ -1266,13 +1266,10 @@ async function showReferrerOnPage() {
 // Ejecutar la función para mostrar el referido al cargar la página
 window.addEventListener('load', showReferrerOnPage);
 
-	// Suponiendo que ya tienes web3.js incluido en tu página
+	
 
-// Dirección del contrato y el ABI
-const contractAddress = "0xTuDireccionDelContrato";
-const contractAbi = [...]; // Aquí debes proporcionar el ABI real
 
-// Crear una instancia del contrato
+
 const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
 // Función para comprar una extensión de corral
@@ -1306,8 +1303,6 @@ async function buyCorralExtension() {
     console.error("Error al comprar:", error);
   }
 }
-
-
 
 
 
