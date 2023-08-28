@@ -1223,6 +1223,7 @@ function buyGallina(gallinaType) {
       } catch (error) {
         console.error(error);
       }
+ }
     });
 
 
