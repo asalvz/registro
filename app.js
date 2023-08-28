@@ -1,30 +1,11 @@
     const connectButton = document.getElementById('connect-button');
+    const generateReferralButton = document.getElementById('generate-referral-button');
     const userAddress = document.getElementById('user-address');
     const userBalance = document.getElementById('user-balance');
+    const referralLink = document.getElementById('link');
 
-    connectButton.addEventListener('click', async () => {
-      // Check if MetaMask is installed
-      if (typeof window.ethereum === 'undefined') {
-        alert('Please install MetaMask to use this feature.');
-        return;
-      }
-
-      try {
-        // Request access to the user's MetaMask wallet
-        await window.ethereum.enable();
-        
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        const address = accounts[0];
-
-        userAddress.textContent = address;
-
-        // Connect to Binance Smart Chain
-        const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
-
-        // Replace with your contract address and ABI
-        const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
-        const contractAbi =[
+    // Reemplaza con el ABI de tu contrato
+    const contractAbi = [
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
@@ -1139,26 +1120,77 @@
 		"stateMutability": "view",
 		"type": "function"
 	}
-]; // Contract ABI
+];
+    // Reemplaza con la dirección de tu contrato
+    const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
-        const contractInstance = new bscWeb3.eth.Contract(contractAbi, contractAddress);
+    connectButton.addEventListener('click', async () => {
+      try {
+        // Verificar si MetaMask está instalado
+        if (typeof window.ethereum === 'undefined') {
+          alert('Please install MetaMask to use this feature.');
+          return;
+        }
+
+        // Solicitar acceso a la billetera del usuario a través de MetaMask
+        await window.ethereum.enable();
         
-        // Fetch and display user balance
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        const address = accounts[0];
+
+        userAddress.textContent = address;
+
+        // Conectar a Binance Smart Chain
+        const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
+
+        const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
+        
+        // Obtener saldo del usuario y mostrarlo
         const balance = await bscWeb3.eth.getBalance(address);
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
-
-        // You can now interact with the contractInstance to get contract states
-        // For example:
-        // const contractState = await contractInstance.methods.getState().call();
-        // console.log('Contract State:', contractState);
 
       } catch (error) {
         console.error(error);
       }
+    });   
+ generateReferralButton.addEventListener('click', async () => {
+      try {
+        // Verificar si MetaMask está instalado
+        if (typeof window.ethereum === 'undefined') {
+          alert('Please install MetaMask to use this feature.');
+          return;
+        }
+
+        // Solicitar acceso a la billetera del usuario a través de MetaMask
+        await window.ethereum.enable();
+
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const senderAddress = accounts[0];
+
+        // Obtener la dirección del referente del input
+        const referrerAddress = referrerInput.value;
+
+        if (!referrerAddress) {
+          return;
+        }
+
+        // Validar que la dirección sea de 40 caracteres (dirección ERC20)
+        if (referrerAddress.length !== 42) {
+          alert('Invalid referrer address format');
+          return;
+        }
+
+        // Llamar a la función setReferrer en el contrato
+        await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
+
+        referralLink.textContent = `Referral set to ${referrerAddress}`;
+      } catch (error) {
+        console.error(error);
+      }
     });
-
-
-
 
 
 const elems = document.querySelectorAll('.laya-please');
