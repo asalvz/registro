@@ -1195,7 +1195,7 @@
         console.error(error);
       }
     });
-function buyGallina() {
+async function buyGallina() {
   try {
     // Verificar si MetaMask está instalado
     if (typeof window.ethereum === 'undefined') {
