@@ -1198,7 +1198,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-// Conectar el evento click al botón de compra
 buyButton.addEventListener('click', async () => {
   try {
     // Obtener el tipo de gallina seleccionado del dropdown
