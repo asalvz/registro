@@ -1198,15 +1198,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(error);
       }
     });
-
-buyButtons.forEach(button => {
+// Conectar el evento click al botón de compra
+const buyButtons = document.querySelectorAll('.buy-button');
+buyButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     try {
-      // Obtener el tipo de gallina de la tarjeta correspondiente
-      const gallinaType = button.getAttribute('data-gallina-type');
-
-      // Obtener el precio de la tarjeta correspondiente
-      const price = parseFloat(button.closest('.chicken').getAttribute('data-price'));
+      // Obtener el tipo de gallina y el precio de la tarjeta clickeada
+      const selectedGallinaType = button.getAttribute('data-gallina-type');
+      const gallinaPrice = button.closest('.chicken').getAttribute('data-price');
 
       // Solicitar acceso a la billetera del usuario a través de MetaMask
       await window.ethereum.enable();
@@ -1217,9 +1216,10 @@ buyButtons.forEach(button => {
       const senderAddress = accounts[0];
 
       // Llamar a la función buyGallina en el contrato
-      await contract.methods.buyGallina(gallinaType).send({ from: senderAddress, value: web3.utils.toWei(price.toString(), 'ether') });
+      await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei(gallinaPrice, 'ether') });
 
-      alert(`Successfully bought ${gallinaType} for ${price} BNB`);
+      alert(`Successfully bought ${selectedGallinaType}`);
+
     } catch (error) {
       console.error(error);
     }
