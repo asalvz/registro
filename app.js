@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', () => {
 
     const connectButton = document.getElementById('connect-button');
     const generateReferralButton = document.getElementById('generate-referral-button');
@@ -1197,6 +1197,7 @@
         console.error(error);
       }
     });
+
 // Conectar el evento click al botón de compra
 buyButton.addEventListener('click', async () => {
   try {
@@ -1299,6 +1300,7 @@ $(document).ready(function() {
 // Función para cerrar el banner al hacer clic en el botón "Cerrar"
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
+});
 });
 
  
