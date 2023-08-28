@@ -1,3 +1,5 @@
+ document.addEventListener('DOMContentLoaded', function() {
+
     const connectButton = document.getElementById('connect-button');
     const generateReferralButton = document.getElementById('generate-referral-button');
     const referrerInput = document.getElementById('referrer-input'); 
@@ -1307,5 +1309,6 @@ $(document).ready(function() {
 // Función para cerrar el banner al hacer clic en el botón "Cerrar"
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
+});
 });
  
