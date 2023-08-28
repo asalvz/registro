@@ -4,6 +4,9 @@
     const userAddress = document.getElementById('user-address');
     const userBalance = document.getElementById('user-balance');
     const referralLink = document.getElementById('link');
+    const buyButton = document.getElementById('buy-button');
+    const gallinaTypeSelect = document.getElementById('gallina-type');
+
 
     // Reemplaza con el ABI de tu contrato
     const contractAbi = [
@@ -1188,6 +1191,34 @@
         await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
         referralLink.textContent = `Referral set to ${referrerAddress}`;
+      } catch (error) {
+        console.error(error);
+      }
+    });
+ buyButton.addEventListener('click', async () => {
+      try {
+        // Verificar si MetaMask está instalado
+        if (typeof window.ethereum === 'undefined') {
+          alert('Please install MetaMask to use this feature.');
+          return;
+        }
+
+        // Solicitar acceso a la billetera del usuario a través de MetaMask
+        await window.ethereum.enable();
+
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const senderAddress = accounts[0];
+
+        // Obtener el tipo de gallina seleccionado del dropdown
+        const selectedGallinaType = gallinaTypeSelect.value;
+
+        // Llamar a la función buyGallina en el contrato
+        await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei('0.04', 'ether') });
+
+        alert(`Successfully bought ${selectedGallinaType}`);
+
       } catch (error) {
         console.error(error);
       }
