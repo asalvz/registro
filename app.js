@@ -1266,6 +1266,38 @@ async function showReferrerOnPage() {
 // Ejecutar la función para mostrar el referido al cargar la página
 window.addEventListener('load', showReferrerOnPage);
 
+	// Función para comprar una extensión de corral
+async function buyCorralExtension() {
+  try {
+    // Verificar si MetaMask está instalado
+    if (typeof window.ethereum === 'undefined') {
+      alert('Please install MetaMask to use this feature.');
+      return;
+    }
+
+    // Solicitar acceso a la billetera del usuario a través de MetaMask
+    await window.ethereum.enable();
+
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const senderAddress = accounts[0];
+
+    // Calcular el valor de pago según la capacidad actualizada
+    const currentCapacity = users[senderAddress].capacity;
+    const paymentValue = currentCapacity * 0.1 * 1e18; // Convertir a wei
+
+    // Llamar a la función upgradeCapacity en el contrato
+    await contract.methods.upgradeCapacity().send({ from: senderAddress, value: paymentValue });
+
+    alert('Corral extension bought successfully');
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 
 
 
