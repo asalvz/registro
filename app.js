@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', function() {
+
 
     const connectButton = document.getElementById('connect-button');
     const generateReferralButton = document.getElementById('generate-referral-button');
@@ -1299,5 +1299,5 @@ $(document).ready(function() {
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
 });
-});
+
  
