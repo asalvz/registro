@@ -1195,15 +1195,7 @@
         console.error(error);
       }
     });
-// Conectar el evento click al botón de compra
-buyButton.addEventListener('click', async () => {
-  // Obtener el tipo de gallina seleccionado del dropdown
-  const selectedGallinaType = gallinaTypeSelect.value;
-
-  // Llamar a la función buyGallina con el tipo de gallina seleccionado
-  await buyGallina(selectedGallinaType);
-});
-async function buyGallina() {
+async function buyGallina(selectedGallinaType) {
   try {
     // Verificar si MetaMask está instalado
     if (typeof window.ethereum === 'undefined') {
@@ -1219,9 +1211,6 @@ async function buyGallina() {
     const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
 
-    // Obtener el tipo de gallina seleccionado del dropdown
-    const selectedGallinaType = gallinaTypeSelect.value;
-
     // Llamar a la función buyGallina en el contrato
     await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei('0.04', 'ether') });
 
@@ -1231,6 +1220,15 @@ async function buyGallina() {
     console.error(error);
   }
 }
+
+// Conectar el evento click al botón de compra
+buyButton.addEventListener('click', async () => {
+  // Obtener el tipo de gallina seleccionado del dropdown
+  const selectedGallinaType = gallinaTypeSelect.value;
+
+  // Llamar a la función buyGallina con el tipo de gallina seleccionado
+  await buyGallina(selectedGallinaType);
+});
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
