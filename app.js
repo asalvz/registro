@@ -1266,36 +1266,47 @@ async function showReferrerOnPage() {
 // Ejecutar la función para mostrar el referido al cargar la página
 window.addEventListener('load', showReferrerOnPage);
 
-	// Función para comprar una extensión de corral
+	// Suponiendo que ya tienes web3.js incluido en tu página
+
+// Dirección del contrato y el ABI
+const contractAddress = "0xTuDireccionDelContrato";
+const contractAbi = [...]; // Aquí debes proporcionar el ABI real
+
+// Crear una instancia del contrato
+const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+// Función para comprar una extensión de corral
 async function buyCorralExtension() {
+  const accounts = await web3.eth.getAccounts();
+  const userAddress = accounts[0]; // Tomar la primera cuenta (puede ser diferente en tu caso)
+
   try {
-    // Verificar si MetaMask está instalado
-    if (typeof window.ethereum === 'undefined') {
-      alert('Please install MetaMask to use this feature.');
-      return;
+    const capacity = await contract.methods.getCapacity(userAddress).call();
+    const capacityUpgradeCost = await contract.methods.capacityUpgradeCost().call();
+
+    // Verificar si el usuario tiene suficiente capacidad y balance para comprar
+    if (capacity < 99) {
+      const ethToWei = web3.utils.toWei(capacityUpgradeCost.toString(), "ether");
+      const balance = await web3.eth.getBalance(userAddress);
+
+      if (balance >= ethToWei) {
+        await contract.methods.upgradeCapacity().send({ from: userAddress, value: ethToWei });
+
+        // Actualizar la página con la nueva capacidad, costos, etc.
+        // ...
+
+        console.log("Capacidad aumentada exitosamente.");
+      } else {
+        console.log("Saldo insuficiente para comprar.");
+      }
+    } else {
+      console.log("Capacidad máxima alcanzada.");
     }
-
-    // Solicitar acceso a la billetera del usuario a través de MetaMask
-    await window.ethereum.enable();
-
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    const accounts = await web3.eth.getAccounts();
-    const senderAddress = accounts[0];
-
-    // Calcular el valor de pago según la capacidad actualizada
-    const currentCapacity = users[senderAddress].capacity;
-    const paymentValue = currentCapacity * 0.1 * 1e18; // Convertir a wei
-
-    // Llamar a la función upgradeCapacity en el contrato
-    await contract.methods.upgradeCapacity().send({ from: senderAddress, value: paymentValue });
-
-    alert('Corral extension bought successfully');
-
   } catch (error) {
-    console.error(error);
+    console.error("Error al comprar:", error);
   }
 }
+
 
 
 
