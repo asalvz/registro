@@ -1199,7 +1199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 // Conectar el evento click al botón de compra
-const buyButtons = document.querySelectorAll('.buy-button');
+
 buyButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     try {
