@@ -1270,40 +1270,32 @@ window.addEventListener('load', showReferrerOnPage);
 
 
 
-const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
 // Función para comprar una extensión de corral
 async function buyCorralExtension() {
-  const accounts = await web3.eth.getAccounts();
-  const userAddress = accounts[0]; // Tomar la primera cuenta (puede ser diferente en tu caso)
+  // Verificar si el usuario tiene una cuenta conectada
+  if (!ethereum || !ethereum.isMetaMask) {
+    console.log('MetaMask no está disponible');
+    return;
+  }
 
+  // Solicitar acceso a la cuenta si aún no se ha concedido
   try {
-    const capacity = await contract.methods.getCapacity(userAddress).call();
-    const capacityUpgradeCost = await contract.methods.capacityUpgradeCost().call();
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const userAddress = accounts[0]; // Tomar la primera cuenta (puede ser diferente en tu caso)
 
-    // Verificar si el usuario tiene suficiente capacidad y balance para comprar
-    if (capacity < 99) {
-      const ethToWei = web3.utils.toWei(capacityUpgradeCost.toString(), "ether");
-      const balance = await web3.eth.getBalance(userAddress);
-
-      if (balance >= ethToWei) {
-        await contract.methods.upgradeCapacity().send({ from: userAddress, value: ethToWei });
-
-        // Actualizar la página con la nueva capacidad, costos, etc.
-        // ...
-
-        console.log("Capacidad aumentada exitosamente.");
-      } else {
-        console.log("Saldo insuficiente para comprar.");
-      }
-    } else {
-      console.log("Capacidad máxima alcanzada.");
+    // Llamar a la función del contrato para comprar la extensión
+    try {
+      const result = await contract.methods.upgradeCapacity().send({ from: userAddress, value: web3.utils.toWei('0.1', 'ether') });
+      
+      // Procesar el resultado y actualizar la interfaz si es necesario
+      console.log('Compra exitosa:', result);
+    } catch (error) {
+      console.error('Error al comprar:', error);
     }
   } catch (error) {
-    console.error("Error al comprar:", error);
+    console.error('Error al solicitar cuenta:', error);
   }
 }
-
 
 
 
