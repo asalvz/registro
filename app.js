@@ -1241,6 +1241,31 @@ buyButtons.forEach((button) => {
     }
   });
 });
+	// Función para obtener el referido del usuario del contrato
+async function getUserReferrer() {
+  try {
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const userAddress = accounts[0];
+    const referrer = await contract.methods.getUserReferrer(userAddress).call();
+    return referrer;
+  } catch (error) {
+    console.error(error);
+    return '';
+  }
+}
+
+// Función para mostrar el referido en el elemento HTML
+async function showReferrerOnPage() {
+  const referrer = await getUserReferrer();
+  const referrerElement = document.getElementById('link');
+  referrerElement.textContent = referrer;
+}
+
+// Ejecutar la función para mostrar el referido al cargar la página
+window.addEventListener('load', showReferrerOnPage);
+
 
 
 
