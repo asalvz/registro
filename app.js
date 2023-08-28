@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const userAddress = document.getElementById('user-address');
     const userBalance = document.getElementById('user-balance');
     const referralLink = document.getElementById('link');
-    const buyButton = document.getElementById('buy-button');
     const gallinaTypeSelect = document.getElementById('gallina-type');
+    const buyButtons = document.querySelectorAll('.buy-button');
+
 
 
     // Reemplaza con el ABI de tu contrato
@@ -1198,29 +1199,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-buyButton.addEventListener('click', async () => {
-  try {
-    // Obtener el tipo de gallina seleccionado del dropdown
-    const selectedGallinaType = gallinaTypeSelect.value;
+buyButtons.forEach(button => {
+  button.addEventListener('click', async () => {
+    try {
+      // Obtener el tipo de gallina de la tarjeta correspondiente
+      const gallinaType = button.getAttribute('data-gallina-type');
 
-    // Solicitar acceso a la billetera del usuario a través de MetaMask
-    await window.ethereum.enable();
+      // Obtener el precio de la tarjeta correspondiente
+      const price = parseFloat(button.closest('.chicken').getAttribute('data-price'));
 
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    const accounts = await web3.eth.getAccounts();
-    const senderAddress = accounts[0];
+      // Solicitar acceso a la billetera del usuario a través de MetaMask
+      await window.ethereum.enable();
 
-    // Llamar a la función buyGallina en el contrato
-    await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei('0.04', 'ether') });
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(contractAbi, contractAddress);
+      const accounts = await web3.eth.getAccounts();
+      const senderAddress = accounts[0];
 
-    alert(`Successfully bought ${selectedGallinaType}`);
+      // Llamar a la función buyGallina en el contrato
+      await contract.methods.buyGallina(gallinaType).send({ from: senderAddress, value: web3.utils.toWei(price.toString(), 'ether') });
 
-  } catch (error) {
-    console.error(error);
-  }
+      alert(`Successfully bought ${gallinaType} for ${price} BNB`);
+    } catch (error) {
+      console.error(error);
+    }
+  });
 });
-
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
