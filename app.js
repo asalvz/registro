@@ -1198,6 +1198,38 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(error);
       }
     });
+	// Función para actualizar el valor del referido en el elemento HTML
+async function updateReferrerSpan() {
+  try {
+    // Verificar si MetaMask está instalado
+    if (typeof window.ethereum === 'undefined') {
+      alert('Please install MetaMask to use this feature.');
+      return;
+    }
+
+    // Solicitar acceso a la billetera del usuario a través de MetaMask
+    await window.ethereum.enable();
+
+    const web3 = new Web3(window.ethereum);
+    const accounts = await web3.eth.getAccounts();
+    const senderAddress = accounts[0];
+
+    // Obtener el referido del usuario actual
+    const userReferrer = await getReferrer(senderAddress);
+
+    // Obtén el elemento HTML donde deseas mostrar el referido
+    const referrerElement = document.getElementById('referrer');
+
+    // Mostrar el referido en el elemento HTML
+    referrerElement.textContent = userReferrer;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Ejecutar la función para actualizar el valor del referido en el elemento HTML al cargar la página
+window.addEventListener('load', updateReferrerSpan);
 buyButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     try {
