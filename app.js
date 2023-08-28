@@ -1195,37 +1195,34 @@
         console.error(error);
       }
     });
-function buyGallina(gallinaType) {
- buyButton.addEventListener('click', async () => {
-      try {
-        // Verificar si MetaMask está instalado
-        if (typeof window.ethereum === 'undefined') {
-          alert('Please install MetaMask to use this feature.');
-          return;
-        }
+function buyGallina() {
+  try {
+    // Verificar si MetaMask está instalado
+    if (typeof window.ethereum === 'undefined') {
+      alert('Please install MetaMask to use this feature.');
+      return;
+    }
 
-        // Solicitar acceso a la billetera del usuario a través de MetaMask
-        await window.ethereum.enable();
+    // Solicitar acceso a la billetera del usuario a través de MetaMask
+    await window.ethereum.enable();
 
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const accounts = await web3.eth.getAccounts();
-        const senderAddress = accounts[0];
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const senderAddress = accounts[0];
 
-        // Obtener el tipo de gallina seleccionado del dropdown
-        const selectedGallinaType = gallinaTypeSelect.value;
+    // Obtener el tipo de gallina seleccionado del dropdown
+    const selectedGallinaType = gallinaTypeSelect.value;
 
-        // Llamar a la función buyGallina en el contrato
-        await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei('0.04', 'ether') });
+    // Llamar a la función buyGallina en el contrato
+    await contract.methods.buyGallina(selectedGallinaType).send({ from: senderAddress, value: web3.utils.toWei('0.04', 'ether') });
 
-        alert(`Successfully bought ${selectedGallinaType}`);
+    alert(`Successfully bought ${selectedGallinaType}`);
 
-      } catch (error) {
-        console.error(error);
-      }
- }
-    });
-
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
