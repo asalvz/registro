@@ -1,5 +1,6 @@
     const connectButton = document.getElementById('connect-button');
     const generateReferralButton = document.getElementById('generate-referral-button');
+    const referrerInput = document.getElementById('referrer-input'); 
     const userAddress = document.getElementById('user-address');
     const userBalance = document.getElementById('user-balance');
     const referralLink = document.getElementById('link');
