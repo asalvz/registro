@@ -1247,16 +1247,16 @@ window.addEventListener('load', showReferrerOnPage);
 	
 
 
-document.addEventListener('DOMContentLoaded', () => {
-
-
   async function buyCorralExtension() {
-
     try {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       const userAddress = accounts[0];
+
+      // Crear una instancia de Web3 y del contrato
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+      // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
       const result = await contract.methods.upgradeCapacity().send({
         from: userAddress,
         value: web3.utils.toWei('0.1', 'ether'),
@@ -1268,12 +1268,12 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error:', error);
     }
   }
-const buyButtons = document.querySelectorAll('.buy-button');
+
+  // Asignar el evento de clic a todos los elementos con la clase "buy-button"
+  const buyButtons = document.querySelectorAll('.buy-button');
   buyButtons.forEach(button => {
     button.addEventListener('click', buyCorralExtension);
   });
-});
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
