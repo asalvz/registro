@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const referralLink = document.getElementById('link');
     const gallinaTypeSelect = document.getElementById('gallina-type');
     const buyButtons = document.querySelectorAll('.buy-button');
+    const buyExtensionButton = document.getElementById('buy-extension-button');
+
 
 
 
@@ -1272,42 +1274,45 @@ window.addEventListener('load', showReferrerOnPage);
 	
 
 
-// Definir la función buyCorralExtension en el ámbito global
-async function buyCorralExtension() {
-  // Verificar si el usuario tiene una cuenta conectada
-  if (!ethereum || !ethereum.isMetaMask) {
-    console.log('MetaMask no está disponible');
-    return;
-  }
-
-  try {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const userAddress = accounts[0];
-
-    // Crear una instancia de Web3 y del contrato
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-    // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
-    const result = await contract.methods.upgradeCapacity().send({
-      from: userAddress,
-      value: web3.utils.toWei('0.1', 'ether'),
-      gas: 200000
-    });
-
-    console.log('Compra exitosa:', result);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-// Esperar a que el DOM esté cargado
 document.addEventListener('DOMContentLoaded', () => {
-  const buyButton = document.getElementById('buy-extension-button');
 
-  if (buyButton) {
-    buyButton.addEventListener('click', buyCorralExtension);
+  // ... (otras declaraciones y funciones aquí)
+
+  // Función para comprar una extensión de corral
+  async function buyCorralExtension() {
+    // Verificar si el usuario tiene una cuenta conectada
+    if (!ethereum || !ethereum.isMetaMask) {
+      console.log('MetaMask no está disponible');
+      return;
+    }
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const userAddress = accounts[0];
+
+      // Crear una instancia de Web3 y del contrato
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+      // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
+      const result = await contract.methods.upgradeCapacity().send({
+        from: userAddress,
+        value: web3.utils.toWei('0.1', 'ether'),
+        gas: 200000
+      });
+
+      console.log('Compra exitosa:', result);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
+
+  // Asignar la función buyCorralExtension al botón "Buy Corral Extension"
+  if (buyExtensionButton) {
+    buyExtensionButton.addEventListener('click', buyCorralExtension);
+  }
+
+  // ... (resto de tu código)
 });
 
 const elems = document.querySelectorAll('.laya-please');
