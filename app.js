@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const referralLink = document.getElementById('link');
     const gallinaTypeSelect = document.getElementById('gallina-type');
     const buyButtons = document.querySelectorAll('.buy-button');
+    const buyExtensionButton = document.getElementById('buy-extension-button');
+
 
 
 
@@ -1245,35 +1247,35 @@ async function showReferrerOnPage() {
 window.addEventListener('load', showReferrerOnPage);
 
 	
+	
+buyExtensionButton.addEventListener('click', buyCorralExtension);
 
 
-  async function buyCorralExtension() {
-    try {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const userAddress = accounts[0];
-
-      // Crear una instancia de Web3 y del contrato
-      const web3 = new Web3(window.ethereum);
-      const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-      // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
-      const result = await contract.methods.upgradeCapacity().send({
-        from: userAddress,
-        value: web3.utils.toWei('0.1', 'ether'),
-        gas: 200000
-      });
-
-      console.log('Compra exitosa:', result);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+ async function buyCorralExtension() {
+  try {
+    await window.ethereum.enable();
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const senderAddress = accounts[0];
+    
+    const result = await contract.methods.upgradeCapacity().send({
+      from: senderAddress,
+      value: web3.utils.toWei('0.1', 'ether'),
+      gas: 200000
+    });
+    
+    console.log('Compra exitosa:', result);
+    
+    // Actualizar el costo de la expansión del corral para la próxima vez
+    const newUpgradeCost = web3.utils.toWei('0.1', 'ether'); // Aquí puedes ajustar el nuevo costo
+    const capacityUpgradeCostElement = document.getElementById('capacity-upgrade-cost');
+    capacityUpgradeCostElement.textContent = `${web3.utils.fromWei(newUpgradeCost, 'ether')} BNB`;
+  } catch (error) {
+    console.error('Error:', error);
   }
+}
 
-  // Asignar el evento de clic a todos los elementos con la clase "buy-button"
-  const buyButtons = document.querySelectorAll('.buy-button');
-  buyButtons.forEach(button => {
-    button.addEventListener('click', buyCorralExtension);
-  });
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
