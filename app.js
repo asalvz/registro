@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Reemplaza con el ABI de tu contrato
     const contractAbi = [
 	{
 		"inputs": [],
@@ -1132,18 +1131,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		"type": "function"
 	}
 ];
-    // Reemplaza con la dirección de tu contrato
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
     connectButton.addEventListener('click', async () => {
       try {
-        // Verificar si MetaMask está instalado
         if (typeof window.ethereum === 'undefined') {
           alert('Please install MetaMask to use this feature.');
           return;
         }
 
-        // Solicitar acceso a la billetera del usuario a través de MetaMask
         await window.ethereum.enable();
         
         const web3 = new Web3(window.ethereum);
@@ -1152,12 +1148,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         userAddress.textContent = address;
 
-        // Conectar a Binance Smart Chain
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
         
-        // Obtener saldo del usuario y mostrarlo
         const balance = await bscWeb3.eth.getBalance(address);
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
@@ -1167,13 +1161,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });   
  generateReferralButton.addEventListener('click', async () => {
       try {
-        // Verificar si MetaMask está instalado
         if (typeof window.ethereum === 'undefined') {
           alert('Please install MetaMask to use this feature.');
           return;
         }
 
-        // Solicitar acceso a la billetera del usuario a través de MetaMask
         await window.ethereum.enable();
 
         const web3 = new Web3(window.ethereum);
@@ -1181,20 +1173,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const accounts = await web3.eth.getAccounts();
         const senderAddress = accounts[0];
 
-        // Obtener la dirección del referente del input
         const referrerAddress = referrerInput.value;
 
         if (!referrerAddress) {
           return;
         }
 
-        // Validar que la dirección sea de 40 caracteres (dirección ERC20)
         if (referrerAddress.length !== 42) {
           alert('Invalid referrer address format');
           return;
         }
 
-        // Llamar a la función setReferrer en el contrato
         await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
         referralLink.textContent = `Referral set to ${referrerAddress}`;
@@ -1208,44 +1197,31 @@ document.addEventListener('DOMContentLoaded', () => {
 buyButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     try {
-      // Obtener el tipo de gallina, el índice del card y el precio de la tarjeta clickeada
       const selectedGallinaType = button.getAttribute('data-gallina-type');
       const selectedGallinaIndex = parseInt(button.closest('.chicken').querySelector('h2').textContent);
       const gallinaPrice = button.closest('.chicken').getAttribute('data-price');
-
-      // Solicitar acceso a la billetera del usuario a través de MetaMask
       await window.ethereum.enable();
-
-      // Crear una instancia de Web3 y del contrato
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-      // Obtener la dirección del usuario actual
       const accounts = await web3.eth.getAccounts();
       const senderAddress = accounts[0];
-
-      // Llamar a la función buyGallina en el contrato con el índice como parámetro
       const transaction = await contract.methods.buyGallina(selectedGallinaIndex).send({
         from: senderAddress,
         value: web3.utils.toWei(gallinaPrice, 'ether'),
-        gas: 200000 // Ajusta el valor del gas según sea necesario
+        gas: 200000 
       });
-
-      // Mostrar un mensaje de éxito
       alert(`Successfully bought ${selectedGallinaType} at index ${selectedGallinaIndex}`);
-
-      // Escuchar el evento GallinaPurchased después de realizar la transacción
       const gallinaPurchasedEvent = contract.events.GallinaPurchased();
       gallinaPurchasedEvent.on('data', event => {
         console.log('Gallina purchased event:', event.returnValues);
       });
-
     } catch (error) {
       console.error(error);
     }
   });
 });
-	// Función para obtener el referido del usuario del contrato
+
+	
 async function getUserReferrer() {
   try {
     const web3 = new Web3(window.ethereum);
@@ -1260,14 +1236,12 @@ async function getUserReferrer() {
   }
 }
 
-// Función para mostrar el referido en el elemento HTML
 async function showReferrerOnPage() {
   const referrer = await getUserReferrer();
   const referrerElement = document.getElementById('link');
   referrerElement.textContent = referrer;
 }
 
-// Ejecutar la función para mostrar el referido al cargar la página
 window.addEventListener('load', showReferrerOnPage);
 
 	
@@ -1275,25 +1249,14 @@ window.addEventListener('load', showReferrerOnPage);
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ... (otras declaraciones y funciones aquí)
 
-  // Función para comprar una extensión de corral
   async function buyCorralExtension() {
-    // Verificar si el usuario tiene una cuenta conectada
-    if (!ethereum || !ethereum.isMetaMask) {
-      console.log('MetaMask no está disponible');
-      return;
-    }
 
     try {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       const userAddress = accounts[0];
-
-      // Crear una instancia de Web3 y del contrato
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-      // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
       const result = await contract.methods.upgradeCapacity().send({
         from: userAddress,
         value: web3.utils.toWei('0.1', 'ether'),
