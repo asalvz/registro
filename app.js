@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const referralLink = document.getElementById('link');
     const gallinaTypeSelect = document.getElementById('gallina-type');
     const buyButtons = document.querySelectorAll('.buy-button');
-    const buyExtensionButton = document.getElementById('buy-extension-button');
 
 
 
@@ -1306,13 +1305,10 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Error:', error);
     }
   }
-
-  // Asignar la función buyCorralExtension al botón "Buy Corral Extension"
-  if (buyExtensionButton) {
-    buyExtensionButton.addEventListener('click', buyCorralExtension);
-  }
-
-  // ... (resto de tu código)
+const buyButtons = document.querySelectorAll('.buy-button');
+  buyButtons.forEach(button => {
+    button.addEventListener('click', buyCorralExtension);
+  });
 });
 
 const elems = document.querySelectorAll('.laya-please');
