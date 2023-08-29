@@ -1251,22 +1251,22 @@ window.addEventListener('load', showReferrerOnPage);
 buyExtensionButton.addEventListener('click', buyCorralExtension);
 
 
- async function buyCorralExtension() {
+async function buyCorralExtension() {
   try {
     await window.ethereum.enable();
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(contractAbi, contractAddress);
     const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
-    
+
     const result = await contract.methods.upgradeCapacity().send({
       from: senderAddress,
       value: web3.utils.toWei('0.1', 'ether'),
       gas: 200000
     });
-    
+
     console.log('Compra exitosa:', result);
-    
+
     // Actualizar el costo de la expansión del corral para la próxima vez
     const newUpgradeCost = web3.utils.toWei('0.1', 'ether'); // Aquí puedes ajustar el nuevo costo
     const capacityUpgradeCostElement = document.getElementById('capacity-upgrade-cost');
@@ -1275,6 +1275,7 @@ buyExtensionButton.addEventListener('click', buyCorralExtension);
     console.error('Error:', error);
   }
 }
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
