@@ -1272,8 +1272,7 @@ window.addEventListener('load', showReferrerOnPage);
 	
 
 
-
- // Función para comprar una extensión de corral
+// Definir la función buyCorralExtension en el ámbito global
 async function buyCorralExtension() {
   // Verificar si el usuario tiene una cuenta conectada
   if (!ethereum || !ethereum.isMetaMask) {
@@ -1281,33 +1280,36 @@ async function buyCorralExtension() {
     return;
   }
 
-  // Solicitar acceso a la cuenta si aún no se ha concedido
   try {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const userAddress = accounts[0]; // Tomar la primera cuenta (puede ser diferente en tu caso)
+    const userAddress = accounts[0];
 
-    // Obtener la instancia del contrato con web3 o ethers (dependiendo de tu configuración)
-    // const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    // O usando ethers:
-    // const contract = new ethers.Contract(contractAddress, contractAbi, provider);
+    // Crear una instancia de Web3 y del contrato
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
     // Llamar a la función del contrato para comprar la extensión y aumentar la capacidad
-    try {
-      const result = await contract.methods.upgradeCapacity().send({
-        from: userAddress,
-        value: web3.utils.toWei('0.1', 'ether'), // Cambiar el valor si es necesario
-        gas: 200000 // Ajusta el valor del gas según sea necesario
-      });
+    const result = await contract.methods.upgradeCapacity().send({
+      from: userAddress,
+      value: web3.utils.toWei('0.1', 'ether'),
+      gas: 200000
+    });
 
-      // Procesar el resultado y actualizar la interfaz si es necesario
-      console.log('Compra exitosa:', result);
-    } catch (error) {
-      console.error('Error al comprar:', error);
-    }
+    console.log('Compra exitosa:', result);
   } catch (error) {
-    console.error('Error al solicitar cuenta:', error);
+    console.error('Error:', error);
   }
 }
+
+// Esperar a que el DOM esté cargado
+document.addEventListener('DOMContentLoaded', () => {
+  const buyButton = document.getElementById('buy-extension-button');
+
+  if (buyButton) {
+    buyButton.addEventListener('click', buyCorralExtension);
+  }
+});
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
