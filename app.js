@@ -1340,14 +1340,19 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
-	// Función para obtener el costo del aumento de productividad
+	console.log("Archivo JavaScript cargado");
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // ... Tu código existente ...
+
+    // Función para obtener el costo del aumento de productividad
     async function boostProductivityCost() {
         try {
             if (typeof window.ethereum === 'undefined') {
                 return;
             }
 
-            await window.ethereum.enable();
             const web3 = new Web3(window.ethereum);
             const contract = new web3.eth.Contract(contractAbi, contractAddress);
             const accounts = await web3.eth.getAccounts();
@@ -1368,7 +1373,6 @@ sellEggsButton.addEventListener('click', async () => {
                 return;
             }
 
-            await window.ethereum.enable();
             const web3 = new Web3(window.ethereum);
             const contract = new web3.eth.Contract(contractAbi, contractAddress);
             const accounts = await web3.eth.getAccounts();
@@ -1388,7 +1392,6 @@ sellEggsButton.addEventListener('click', async () => {
                 return;
             }
 
-            await window.ethereum.enable();
             const web3 = new Web3(window.ethereum);
             const contract = new web3.eth.Contract(contractAbi, contractAddress);
             const accounts = await web3.eth.getAccounts();
@@ -1413,6 +1416,7 @@ sellEggsButton.addEventListener('click', async () => {
 
     // ... Tu código existente ...
 });
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
