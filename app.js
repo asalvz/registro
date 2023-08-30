@@ -1358,6 +1358,8 @@ sellEggsButton.addEventListener('click', async () => {
             console.error(error);
         }
     }
+		});
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
