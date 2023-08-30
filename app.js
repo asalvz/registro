@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggCountElement = document.querySelector('.user-count');
     const boostProductivityButton = document.getElementById('boost-productivity-button');
     const boostsUsedElement = document.getElementById('boosts-used');
+    const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
+    const reductionsUsedElement = document.getElementById('reductions-used');
 
     
  
@@ -1341,6 +1343,44 @@ sellEggsButton.addEventListener('click', async () => {
                     console.error(error);
                 }
             });
+
+async function reduceCooldownTime() {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
+
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        // Call the reduceCooldownTime function and handle the result
+        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress });
+
+        console.log('Cooldown time reduced:', result);
+
+        // Mostrar los eventos y estado relacionados
+        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+        const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
+
+        // Actualizar el estado mostrado en el HTML
+        reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
+        
+        // Mostrar los eventos en la consola
+        events.forEach(event => {
+            console.log('Event:', event.event, event.returnValues);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Asignar la función al botón utilizando una escucha de evento
+reduceCooldownButton.addEventListener('click', reduceCooldownTime);
+	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
