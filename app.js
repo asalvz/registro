@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggCountElement = document.querySelector('.user-count');
     const boostProductivityButton = document.getElementById('boost-productivity-button');
     const boostsUsedElement = document.getElementById('boosts-used');
+
     
  
 
@@ -1314,7 +1315,26 @@ sellEggsButton.addEventListener('click', async () => {
   }
 });
 
-  boostProductivityButton.addEventListener('click', async () => {
+try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
+
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        // Obtener el número de "Boosts used" usando la función view
+        const boostsUsed = await contract.methods.boostProductivityUsage().call({ from: userAddress });
+        boostsUsedElement.textContent = boostsUsed;
+    } catch (error) {
+        console.error(error);
+    }
+
+    boostProductivityButton.addEventListener('click', async () => {
         try {
             if (typeof window.ethereum === 'undefined') {
                 alert('Please install MetaMask to use this feature.');
@@ -1335,8 +1355,8 @@ sellEggsButton.addEventListener('click', async () => {
             console.log('Boosted productivity:', result);
 
             // Update the boosts used count
-            const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
-            boostsUsedElement.textContent = boostsUsed;
+            const updatedBoostsUsed = await contract.methods.boostProductivityUsage().call({ from: userAddress });
+            boostsUsedElement.textContent = updatedBoostsUsed;
         } catch (error) {
             console.error(error);
         }
