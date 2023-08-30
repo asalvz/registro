@@ -1340,7 +1340,8 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
-	
+	document.addEventListener('DOMContentLoaded', () => {
+
  
     async function boostProductivityCost() {
         try {
