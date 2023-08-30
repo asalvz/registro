@@ -1344,9 +1344,7 @@ sellEggsButton.addEventListener('click', async () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    // ... Tu código existente ...
-
-    // Función para obtener el costo del aumento de productividad
+ 
     async function boostProductivityCost() {
         try {
             if (typeof window.ethereum === 'undefined') {
@@ -1385,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Función para aumentar la productividad
+     // Función para aumentar la productividad
     async function boostProductivity() {
         try {
             if (typeof window.ethereum === 'undefined') {
@@ -1414,7 +1412,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Actualiza la cantidad de aumentos utilizados cuando la página se carga
     await updateBoostsUsed();
 
-    // ... Tu código existente ...
 });
 
 const elems = document.querySelectorAll('.laya-please');
