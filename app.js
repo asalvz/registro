@@ -1340,11 +1340,10 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
-	
-    async function boostProductivity() {
+	// Función para obtener el costo del aumento de productividad
+    async function boostProductivityCost() {
         try {
             if (typeof window.ethereum === 'undefined') {
-                console.error('MetaMask is not installed.');
                 return;
             }
 
@@ -1354,15 +1353,27 @@ sellEggsButton.addEventListener('click', async () => {
             const accounts = await web3.eth.getAccounts();
             const userAddress = accounts[0];
 
-            // Obtener el costo del aumento de productividad
             const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
+            return cost;
+        } catch (error) {
+            console.error(error);
+            return 'Error';
+        }
+    }
 
-            // Realizar la transacción para aumentar la productividad
-            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+    // Función para actualizar la cantidad de aumentos utilizados
+    async function updateBoostsUsed() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
 
-            console.log('Boosted productivity:', result);
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
 
-            // Actualizar el contador de boosts usados
             const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
             boostsUsedElement.textContent = boostsUsed;
         } catch (error) {
@@ -1370,16 +1381,38 @@ sellEggsButton.addEventListener('click', async () => {
         }
     }
 
-    // Asignar evento al botón "Boost Productivity"
-    boostProductivityButton.addEventListener('click', boostProductivity);
+    // Función para aumentar la productividad
+    async function boostProductivity() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
 
-    // ... Tu código existente ...
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
 
-    // Actualizar el contador de boosts usados cuando se carga la página
+            const cost = await boostProductivityCost();
+
+            // Llama a la función boostProductivity del contrato y maneja el resultado
+            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+
+            console.log('Productividad aumentada:', result);
+
+            // Actualiza la cantidad de aumentos utilizados
+            await updateBoostsUsed();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Actualiza la cantidad de aumentos utilizados cuando la página se carga
     await updateBoostsUsed();
 
+    // ... Tu código existente ...
 });
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
