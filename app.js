@@ -1340,10 +1340,7 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
-	console.log("Archivo JavaScript cargado");
-
-document.addEventListener('DOMContentLoaded', async () => {
-
+	
  
     async function boostProductivityCost() {
         try {
