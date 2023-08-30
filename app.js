@@ -1314,43 +1314,33 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
-   // Assuming you have already defined boostProductivityButton and boostsUsedElement
-boostProductivityButton.addEventListener('click', async () => {
-    try {
-        if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
-            return;
-        }
+ boostProductivityButton.addEventListener('click', async () => {
+                try {
+                    if (typeof window.ethereum === 'undefined') {
+                        alert('Please install MetaMask to use this feature.');
+                        return;
+                    }
 
-        await window.ethereum.enable();
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
+                    await window.ethereum.enable();
+                    const web3 = new Web3(window.ethereum);
+                    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+                    const accounts = await web3.eth.getAccounts();
+                    const userAddress = accounts[0];
 
-        const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
+                    const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
 
-        // Update status: Preparing to boost
-        boostsUsedElement.textContent = 'Preparing to boost...';
+                    // Call the boostProductivity function and handle the result
+                    const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
 
-        // Call the boostProductivity function and handle the result
-        const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+                    console.log('Boosted productivity:', result);
 
-        // Update status: Boosted successfully
-        boostsUsedElement.textContent = 'Boosted productivity successfully';
-
-        console.log('Boosted productivity:', result);
-
-        // Update the boosts used count
-        const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
-        boostsUsedElement.textContent = `Boosts used: ${boostsUsed}`;
-    } catch (error) {
-        // Update status: Error boosting productivity
-        boostsUsedElement.textContent = 'Error boosting productivity. See console for details.';
-        console.error('Error boosting productivity:', error);
-    }
-});
-
+                    // Update the boosts used count
+                    const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
+                    boostsUsedElement.textContent = `Boosts used: ${boostsUsed}`;
+                } catch (error) {
+                    console.error(error);
+                }
+            });
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
