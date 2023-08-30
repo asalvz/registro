@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const gallinaTypeSelect = document.getElementById('gallina-type');
     const buyButtons = document.querySelectorAll('.buy-button');
     const buyExtensionButton = document.getElementById('buy-extension-button');
+    const sellEggsButton = document.getElementById('sell-eggs-button');
+    const eggAmountInput = document.getElementById('egg-amount-input');
+
 
 
 
@@ -1275,6 +1278,35 @@ async function buyCorralExtension() {
     console.error('Error:', error);
   }
 }
+	// Agregar evento de clic al botón de venta de huevos
+sellEggsButton.addEventListener('click', async () => {
+  try {
+    await window.ethereum.enable();
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const senderAddress = accounts[0];
+    
+    const eggAmount = parseInt(eggAmountInput.value);
+
+    if (isNaN(eggAmount) || eggAmount <= 0) {
+      alert('Please enter a valid egg amount');
+      return;
+    }
+
+    const result = await contract.methods.sellEggs(eggAmount).send({
+      from: senderAddress,
+      gas: 200000
+    });
+
+    console.log('Eggs sold:', result);
+
+    // Limpiar el campo de entrada después de la venta exitosa
+    eggAmountInput.value = '';
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
 
 
 const elems = document.querySelectorAll('.laya-please');
