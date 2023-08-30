@@ -1341,6 +1341,8 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
+	document.addEventListener('DOMContentLoaded', async () => {
+
 	async function boostProductivityCost() {
         try {
             if (typeof window.ethereum === 'undefined') {
