@@ -1341,78 +1341,32 @@ sellEggsButton.addEventListener('click', async () => {
 
   
 });
-	document.addEventListener('DOMContentLoaded', async () => {
-
-	async function boostProductivityCost() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
-
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
-            const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
-            return cost;
-        } catch (error) {
-            console.error(error);
-            return 'Error';
+	// Función para aumentar la productividad
+async function boostProductivity() {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            return;
         }
+
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        const cost = await boostProductivityCost();
+
+        // Call the boostProductivity function and handle the result
+        const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+
+        console.log('Boosted productivity:', result);
+
+        // Update the boosts used count
+        await updateBoostsUsed();
+    } catch (error) {
+        console.error(error);
     }
-
-    async function updateBoostsUsed() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
-
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
-            const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
-            boostsUsedElement.textContent = boostsUsed;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async function boostProductivity() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
-
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
-            const cost = await boostProductivityCost();
-
-            // Call the boostProductivity function and handle the result
-            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
-
-            console.log('Boosted productivity:', result);
-
-            // Update the boosts used count
-            await updateBoostsUsed();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    // Update boosts used count when the page loads
-    await updateBoostsUsed();
-
-    // ... Tu código existente ...
-});
+}
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
