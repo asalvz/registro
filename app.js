@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellEggsButton = document.getElementById('sell-eggs-button');
     const eggAmountInput = document.getElementById('egg-amount-input');
     const eggCountElement = document.querySelector('.user-count');
+    const boostProductivityButton = document.getElementById('boost-productivity-button');
+    const boostsUsedElement = document.getElementById('boosts-used');
+    
  
 
 
@@ -1311,14 +1314,10 @@ sellEggsButton.addEventListener('click', async () => {
   }
 });
 
-    const boostProductivityButton = document.getElementById('boost-productivity-button');
-    const boostsUsedElement = document.getElementById('boosts-used');
-	document.addEventListener('DOMContentLoaded', async () => {
-   
-    // Función para obtener el costo del aumento de productividad
-    async function boostProductivityCost() {
+  boostProductivityButton.addEventListener('click', async () => {
         try {
             if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask to use this feature.');
                 return;
             }
 
@@ -1329,37 +1328,19 @@ sellEggsButton.addEventListener('click', async () => {
             const userAddress = accounts[0];
 
             const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
-            return cost;
-        } catch (error) {
-            console.error(error);
-            return 'Error';
-        }
-    }
 
-    // Función para aumentar la productividad
-    async function boostProductivity() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
+            // Call the boostProductivity function and handle the result
+            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
 
-            await window.ethereum.enable();
-            const cost = await boostProductivityCost();
-            
-            if (cost === 'Error') {
-                // Manejar el caso de error si es necesario
-                return;
-            }
+            console.log('Boosted productivity:', result);
 
-            // Continuar con la lógica de aumentar la productividad
-            // ...
-
+            // Update the boosts used count
+            const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
+            boostsUsedElement.textContent = boostsUsed;
         } catch (error) {
             console.error(error);
         }
-    }
-		});
-
+    });
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
