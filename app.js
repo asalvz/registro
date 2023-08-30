@@ -1343,46 +1343,9 @@ sellEggsButton.addEventListener('click', async () => {
                 }
             });
 
-reduceCooldownButton.addEventListener('click', async () => {
-    try {
-        // Verificar la presencia de MetaMask
-        if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
-            return;
-        }
-
-        // Habilitar MetaMask y obtener la dirección del usuario
-        await window.ethereum.enable();
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
-
-        // Obtener el costo de reducción de tiempo
-        const cost = await contract.methods.reduceCooldownTimeCost().call({ from: userAddress });
-
-        // Realizar la llamada a la función del contrato
-        const result = await contract.methods.reduceCooldownTime().send({
-            from: userAddress,
-            value: cost, // Asegurarse de que el valor sea correcto
-        });
-
-        console.log('Cooldown time reduced:', result);
-
-        // Mostrar los eventos y estado relacionados
-        const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
-
-        // Actualizar el estado mostrado en el HTML
-        reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
-        
-        // Mostrar los eventos en la consola
-        console.log('Events:', result.events);
-
-    } catch (error) {
-        console.error(error);
-    }
-});
-
+app.js:1382 TypeError: contract.methods.reduceCooldownTimeCost is not a function
+    at HTMLButtonElement.<anonymous> (app.js:1362:45)
+(anónimas) @ app.js:1382
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
