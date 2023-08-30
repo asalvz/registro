@@ -1309,8 +1309,12 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
-	
-	async function updateUserEggCount() {
+	document.addEventListener('DOMContentLoaded', async () => {
+    // ... Tu código existente ...
+
+    const eggCountElement = document.querySelector('.user-count');
+
+    async function updateUserEggCount() {
         try {
             if (typeof window.ethereum === 'undefined') {
                 return;
@@ -1332,7 +1336,8 @@ sellEggsButton.addEventListener('click', async () => {
     // Llama a la función para actualizar la cantidad de huevos al cargar la página
     await updateUserEggCount();
 
-
+    // ... Tu código existente ...
+});
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
