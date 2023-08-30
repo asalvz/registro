@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellEggsButton = document.getElementById('sell-eggs-button');
     const eggAmountInput = document.getElementById('egg-amount-input');
     const eggCountElement = document.querySelector('.user-count');
+    const buyBoostButton = document.getElementById('buy-boost-button');
+    const boostProductivityButton = document.getElementById('boost-productivity-button');
+    const boostsUsedElement = document.getElementById('boosts-used');
 
 
 
@@ -1335,6 +1338,76 @@ sellEggsButton.addEventListener('click', async () => {
 
     // Llama a la función para actualizar la cantidad de huevos al cargar la página
     await updateUserEggCount();
+
+  
+});
+	async function boostProductivityCost() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
+
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+
+            const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
+            return cost;
+        } catch (error) {
+            console.error(error);
+            return 'Error';
+        }
+    }
+
+    async function updateBoostsUsed() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
+
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+
+            const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
+            boostsUsedElement.textContent = boostsUsed;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function boostProductivity() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
+
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+
+            const cost = await boostProductivityCost();
+
+            // Call the boostProductivity function and handle the result
+            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+
+            console.log('Boosted productivity:', result);
+
+            // Update the boosts used count
+            await updateBoostsUsed();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Update boosts used count when the page loads
+    await updateBoostsUsed();
 
     // ... Tu código existente ...
 });
