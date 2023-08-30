@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyExtensionButton = document.getElementById('buy-extension-button');
     const sellEggsButton = document.getElementById('sell-eggs-button');
     const eggAmountInput = document.getElementById('egg-amount-input');
+    const eggCountElement = document.querySelector('.user-count');
+
 
 
 
@@ -1307,6 +1309,29 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
+	
+	async function updateUserEggCount() {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                return;
+            }
+
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+
+            const eggCount = await contract.methods.getUserEggCount(userAddress).call();
+            eggCountElement.textContent = eggCount;  // Actualiza el elemento HTML con la cantidad de huevos
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Llama a la función para actualizar la cantidad de huevos al cargar la página
+    await updateUserEggCount();
+
 
 
 const elems = document.querySelectorAll('.laya-please');
