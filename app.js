@@ -1344,7 +1344,8 @@ sellEggsButton.addEventListener('click', async () => {
                 }
             });
 
-async function reduceCooldownTime() {
+// Asignar la función al botón utilizando una escucha de evento
+reduceCooldownButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
@@ -1376,11 +1377,8 @@ async function reduceCooldownTime() {
     } catch (error) {
         console.error(error);
     }
-}
+});
 
-// Asignar la función al botón utilizando una escucha de evento
-reduceCooldownButton.addEventListener('click', reduceCooldownTime);
-	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
