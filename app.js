@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellEggsButton = document.getElementById('sell-eggs-button');
     const eggAmountInput = document.getElementById('egg-amount-input');
     const eggCountElement = document.querySelector('.user-count');
-    const boostProductivityButton = document.getElementById('boost-productivity-button');
-    const boostsUsedElement = document.getElementById('boosts-used');
+ 
 
 
 
@@ -1311,44 +1310,19 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
+
+    const boostProductivityButton = document.getElementById('boost-productivity-button');
+    const boostsUsedElement = document.getElementById('boosts-used');
 	document.addEventListener('DOMContentLoaded', async () => {
-    // ... Tu código existente ...
-
-    const eggCountElement = document.querySelector('.user-count');
-
-    async function updateUserEggCount() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
-
-            await window.ethereum.enable();
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
-            const eggCount = await contract.methods.getUserEggCount(userAddress).call();
-            eggCountElement.textContent = eggCount;  // Actualiza el elemento HTML con la cantidad de huevos
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    // Llama a la función para actualizar la cantidad de huevos al cargar la página
-    await updateUserEggCount();
-
-  
-});
-	document.addEventListener('DOMContentLoaded', () => {
-
- 
+   
+    // Función para obtener el costo del aumento de productividad
     async function boostProductivityCost() {
         try {
             if (typeof window.ethereum === 'undefined') {
                 return;
             }
 
+            await window.ethereum.enable();
             const web3 = new Web3(window.ethereum);
             const contract = new web3.eth.Contract(contractAbi, contractAddress);
             const accounts = await web3.eth.getAccounts();
@@ -1362,55 +1336,28 @@ sellEggsButton.addEventListener('click', async () => {
         }
     }
 
-    // Función para actualizar la cantidad de aumentos utilizados
-    async function updateBoostsUsed() {
-        try {
-            if (typeof window.ethereum === 'undefined') {
-                return;
-            }
-
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
-            const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
-            boostsUsedElement.textContent = boostsUsed;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-     // Función para aumentar la productividad
+    // Función para aumentar la productividad
     async function boostProductivity() {
         try {
             if (typeof window.ethereum === 'undefined') {
                 return;
             }
 
-            const web3 = new Web3(window.ethereum);
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
-            const accounts = await web3.eth.getAccounts();
-            const userAddress = accounts[0];
-
+            await window.ethereum.enable();
             const cost = await boostProductivityCost();
+            
+            if (cost === 'Error') {
+                // Manejar el caso de error si es necesario
+                return;
+            }
 
-            // Llama a la función boostProductivity del contrato y maneja el resultado
-            const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+            // Continuar con la lógica de aumentar la productividad
+            // ...
 
-            console.log('Productividad aumentada:', result);
-
-            // Actualiza la cantidad de aumentos utilizados
-            await updateBoostsUsed();
         } catch (error) {
             console.error(error);
         }
     }
-
-    // Actualiza la cantidad de aumentos utilizados cuando la página se carga
-    await updateBoostsUsed();
-
-});
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
