@@ -1314,7 +1314,7 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
-try {
+    try {
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
             return;
@@ -1325,10 +1325,6 @@ try {
         const contract = new web3.eth.Contract(contractAbi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
-
-        // Obtener el número de "Boosts used" usando la función view
-        const boostsUsed = await contract.methods.boostProductivityUsage().call({ from: userAddress });
-        boostsUsedElement.textContent = boostsUsed;
 
         boostProductivityButton.addEventListener('click', async () => {
             try {
@@ -1351,8 +1347,8 @@ try {
                 console.log('Boosted productivity:', result);
 
                 // Update the boosts used count
-                const updatedBoostsUsed = await contract.methods.boostProductivityUsage().call({ from: userAddress });
-                boostsUsedElement.textContent = updatedBoostsUsed;
+                const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
+                boostsUsedElement.textContent = boostsUsed;
             } catch (error) {
                 console.error(error);
             }
@@ -1361,7 +1357,7 @@ try {
         console.error(error);
     }
 
-
+});
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
