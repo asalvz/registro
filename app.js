@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const boostsUsedElement = document.getElementById('boosts-used');
     const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
     const reductionsUsedElement = document.getElementById('reductions-used');
-
     
  
 
@@ -1344,36 +1343,41 @@ sellEggsButton.addEventListener('click', async () => {
                 }
             });
 
-// Asignar la función al botón utilizando una escucha de evento
 reduceCooldownButton.addEventListener('click', async () => {
     try {
+        // Verificar la presencia de MetaMask
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
             return;
         }
 
+        // Habilitar MetaMask y obtener la dirección del usuario
         await window.ethereum.enable();
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(contractAbi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Call the reduceCooldownTime function and handle the result
-        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress });
+        // Obtener el costo de reducción de tiempo
+        const cost = await contract.methods.reduceCooldownTimeCost().call({ from: userAddress });
+
+        // Realizar la llamada a la función del contrato
+        const result = await contract.methods.reduceCooldownTime().send({
+            from: userAddress,
+            value: cost, // Asegurarse de que el valor sea correcto
+        });
 
         console.log('Cooldown time reduced:', result);
 
         // Mostrar los eventos y estado relacionados
-        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
         const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
 
         // Actualizar el estado mostrado en el HTML
         reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
         
         // Mostrar los eventos en la consola
-        events.forEach(event => {
-            console.log('Event:', event.event, event.returnValues);
-        });
+        console.log('Events:', result.events);
+
     } catch (error) {
         console.error(error);
     }
