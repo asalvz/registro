@@ -713,7 +713,8 @@ h1 {
 .user-count-label {
   font-size: 14px;
 }
-    #header {
+    /* Estilos del panel desplegable */
+        #header {
             position: fixed;
             top: 10px;
             left: 10px;
