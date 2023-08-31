@@ -1421,28 +1421,26 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
-mintButton.addEventListener('click', mintEggss);
+ mintButton.addEventListener('click', async () => {
+        const eggAmount = newEggAmountInput.value;
 
-async function mintEggss() {
-    const eggAmount = newEggAmountInput.value;
+        if (eggAmount <= 0) {
+            alert('Please enter a valid egg amount.');
+            return;
+        }
 
-    if (eggAmount <= 0) {
-        alert('Please enter a valid egg amount.');
-        return;
-    }
+        try {
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
-    try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-        const tx = await contract.methods.mintEggs(eggAmount).send({ from: account });
-        console.log('Transaction hash:', tx.transactionHash);
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred while minting eggs.');
-    }
-}
+            const tx = await contract.methods.mintEggs(eggAmount).send({ from: account });
+            console.log('Transaction hash:', tx.transactionHash);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while minting eggs.');
+        }
+    });
 
 
 
