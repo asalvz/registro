@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const boostsUsedElement = document.getElementById('boosts-used');
     const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
     const reductionsUsedElement = document.getElementById('reductions-used');
-    const newSellEggsButton = document.getElementById('sell-eggs-button');
+    const sellHigherButton = document.getElementById('sell-higher');
     const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
 
 
@@ -1386,39 +1386,39 @@ reduceCooldownButton.addEventListener('click', async () => {
         console.error(error);
     }
 });
-newSellEggsButton.addEventListener('click', async () => {
-    try {
-        if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
-            return;
+ sellHigherButton.addEventListener('click', async () => {
+        try {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask to use this feature.');
+                return;
+            }
+
+            await window.ethereum.enable();
+            const web3 = new Web3(window.ethereum);
+            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+            const accounts = await web3.eth.getAccounts();
+            const userAddress = accounts[0];
+
+            // Call the sellEggsAtHigherPrice function and handle the result
+            const result = await contract.methods.sellEggsAtHigherPrice().send({ from: userAddress, value: web3.utils.toWei('0.3', 'ether') });
+
+            console.log('Eggs sold at higher price:', result);
+
+            // Mostrar los eventos y estado relacionados
+            const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+            const sellBoostsUsed = await contract.methods.getSellBoostsUsed(userAddress).call();
+
+            // Actualizar el estado mostrado en el HTML
+            sellBoostsUsedElement.textContent = `Sell boosts used: ${sellBoostsUsed}`;
+            
+            // Mostrar los eventos en la consola
+            events.forEach(event => {
+                console.log('Event:', event.event, event.returnValues);
+            });
+        } catch (error) {
+            console.error(error);
         }
-
-        await window.ethereum.enable();
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
-
-        // Call the sellEggsAtHigherPrice function and handle the result
-        const result = await contract.methods.sellEggsAtHigherPrice().send({ from: userAddress });
-
-        console.log('Eggs sold at higher price:', result);
-
-        // Mostrar los eventos y estado relacionados
-        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
-        const sellBoostsUsed = await contract.methods.getSellBoostsUsed(userAddress).call();
-
-        // Actualizar el estado mostrado en el HTML
-        sellBoostsUsedElement.textContent = `Sell boosts used: ${sellBoostsUsed}`;
-
-        // Mostrar los eventos en la consola
-        events.forEach(event => {
-            console.log('Event:', event.event, event.returnValues);
-        });
-    } catch (error) {
-        console.error(error);
-    }
-});
+    });
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
