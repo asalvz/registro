@@ -1457,10 +1457,11 @@ reduceCooldownButton.addEventListener('click', async () => {
 
         updateRankings(); // Actualizar rankings al cargar la página
         setInterval(updateRankings, 60000); // Actualizar rankings cada 1 minuto
+
     } catch (error) {
         console.error(error);
     }
-
+});
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
