@@ -1420,32 +1420,69 @@ reduceCooldownButton.addEventListener('click', async () => {
         } catch (error) {
             console.error(error);
         }
-    }); const updateRankings = async () => {
-        try {
-            const referralRanking = await contract.methods.getReferralRanking().call();
-            const eggAccumulationRanking = await contract.methods.getEggAccumulationRanking().call();
-
-            referralList.innerHTML = '';
-            eggAccumulationList.innerHTML = '';
-
-            referralRanking.forEach(address => {
-                const listItem = document.createElement('li');
-                listItem.textContent = address;
-                referralList.appendChild(listItem);
-            });
-
-            eggAccumulationRanking.forEach(address => {
-                const listItem = document.createElement('li');
-                listItem.textContent = address;
-                eggAccumulationList.appendChild(listItem);
-            });
-        } catch (error) {
-            console.error(error);
+    });
+	window.addEventListener('load', async () => {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
         }
-    };
 
-    updateRankings(); // Actualizar rankings al cargar la página
-    setInterval(updateRankings, 60000); // Actualizar rankings cada 1 minuto
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        // Obtener los datos del usuario
+        const userBalance = await contract.methods.getUserBalance(userAddress).call();
+        const userEggCount = await contract.methods.getUserEggCount(userAddress).call();
+        // Otras operaciones para obtener más datos del usuario
+
+        // Mostrar los datos del usuario en la página
+        userBalanceElement.textContent = `Balance: ${web3.utils.fromWei(userBalance, 'ether')} BNB`;
+        userEggCountElement.textContent = `Egg Count: ${userEggCount}`;
+
+        // Actualizar los rankings
+        updateRankings(contract);
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+async function updateRankings(contract) {
+    try {
+        const referralRanking = await contract.methods.getReferralRanking().call();
+        const eggAccumulationRanking = await contract.methods.getEggAccumulationRanking().call();
+
+        referralList.innerHTML = '';
+        eggAccumulationList.innerHTML = '';
+
+        referralRanking.forEach(address => {
+            const listItem = document.createElement('li');
+            listItem.textContent = address;
+            referralList.appendChild(listItem);
+        });
+
+        eggAccumulationRanking.forEach(address => {
+            const listItem = document.createElement('li');
+            listItem.textContent = address;
+            eggAccumulationList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+setInterval(async () => {
+    try {
+        await updateRankings(contract);
+    } catch (error) {
+        console.error(error);
+    }
+}, 60000);
+
+// ... Otro código de configuración de eventos y funciones ...
 
 
 const elems = document.querySelectorAll('.laya-please');
