@@ -1343,7 +1343,7 @@ sellEggsButton.addEventListener('click', async () => {
                     console.error(error);
                 }
             });
-	reduceCooldownButton.addEventListener('click', async () => {
+reduceCooldownButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
@@ -1356,25 +1356,13 @@ sellEggsButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Obtener el costo de la función reduceCooldownTime
-        const cost = await contract.methods.reduceCooldownTimeCost().call({ from: userAddress });
-
-        // Llamar a la función reduceCooldownTime y manejar el resultado
-        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress, value: cost });
-
-        console.log('Cooldown time reduced:', result);
-
-        // Mostrar los eventos y estado relacionados
-        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
-        const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
-
-        // Actualizar el estado mostrado en el HTML
-        reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
+        // Call the reduceCooldownCost function and handle the result
+        const cost = await contract.methods.reduceCooldownCost().call({ from: userAddress });
         
-        // Mostrar los eventos en la consola
-        events.forEach(event => {
-            console.log('Event:', event.event, event.returnValues);
-        });
+        console.log('Cooldown cost:', cost);
+
+        // Resto del código para mostrar eventos y actualizar el estado...
+        
     } catch (error) {
         console.error(error);
     }
