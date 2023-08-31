@@ -1440,7 +1440,10 @@ async function mintEggss() {
     }
 }
 
-
+ function togglePanel() {
+            var panel = document.getElementById("panel");
+            panel.style.display = panel.style.display === "none" ? "block" : "none";
+        }
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
@@ -1486,10 +1489,7 @@ document.body.addEventListener('mousemove', function (e) {
     layer7.style.transform = "translateX(" + mouseMoved6 + "px)";
     layer8.style.transform = "translateX(" + mouseMoved7 + "px)";
 });
-	 function togglePanel() {
-            var panel = document.getElementById("panel");
-            panel.style.display = panel.style.display === "none" ? "block" : "none";
-        }
+	
 
 
 document.body.addEventListener('mouseleave', function (e) {
