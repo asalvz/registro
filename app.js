@@ -1453,43 +1453,53 @@ async function mintEggss() {
       panel.style.display = "none";
     }
   });
-	async function getUserGallinas() {
-    try {
-        // Obtener la lista de gallinas que tiene el usuario desde el contrato
-        const gallinasList = await contract.getUserGallinas(userAddress);
-        
-        // Llamar a la función para actualizar la visualización
-        updateGallinasList(gallinasList);
-    } catch (error) {
-        console.error("Error al obtener la lista de gallinas del usuario:", error);
-    }
-}
+	 // Obtener las gallinas del usuario
+        async function getGallinas() {
+            const gallinasOwned = await contractInstance.methods.getGallinasOwned(userAddress).call();
+            const gallinasList = document.getElementById("gallinasList");
 
-async function loadUserGallinas() {
-    try {
-        const gallinaCount = await contract.getGallinaCount(userAddress);
-        gallinasListElement.textContent = `Chickens Farm - Gallinas que tienes: ${gallinaCount}`;
-    } catch (error) {
-        console.error("Error al cargar la cantidad de gallinas del usuario:", error);
-    }
-}
+            gallinasList.innerHTML = "";
 
-// Inicializar la página cargando la información de las gallinas del usuario
-loadUserGallinas();
+            gallinasOwned.forEach(gallinaType => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Tipo de Gallina: ${gallinaType}`;
+                gallinasList.appendChild(listItem);
+            });
+        }
 
-// Escuchar el evento cuando el usuario compra o vende una gallina
-contract.on("GallinaPurchased", (user, gallinaType) => {
-    if (user.toLowerCase() === userAddress.toLowerCase()) {
-        loadUserGallinas(); // Actualizar la información cuando se compra una gallina
-    }
-});
+        // Mostrar eventos
+        async function getEvents() {
+            const eventList = document.getElementById("eventList");
 
-contract.on("GallinaSold", (user, gallinaType) => {
-    if (user.toLowerCase() === userAddress.toLowerCase()) {
-        loadUserGallinas(); // Actualizar la información cuando se vende una gallina
-    }
-});
+            // Escuchar eventos relevantes
+            contractInstance.events.GallinaPurchased({ filter: { buyer: userAddress } })
+            .on("data", event => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Gallina comprada - Tipo: ${event.returnValues.gallinaType}`;
+                eventList.appendChild(listItem);
+            });
 
+            // Puedes agregar más escuchadores de eventos aquí
+
+            // También puedes obtener eventos históricos
+            const pastEvents = await contractInstance.getPastEvents("GallinaPurchased", {
+                filter: { buyer: userAddress },
+                fromBlock: 0,
+                toBlock: "latest"
+            });
+
+            pastEvents.forEach(event => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Gallina comprada - Tipo: ${event.returnValues.gallinaType}`;
+                eventList.appendChild(listItem);
+            });
+        }
+
+        // Ejecutar las funciones al cargar la página
+        window.onload = async () => {
+            await getGallinas();
+            await getEvents();
+        };
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
