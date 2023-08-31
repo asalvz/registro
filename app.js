@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const newEggAmountInput = document.getElementById('newEggAmountt');
     const mintButton = document.getElementById('mintButton');
-    const unlockButton = document.getElementById("expand-button");
+    const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     
     
@@ -1443,17 +1443,15 @@ async function mintEggss() {
 }
 
  
-   
 
-  unlockButton.addEventListener("click", () => {
-    // Ocultar elementos innecesarios
-   
-    document.getElementById("link").style.display = "none";
 
-    // Cerrar el panel hasta el botón "700"
-    panel.style.bottom = "700px";
+  toggleButton.addEventListener("click", () => {
+    if (panel.style.display === "none") {
+      panel.style.display = "block";
+    } else {
+      panel.style.display = "none";
+    }
   });
-
 
 
 
