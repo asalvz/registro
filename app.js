@@ -22,10 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
     const referralList = document.getElementById('referral-list');
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
-    const mintButton = document.getElementById('mintButton');
     const newEggAmountInput = document.getElementById('newEggAmountt');
-
-
+    const mintButton = document.getElementById('mintButton');
     
     
  
@@ -1423,9 +1421,11 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
+mintButton.addEventListener('click', mintEggss);
+
 async function mintEggss() {
     const eggAmount = newEggAmountInput.value;
-    
+
     if (eggAmount <= 0) {
         alert('Please enter a valid egg amount.');
         return;
@@ -1443,8 +1443,6 @@ async function mintEggss() {
         alert('An error occurred while minting eggs.');
     }
 }
-
-
 
 
 
