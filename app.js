@@ -16,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggCountElement = document.querySelector('.user-count');
     const boostProductivityButton = document.getElementById('boost-productivity-button');
     const boostsUsedElement = document.getElementById('boosts-used');
-    const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
-    const reductionsUsedElement = document.getElementById('reductions-used');
+    
     
  
 
