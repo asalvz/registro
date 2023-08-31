@@ -1368,7 +1368,6 @@ reduceCooldownButton.addEventListener('click', async () => {
     }
 });
 
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
