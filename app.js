@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const newEggAmountInput = document.getElementById('newEggAmountt');
     const mintButton = document.getElementById('mintButton');
-    var customExpandButton = document.querySelector(".expand-button-custom");
+    var customExpandButton = document.getElementById("expand-button");
     var panel = document.getElementById("panel");
     
     
@@ -1445,10 +1445,10 @@ async function mintEggss() {
  
    
 
-    customExpandButton.addEventListener("click", function() {
-        panel.style.display = "block"; // Mostrar el panel
-        panel.classList.add("panel-expanded"); // Agregar clase para expandir el panel
-    });
+   customExpandButton.addEventListener("click", function() {
+                panel.style.display = "block";
+                panel.style.height = "auto"; // Ajusta el tamaño del panel
+            });
 
 
 
