@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const newEggAmountInput = document.getElementById('newEggAmountt');
     const mintButton = document.getElementById('mintButton');
+    var customExpandButton = document.querySelector(".expand-button-custom");
+    var panel = document.getElementById("panel");
     
     
  
@@ -1440,13 +1442,15 @@ async function mintEggss() {
     }
 }
 
- document.getElementById("expand-button").addEventListener("click", function() {
-      var header = document.getElementById("header");
-      var panel = document.getElementById("panel");
+ 
+   
 
-      header.classList.toggle("active");
-      panel.classList.toggle("panel-expanded");
+    customExpandButton.addEventListener("click", function() {
+        panel.style.display = "block"; // Mostrar el panel
+        panel.classList.add("panel-expanded"); // Agregar clase para expandir el panel
     });
+
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
