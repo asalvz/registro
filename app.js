@@ -1447,9 +1447,7 @@ async function mintEggss() {
 
   unlockButton.addEventListener("click", () => {
     // Ocultar elementos innecesarios
-    document.getElementById("connect-button").style.display = "none";
-    document.getElementById("referrer-input").style.display = "none";
-    document.getElementById("generate-referral-button").style.display = "none";
+   
     document.getElementById("link").style.display = "none";
 
     // Cerrar el panel hasta el botón "700"
