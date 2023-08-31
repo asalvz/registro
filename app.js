@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const boostsUsedElement = document.getElementById('boosts-used');
     const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
     const reductionsUsedElement = document.getElementById('reductions-used');
-   const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
+    const newSellEggsButton = document.getElementById('sell-eggs-button');
+    const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
+
 
     
     
@@ -1384,7 +1386,7 @@ reduceCooldownButton.addEventListener('click', async () => {
         console.error(error);
     }
 });
-sellEggsButton.addEventListener('click', async () => {
+newSellEggsButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
