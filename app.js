@@ -1356,8 +1356,11 @@ sellEggsButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Call the reduceCooldownTime function and handle the result
-        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress });
+        // Obtener el costo de la función reduceCooldownTime
+        const cost = await contract.methods.reduceCooldownTimeCost().call({ from: userAddress });
+
+        // Llamar a la función reduceCooldownTime y manejar el resultado
+        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress, value: cost });
 
         console.log('Cooldown time reduced:', result);
 
