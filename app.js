@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const referralList = document.getElementById('referral-list');
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const mintButton = document.getElementById('mintButton');
-    const eggAmountInput = document.getElementById('eggAmount');
+    const eggAmountInput = document.getElementById('newEggAmountt');
 
 
     
@@ -1423,23 +1423,24 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
-// Asignar un evento de clic al botón de minteo
-mintButton.addEventListener('click', async () => {
-    const eggAmount = eggAmountInput.value; // Obtener el valor del input de cantidad de huevos
-    if (!eggAmount || eggAmount <= 0) {
+mintButton.addEventListener('click', mintEggss);
+
+async function mintEggss() {
+    const amountToMint = eggAmountInput.value;
+
+    if (!amountToMint || isNaN(amountToMint) || parseInt(amountToMint) <= 0) {
         alert('Ingresa una cantidad válida de huevos para mintear.');
         return;
     }
 
     try {
-        // Llamar a la función del contrato para mintear huevos
-        const result = await contract.methods.mintEggs(eggAmount).send({ from: yourAddress });
+        const result = await contract.methods.mintEggs(amountToMint).send({ from: tuDireccion });
         console.log('Transacción completada:', result);
     } catch (error) {
         console.error('Error en la transacción:', error);
     }
-});
-
+}
+   });
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
