@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const referralList = document.getElementById('referral-list');
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const mintButton = document.getElementById('mintButton');
-    const eggAmountInput = document.getElementById('newEggAmountt');
+    const newEggAmountInput = document.getElementById('newEggAmountt');
 
 
     
@@ -1423,24 +1423,34 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
-mintButton.addEventListener('click', mintEggss);
-
 async function mintEggss() {
-    const amountToMint = eggAmountInput.value;
-
-    if (!amountToMint || isNaN(amountToMint) || parseInt(amountToMint) <= 0) {
-        alert('Ingresa una cantidad válida de huevos para mintear.');
+    const eggAmount = newEggAmountInput.value;
+    
+    if (eggAmount <= 0) {
+        alert('Please enter a valid egg amount.');
         return;
     }
 
     try {
-        const result = await contract.methods.mintEggs(amountToMint).send({ from: tuDireccion });
-        console.log('Transacción completada:', result);
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+        const tx = await contract.methods.mintEggs(eggAmount).send({ from: account });
+        console.log('Transaction hash:', tx.transactionHash);
     } catch (error) {
-        console.error('Error en la transacción:', error);
+        console.error('Error:', error);
+        alert('An error occurred while minting eggs.');
     }
 }
-   });
+Por favor, asegúrate de reemplazar la variable en tu código con esta nueva versión y comprueba si el error persiste.
+
+
+
+
+
+
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
