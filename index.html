@@ -26,18 +26,7 @@
     <button id="expand-button" style="position: absolute; bottom: 0; left: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; border: none; border-radius: 0 0 10px 10px; padding: 5px 10px; cursor: pointer; font-size: 14px;">UNLOCK</button>
     
     <!-- Panel desplegable -->
-    <div id="panel" style="display: none; position: absolute; bottom: 40px; left: 10px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 10px; padding: 10px; transform-origin: bottom;">
-        <style>
-            #panel.active {
-                display: block;
-                transform: scaleY(1);
-            }
-            
-            #header:hover #panel {
-                transform: scaleY(0);
-                transition: transform 0.3s ease-in-out;
-            }
-        </style>
+    <div id="panel" class="active">
         <h2 class="panel-title">Farming</h2>
         <div class="egg-image">
             <img src="https://low-chicken-ranch.netlify.app/ghnjm.png" alt="Huevo grande" width="25">
@@ -45,15 +34,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById("expand-button").addEventListener("click", function() {
-        var panel = document.getElementById("panel");
-        panel.classList.toggle("active");
-    });
-</script>
-
-
 
  
      <h1>Low Chicken Ranch</h1>
