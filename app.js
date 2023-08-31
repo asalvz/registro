@@ -1356,18 +1356,32 @@ reduceCooldownButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Call the reduceCooldownCost function and handle the result
+        // Call the reduceCooldownCost function to get the cost
         const cost = await contract.methods.reduceCooldownCost().call({ from: userAddress });
-        
-        console.log('Cooldown cost:', cost);
 
-        // Resto del código para mostrar eventos y actualizar el estado...
-        
+        // Call the reduceCooldownTime function and handle the result
+        const result = await contract.methods.reduceCooldownTime().send({
+            from: userAddress,
+            value: cost,
+        });
+
+        console.log('Cooldown time reduced:', result);
+
+        // Mostrar los eventos y estado relacionados
+        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+        const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
+
+        // Actualizar el estado mostrado en el HTML
+        reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
+
+        // Mostrar los eventos en la consola
+        events.forEach(event => {
+            console.log('Event:', event.event, event.returnValues);
+        });
     } catch (error) {
         console.error(error);
     }
 });
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
