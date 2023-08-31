@@ -1153,15 +1153,16 @@ document.addEventListener('DOMContentLoaded', () => {
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
-    connectButton.addEventListener('click', async () => {
-      try {
+   // Agregar un controlador de eventos para el clic en el botón
+connectButton.addEventListener('click', async () => {
+    try {
         if (typeof window.ethereum === 'undefined') {
-          alert('Please install MetaMask to use this feature.');
-          return;
+            alert('Please install MetaMask to use this feature.');
+            return;
         }
 
         await window.ethereum.enable();
-        
+
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         const address = accounts[0];
@@ -1171,14 +1172,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
-        
+
         const balance = await bscWeb3.eth.getBalance(address);
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
-      } catch (error) {
+        // Cambiar el contenido del botón al mensaje deseado
+        connectButton.innerHTML = 'web3 active';
+    } catch (error) {
         console.error(error);
-      }
-    });   
+    }
+});
  generateReferralButton.addEventListener('click', async () => {
       try {
         if (typeof window.ethereum === 'undefined') {
