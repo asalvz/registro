@@ -1421,28 +1421,36 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
- mintButton.addEventListener('click', async () => {
-        const eggAmount = newEggAmountInput.value;
+ mintButton.addEventListener('click', mintEggss);
 
-        if (eggAmount <= 0) {
-            alert('Please enter a valid egg amount.');
-            return;
-        }
+async function mintEggss() {
+    const eggAmount = newEggAmountInput.value;
 
-        try {
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            const account = accounts[0];
-            const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    if (eggAmount <= 0) {
+        alert('Please enter a valid egg amount.');
+        return;
+    }
 
-            const tx = await contract.methods.mintEggs(eggAmount).send({ from: account });
-            console.log('Transaction hash:', tx.transactionHash);
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred while minting eggs.');
-        }
-    });
+    try {
+        // Solicitar acceso a la cuenta desde MetaMask
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
 
+        // Crear una instancia del contrato usando el proveedor de Ethereum de MetaMask
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
+        // Ejecutar la función mintEggs en el contrato
+        const tx = await contract.mintEggs(eggAmount);
+        await tx.wait();
+
+        console.log('Transaction hash:', tx.hash);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while minting eggs.');
+    }
+}
 
 
 
