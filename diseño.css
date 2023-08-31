@@ -2,6 +2,14 @@ body {
   padding: 0;
   margin: 0;
 }
+        #panel.active {
+            transform: scaleY(1);
+        }
+ #header:hover #panel {
+            display: block;
+            transform: scaleY(0);
+            transition: transform 0.3s ease-in-out;
+        }
 
 .totalcontainer {
   width: 100vw;
