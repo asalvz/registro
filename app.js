@@ -1452,6 +1452,36 @@ async function mintEggss() {
       panel.style.display = "none";
     }
   });
+	async function getUserGallinas() {
+    try {
+        // Obtener la lista de gallinas que tiene el usuario desde el contrato
+        const gallinasList = await contract.getUserGallinas(userAddress);
+        
+        // Llamar a la función para actualizar la visualización
+        updateGallinasList(gallinasList);
+    } catch (error) {
+        console.error("Error al obtener la lista de gallinas del usuario:", error);
+    }
+}
+
+// Función para actualizar la visualización de la lista de gallinas del usuario en la sección
+function updateGallinasList(gallinasList) {
+    // Aquí seleccionas el elemento del DOM donde deseas mostrar la lista de gallinas
+    const gallinasListElement = document.querySelector(".gallinas-list");
+    
+    // Limpiar el contenido previo de la sección
+    gallinasListElement.innerHTML = '';
+
+    // Crear elementos para cada gallina y agregarlos a la sección
+    gallinasList.forEach(gallina => {
+        const gallinaElement = document.createElement('div');
+        gallinaElement.textContent = `Gallina ID: ${gallina.id}, Tipo: ${gallina.tipo}`;
+        gallinasListElement.appendChild(gallinaElement);
+    });
+}
+
+// Llamar a la función para obtener y mostrar la lista de gallinas del usuario al cargar la página
+getUserGallinas();
 
 
 
