@@ -723,7 +723,7 @@ h1 {
   overflow: hidden;   /* Ocultar contenido que exceda la altura máxima */
   transition: max-height 0.5s; /* Animación de transición para cambiar la altura */
 }
-        #panel {
+       #panel {
             display: none;
             position: absolute;
             bottom: 40px;
@@ -734,7 +734,6 @@ h1 {
             padding: 10px;
         }
 
-        #panel.active {
+        #header.active #panel {
             display: block;
         }
-
