@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const boostsUsedElement = document.getElementById('boosts-used');
     const reduceCooldownButton = document.getElementById('reduce-cooldown-button');
     const reductionsUsedElement = document.getElementById('reductions-used');
-   const sellEggsButton = document.getElementById('sell-eggs-button');
    const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
 
     
