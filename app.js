@@ -1445,9 +1445,12 @@ async function mintEggss() {
  
    
 
-
-        expandButton.addEventListener("click", function() {
-            panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+  expandButton.addEventListener("click", function() {
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
         });
 
 
