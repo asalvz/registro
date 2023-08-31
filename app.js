@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
     const newEggAmountInput = document.getElementById('newEggAmountt');
     const mintButton = document.getElementById('mintButton');
-    var customExpandButton = document.getElementById("expand-button");
-    var panel = document.getElementById("panel");
+    const unlockButton = document.getElementById("expand-button");
+    const panel = document.getElementById("header");
     
     
  
@@ -1445,13 +1445,16 @@ async function mintEggss() {
  
    
 
-  expandButton.addEventListener("click", function() {
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-            }
-        });
+  unlockButton.addEventListener("click", () => {
+    // Ocultar elementos innecesarios
+    document.getElementById("connect-button").style.display = "none";
+    document.getElementById("referrer-input").style.display = "none";
+    document.getElementById("generate-referral-button").style.display = "none";
+    document.getElementById("link").style.display = "none";
+
+    // Cerrar el panel hasta el botón "700"
+    panel.style.bottom = "700px";
+  });
 
 
 
