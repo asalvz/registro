@@ -1423,54 +1423,23 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
-	async function updateRankings() {
-    try {
-        const userAddress = await ethereum.request({ method: 'eth_requestAccounts' });
-
-        const userRankings = await contract.methods.getUserRankings().call();
-        const referralList = document.getElementById('referral-list');
-        const eggAccumulationList = document.getElementById('egg-accumulation-list');
-
-        referralList.innerHTML = '';
-        eggAccumulationList.innerHTML = '';
-
-        for (const user of userRankings) {
-            const listItem = document.createElement('li');
-            listItem.innerText = `User: ${user.userAddress}, Eggs Collected: ${user.eggsCollected}`;
-
-            if (user.userAddress.toLowerCase() === userAddress[0].toLowerCase()) {
-                listItem.style.fontWeight = 'bold';
-            }
-
-            if (user.eggsCollected > 0) {
-                referralList.appendChild(listItem);
-            } else {
-                eggAccumulationList.appendChild(listItem);
-            }
-        }
-    } catch (error) {
-        console.error('Error updating rankings:', error);
+// Asignar un evento de clic al botón de minteo
+mintButton.addEventListener('click', async () => {
+    const eggAmount = eggAmountInput.value; // Obtener el valor del input de cantidad de huevos
+    if (!eggAmount || eggAmount <= 0) {
+        alert('Ingresa una cantidad válida de huevos para mintear.');
+        return;
     }
-}
-async function mintEggs() {
-  const eggAmount = document.getElementById("newEggAmount").value;
-  
-  // Verificar que eggAmount sea un número válido antes de continuar
-  
-  try {
-    const accounts = await ethereum.request({ method: "eth_accounts" });
-    const userAddress = accounts[0];
-    
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    const result = await contract.methods.mintEggs(eggAmount).send({ from: userAddress });
-    
-    console.log("Minting eggs result:", result);
-  } catch (error) {
-    console.error("Error minting eggs:", error);
-  }
-}
 
-    });
+    try {
+        // Llamar a la función del contrato para mintear huevos
+        const result = await contract.methods.mintEggs(eggAmount).send({ from: yourAddress });
+        console.log('Transacción completada:', result);
+    } catch (error) {
+        console.error('Error en la transacción:', error);
+    }
+});
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
