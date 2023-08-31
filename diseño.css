@@ -700,57 +700,6 @@ h1 {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-
-.header-container {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 10px;
-        border-radius: 10px;
-    }
-
-    .header-button {
-        padding: 7px 15px;
-        background: linear-gradient(to bottom, #ff9933, #ff6600);
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-size: 16px;
-    }
-
-    .header-list {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .highlight {
-        /* Define el estilo de resaltado si es necesario */
-    }
-
-    .expand-button {
-        position: absolute;
-        bottom: 0;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        border: none;
-        border-radius: 0 0 10px 10px;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .panel {
-        display: none;
-        position: absolute;
-        bottom: 40px;
-        left: 10px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        border-radius: 10px;
-        padding: 10px;
-    }
+.panel-expanded {
+    display: block !important;
+  }
