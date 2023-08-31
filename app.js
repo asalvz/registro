@@ -1452,24 +1452,24 @@ reduceCooldownButton.addEventListener('click', async () => {
         console.error('Error updating rankings:', error);
     }
 }
-mintButton.addEventListener('click', async () => {
-        const eggAmount = eggAmountInput.value;
-        if (eggAmount > 0) {
-            try {
-                // Cuenta que interactúa con el contrato
-                const accounts = await web3.eth.getAccounts();
-                const account = accounts[0];
+async function mintEggs() {
+  const eggAmount = document.getElementById("newEggAmount").value;
+  
+  // Verificar que eggAmount sea un número válido antes de continuar
+  
+  try {
+    const accounts = await ethereum.request({ method: "eth_accounts" });
+    const userAddress = accounts[0];
+    
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const result = await contract.methods.mintEggs(eggAmount).send({ from: userAddress });
+    
+    console.log("Minting eggs result:", result);
+  } catch (error) {
+    console.error("Error minting eggs:", error);
+  }
+}
 
-                // Llamada a la función de minteo del contrato
-                await contract.methods.mintEggs(eggAmount).send({ from: account });
-
-                console.log(`Successfully minted ${eggAmount} eggs.`);
-            } catch (error) {
-                console.error('Error minting eggs:', error);
-            }
-        } else {
-            console.log('Please enter a valid egg amount.');
-        }
     });
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
