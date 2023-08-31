@@ -1440,10 +1440,7 @@ async function mintEggss() {
     }
 }
 
- function togglePanel() {
-            var panel = document.getElementById("panel");
-            panel.style.display = panel.style.display === "none" ? "block" : "none";
-        }
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
