@@ -1152,8 +1152,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
+	
 
-   // Agregar un controlador de eventos para el clic en el botón
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1176,12 +1176,14 @@ connectButton.addEventListener('click', async () => {
         const balance = await bscWeb3.eth.getBalance(address);
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
-        // Cambiar el contenido del botón al mensaje deseado
+        const eggBalance = await contract.methods.balanceOf(address).call();
+        eggCountElement.textContent = eggBalance; 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
+	
  generateReferralButton.addEventListener('click', async () => {
       try {
         if (typeof window.ethereum === 'undefined') {
@@ -1288,15 +1290,13 @@ async function buyCorralExtension() {
 
     console.log('Compra exitosa:', result);
 
-    // Actualizar el costo de la expansión del corral para la próxima vez
-    const newUpgradeCost = web3.utils.toWei('0.1', 'ether'); // Aquí puedes ajustar el nuevo costo
+    const newUpgradeCost = web3.utils.toWei('0.1', 'ether'); 
     const capacityUpgradeCostElement = document.getElementById('capacity-upgrade-cost');
     capacityUpgradeCostElement.textContent = `${web3.utils.fromWei(newUpgradeCost, 'ether')} BNB`;
   } catch (error) {
     console.error('Error:', error);
   }
 }
-	// Agregar evento de clic al botón de venta de huevos
 sellEggsButton.addEventListener('click', async () => {
   try {
     await window.ethereum.enable();
@@ -1319,7 +1319,6 @@ sellEggsButton.addEventListener('click', async () => {
 
     console.log('Eggs sold:', result);
 
-    // Limpiar el campo de entrada después de la venta exitosa
     eggAmountInput.value = '';
   } catch (error) {
     console.error('Error:', error);
@@ -1340,12 +1339,10 @@ sellEggsButton.addEventListener('click', async () => {
 
                     const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
 
-                    // Call the boostProductivity function and handle the result
                     const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
 
                     console.log('Boosted productivity:', result);
 
-                    // Update the boosts used count
                     const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
                     boostsUsedElement.textContent = `Boosts used: ${boostsUsed}`;
                 } catch (error) {
@@ -1365,10 +1362,8 @@ reduceCooldownButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Call the reduceCooldownCost function to get the cost
         const cost = await contract.methods.reduceCooldownCost().call({ from: userAddress });
 
-        // Call the reduceCooldownTime function and handle the result
         const result = await contract.methods.reduceCooldownTime().send({
             from: userAddress,
             value: cost,
@@ -1376,14 +1371,11 @@ reduceCooldownButton.addEventListener('click', async () => {
 
         console.log('Cooldown time reduced:', result);
 
-        // Mostrar los eventos y estado relacionados
-        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+        const events = result.events; 
         const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
 
-        // Actualizar el estado mostrado en el HTML
         reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
 
-        // Mostrar los eventos en la consola
         events.forEach(event => {
             console.log('Event:', event.event, event.returnValues);
         });
@@ -1404,19 +1396,15 @@ reduceCooldownButton.addEventListener('click', async () => {
             const accounts = await web3.eth.getAccounts();
             const userAddress = accounts[0];
 
-            // Call the sellEggsAtHigherPrice function and handle the result
             const result = await contract.methods.sellEggsAtHigherPrice().send({ from: userAddress, value: web3.utils.toWei('0.3', 'ether') });
 
             console.log('Eggs sold at higher price:', result);
 
-            // Mostrar los eventos y estado relacionados
-            const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+            const events = result.events; 
             const sellBoostsUsed = await contract.methods.getSellBoostsUsed(userAddress).call();
 
-            // Actualizar el estado mostrado en el HTML
             sellBoostsUsedElement.textContent = `Sell boosts used: ${sellBoostsUsed}`;
             
-            // Mostrar los eventos en la consola
             events.forEach(event => {
                 console.log('Event:', event.event, event.returnValues);
             });
@@ -1435,16 +1423,13 @@ async function mintEggss() {
     }
 
     try {
-        // Solicitar acceso a la cuenta desde MetaMask
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
 
-        // Crear una instancia del contrato usando el proveedor de Ethereum de MetaMask
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-        // Ejecutar la función mintEggs en el contrato
         const tx = await contract.mintEggs(eggAmount);
         await tx.wait();
 
@@ -1519,19 +1504,14 @@ document.body.addEventListener('mouseenter', function (e) {
 
 
 
-// Función para mostrar el banner una vez cargada la página
 $(document).ready(function() {
-    // Ocultar el banner al inicio
     $("#banner-dialog").hide();
 
-    // Comprobar si todos los elementos de la página están cargados
     $(window).on("load", function() {
-        // Mostrar el banner una vez que todo esté cargado
         $("#banner-dialog").fadeIn();
     });
 });
 
-// Función para cerrar el banner al hacer clic en el botón "Cerrar"
 $("#close-btn").click(function() {
     $("#banner-dialog").fadeOut();
 });
