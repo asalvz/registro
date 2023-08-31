@@ -1440,7 +1440,10 @@ async function mintEggss() {
     }
 }
 
-
+ document.getElementById("expand-button").addEventListener("click", function() {
+        var panel = document.getElementById("panel");
+        panel.classList.toggle("active");
+    });
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
