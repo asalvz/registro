@@ -1445,10 +1445,11 @@ async function mintEggss() {
  
    
 
-   customExpandButton.addEventListener("click", function() {
-                panel.style.display = "block";
-                panel.style.height = "auto"; // Ajusta el tamaño del panel
-            });
+
+        expandButton.addEventListener("click", function() {
+            panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+
 
 
 
