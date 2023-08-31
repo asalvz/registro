@@ -1443,7 +1443,6 @@ async function mintEggss() {
         alert('An error occurred while minting eggs.');
     }
 }
-Por favor, asegúrate de reemplazar la variable en tu código con esta nueva versión y comprueba si el error persiste.
 
 
 
