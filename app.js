@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mintButton = document.getElementById('mintButton');
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
+    const gallinasListElement = document.querySelector('.gallinas-list'); 
     
     
  
@@ -1464,26 +1465,30 @@ async function mintEggss() {
     }
 }
 
-// Función para actualizar la visualización de la lista de gallinas del usuario en la sección
-function updateGallinasList(gallinasList) {
-    // Aquí seleccionas el elemento del DOM donde deseas mostrar la lista de gallinas
-    const gallinasListElement = document.querySelector(".gallinas-list");
-    
-    // Limpiar el contenido previo de la sección
-    gallinasListElement.innerHTML = '';
-
-    // Crear elementos para cada gallina y agregarlos a la sección
-    gallinasList.forEach(gallina => {
-        const gallinaElement = document.createElement('div');
-        gallinaElement.textContent = `Gallina ID: ${gallina.id}, Tipo: ${gallina.tipo}`;
-        gallinasListElement.appendChild(gallinaElement);
-    });
+async function loadUserGallinas() {
+    try {
+        const gallinaCount = await contract.getGallinaCount(userAddress);
+        gallinasListElement.textContent = `Chickens Farm - Gallinas que tienes: ${gallinaCount}`;
+    } catch (error) {
+        console.error("Error al cargar la cantidad de gallinas del usuario:", error);
+    }
 }
 
-// Llamar a la función para obtener y mostrar la lista de gallinas del usuario al cargar la página
-getUserGallinas();
+// Inicializar la página cargando la información de las gallinas del usuario
+loadUserGallinas();
 
+// Escuchar el evento cuando el usuario compra o vende una gallina
+contract.on("GallinaPurchased", (user, gallinaType) => {
+    if (user.toLowerCase() === userAddress.toLowerCase()) {
+        loadUserGallinas(); // Actualizar la información cuando se compra una gallina
+    }
+});
 
+contract.on("GallinaSold", (user, gallinaType) => {
+    if (user.toLowerCase() === userAddress.toLowerCase()) {
+        loadUserGallinas(); // Actualizar la información cuando se vende una gallina
+    }
+});
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
