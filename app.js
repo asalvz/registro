@@ -1501,6 +1501,10 @@ document.body.addEventListener('mouseenter', function (e) {
         }, 500);
     });
 });
+function togglePanel() {
+            var panel = document.getElementById("panel");
+            panel.style.display = panel.style.display === "none" ? "block" : "none";
+        }
 
 
 
