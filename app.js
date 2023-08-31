@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reductionsUsedElement = document.getElementById('reductions-used');
     const sellHigherButton = document.getElementById('sell-higher');
     const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
+    const referralList = document.getElementById('referral-list');
+    const eggAccumulationList = document.getElementById('egg-accumulation-list');
 
 
     
@@ -1419,6 +1421,46 @@ reduceCooldownButton.addEventListener('click', async () => {
             console.error(error);
         }
     });
+	  try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
+
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+        const updateRankings = async () => {
+            try {
+                const referralRanking = await contract.methods.getReferralRanking().call();
+                const eggAccumulationRanking = await contract.methods.getEggAccumulationRanking().call();
+
+                referralList.innerHTML = '';
+                eggAccumulationList.innerHTML = '';
+
+                referralRanking.forEach(address => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = address;
+                    referralList.appendChild(listItem);
+                });
+
+                eggAccumulationRanking.forEach(address => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = address;
+                    eggAccumulationList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        updateRankings(); // Actualizar rankings al cargar la página
+        setInterval(updateRankings, 60000); // Actualizar rankings cada 1 minuto
+    } catch (error) {
+        console.error(error);
+    }
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
