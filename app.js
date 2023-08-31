@@ -1486,6 +1486,11 @@ document.body.addEventListener('mousemove', function (e) {
     layer7.style.transform = "translateX(" + mouseMoved6 + "px)";
     layer8.style.transform = "translateX(" + mouseMoved7 + "px)";
 });
+	 function togglePanel() {
+            var panel = document.getElementById("panel");
+            panel.style.display = panel.style.display === "none" ? "block" : "none";
+        }
+
 
 document.body.addEventListener('mouseleave', function (e) {
     elems.forEach(function (elem, index) {
@@ -1501,11 +1506,7 @@ document.body.addEventListener('mouseenter', function (e) {
         }, 500);
     });
 });
-  function togglePanel() {
-            var panel = document.getElementById("panel");
-            panel.style.display = panel.style.display === "none" ? "block" : "none";
-        }
-
+ 
 
 
 $(document).ready(function() {
