@@ -1440,9 +1440,12 @@ async function mintEggss() {
     }
 }
 
-   document.getElementById("expand-button").addEventListener("click", function() {
-        var header = document.getElementById("header");
-        header.classList.toggle("active");
+ document.getElementById("expand-button").addEventListener("click", function() {
+      var header = document.getElementById("header");
+      var panel = document.getElementById("panel");
+
+      header.classList.toggle("active");
+      panel.classList.toggle("panel-expanded");
     });
 
 const elems = document.querySelectorAll('.laya-please');
