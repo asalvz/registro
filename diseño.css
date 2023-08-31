@@ -707,69 +707,69 @@ h1 {
 
 }
 
+  .header-container {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 10px;
+        border-radius: 10px;
+    }
 
+    .header-button {
+        padding: 7px 15px;
+        background: linear-gradient(to bottom, #ff9933, #ff6600);
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+    }
 
+    .header-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
 
-.user-count-label {
-  font-size: 14px;
-}
-    /* Estilos del panel desplegable */
-        #header {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 10px;
-        }
+    .highlight {
+        /* Define el estilo de resaltado si es necesario */
+    }
 
-        #expand-button {
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            border-radius: 0 0 10px 10px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+    .expand-button {
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 0 0 10px 10px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
 
-        #panel {
-            display: none;
-            background-color: rgba(0, 0, 0, 0.6);
-            color: white;
-            border-radius: 10px;
-            padding: 10px;
-            margin-top: 10px;
-            position: absolute;
-            left: 10px;
-            bottom: -5px;
-            width: calc(100% - 20px);
-        }
+    .panel {
+        display: none;
+        position: absolute;
+        bottom: 40px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+    }
 
-        #header.active #panel {
-            display: block;
-        }
+    .panel-title {
+        /* Estilo del título del panel */
+    }
 
-        /* Estilos adicionales para el panel */
-        #referral-address {
-            color: blue;
-            font-size: 11px;
-        }
-        
-        .egg-image {
-            display: flex;
-            align-items: center;
-        }
-        
-        .egg-image img {
-            width: 25px;
-            margin-right: 5px;
-        }
+    .egg-image {
+        /* Estilo de la imagen y el conteo */
+    }
 
-        .user-count {
-            color: white;
-            font-size: 11px;
-        }
+    /* Aplica el estilo cuando el botón de expansión está activo */
+    .header-container.active .panel {
+        display: block;
+    }
