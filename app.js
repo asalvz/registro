@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellBoostsUsedElement = document.getElementById('sell-boosts-used');
     const referralList = document.getElementById('referral-list');
     const eggAccumulationList = document.getElementById('egg-accumulation-list');
+    const mintButton = document.getElementById('mintButton');
+    const eggAmountInput = document.getElementById('eggAmount');
 
 
     
@@ -1450,7 +1452,25 @@ reduceCooldownButton.addEventListener('click', async () => {
         console.error('Error updating rankings:', error);
     }
 }
+mintButton.addEventListener('click', async () => {
+        const eggAmount = eggAmountInput.value;
+        if (eggAmount > 0) {
+            try {
+                // Cuenta que interactúa con el contrato
+                const accounts = await web3.eth.getAccounts();
+                const account = accounts[0];
 
+                // Llamada a la función de minteo del contrato
+                await contract.methods.mintEggs(eggAmount).send({ from: account });
+
+                console.log(`Successfully minted ${eggAmount} eggs.`);
+            } catch (error) {
+                console.error('Error minting eggs:', error);
+            }
+        } else {
+            console.log('Please enter a valid egg amount.');
+        }
+    });
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
