@@ -708,21 +708,12 @@ h1 {
 }
 
 
-.user-count {
-  font-size: 24px;
-  font-weight: bold;
-  background: white;
-}
+
 
 .user-count-label {
   font-size: 14px;
 }
-
-#header {
-  max-height: 250px;  /* Establecer la altura máxima inicial del panel */
-  overflow: hidden;   /* Ocultar contenido que exceda la altura máxima */
-  transition: max-height 0.5s; /* Animación de transición para cambiar la altura */
-} #header {
+    #header {
             position: fixed;
             top: 10px;
             left: 10px;
@@ -751,8 +742,33 @@ h1 {
             border-radius: 10px;
             padding: 10px;
             margin-top: 10px;
+            position: absolute;
+            left: 10px;
+            bottom: -5px;
+            width: calc(100% - 20px);
         }
 
         #header.active #panel {
             display: block;
+        }
+
+        /* Estilos adicionales para el panel */
+        #referral-address {
+            color: blue;
+            font-size: 11px;
+        }
+        
+        .egg-image {
+            display: flex;
+            align-items: center;
+        }
+        
+        .egg-image img {
+            width: 25px;
+            margin-right: 5px;
+        }
+
+        .user-count {
+            color: white;
+            font-size: 11px;
         }
