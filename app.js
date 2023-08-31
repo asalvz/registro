@@ -1315,37 +1315,41 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
- boostProductivityButton.addEventListener('click', async () => {
-                try {
-                    if (typeof window.ethereum === 'undefined') {
-                        alert('Please install MetaMask to use this feature.');
-                        return;
-                    }
+ // Asignar la función al botón utilizando una escucha de evento
+reduceCooldownButton.addEventListener('click', async () => {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
 
-                    await window.ethereum.enable();
-                    const web3 = new Web3(window.ethereum);
-                    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-                    const accounts = await web3.eth.getAccounts();
-                    const userAddress = accounts[0];
+        await window.ethereum.enable();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
 
-                    const cost = await contract.methods.boostProductivityCost().call({ from: userAddress });
+        // Call the reduceCooldownTime function and handle the result
+        const result = await contract.methods.reduceCooldownTime().send({ from: userAddress });
 
-                    // Call the boostProductivity function and handle the result
-                    const result = await contract.methods.boostProductivity().send({ from: userAddress, value: cost });
+        console.log('Cooldown time reduced:', result);
 
-                    console.log('Boosted productivity:', result);
+        // Mostrar los eventos y estado relacionados
+        const events = result.events; // Supongo que los eventos se encuentran en el objeto result
+        const reductionsUsed = await contract.methods.getReductionsUsed(userAddress).call();
 
-                    // Update the boosts used count
-                    const boostsUsed = await contract.methods.getBoostsUsed(userAddress).call();
-                    boostsUsedElement.textContent = `Boosts used: ${boostsUsed}`;
-                } catch (error) {
-                    console.error(error);
-                }
-            });
+        // Actualizar el estado mostrado en el HTML
+        reductionsUsedElement.textContent = `Reductions used: ${reductionsUsed}`;
+        
+        // Mostrar los eventos en la consola
+        events.forEach(event => {
+            console.log('Event:', event.event, event.returnValues);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+});
 
-app.js:1382 TypeError: contract.methods.reduceCooldownTimeCost is not a function
-    at HTMLButtonElement.<anonymous> (app.js:1362:45)
-(anónimas) @ app.js:1382
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
