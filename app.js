@@ -1162,11 +1162,14 @@ document.addEventListener('DOMContentLoaded', () => {
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
+            alert('Por favor, instala MetaMask para usar esta función.');
             return;
         }
 
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
         const address = accounts[0];
 
         userAddress.textContent = address;
@@ -1179,12 +1182,13 @@ connectButton.addEventListener('click', async () => {
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(address).call();
-        eggCountElement.textContent = eggBalance; 
-        connectButton.innerHTML = 'web3 active';
+        eggCountElement.textContent = eggBalance;
+        connectButton.innerHTML = 'web3 activado';
     } catch (error) {
         console.error(error);
     }
 });
+
 
 	
  generateReferralButton.addEventListener('click', async () => {
