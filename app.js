@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
+    const collectButton = document.querySelector('.collect-button');
+
     
     
  
@@ -1500,6 +1502,17 @@ async function mintEggss() {
             await getGallinas();
             await getEvents();
         };
+
+ collectButton.addEventListener('click', async () => {
+        try {
+            // Llama a la función collectEgg del contrato
+            const result = await contract.methods.collectEgg().send({ from: userAddress });
+            console.log('Transaction Hash:', result.transactionHash);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
