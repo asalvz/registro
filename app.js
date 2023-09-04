@@ -1157,7 +1157,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
-    const contract = new web3.eth.Contract(abi, contractAddress);
 
   
 connectButton.addEventListener('click', async () => {
@@ -1467,6 +1466,8 @@ collectEggsButton.addEventListener('click', async () => {
   try {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' }); // Solicita acceso a la cuenta
     const senderAddress = accounts[0]; // Obtiene la dirección de la cuenta conectada
+    const contract = new window.web3.eth.Contract(contractAbi, contractAddress);
+
     const result = await contract.methods.collectEggs().send({ from: senderAddress }); // Llama a la función del contrato
     console.log('Transaction Result:', result);
   } catch (error) {
