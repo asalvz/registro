@@ -1,4 +1,3 @@
-let contract; // Declaración de la instancia del contrato en un alcance global
 console.log("Archivo JavaScript cargado");
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1158,6 +1157,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
+    let contract; // Declaración de la instancia del contrato en un alcance global
+
 
   
 connectButton.addEventListener('click', async () => {
