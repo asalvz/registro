@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
+    const collectButton = document.querySelector('.collect-button');
 
     
     
@@ -1502,7 +1503,26 @@ async function mintEggss() {
             await getEvents();
         };
 
+collectButton.addEventListener('click', async () => {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
 
+        await window.ethereum.enable();
+
+        const accounts = await web3.eth.getAccounts();
+        const senderAddress = accounts[0];
+
+        const result = await contract.methods.collectegg().send({ from: senderAddress });
+
+        // Manejar la respuesta de la transacción si es necesario
+        console.log('Collect Eggs button clicked. Transaction hash:', result.transactionHash);
+    } catch (error) {
+        console.error(error);
+    }
+});
 	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
