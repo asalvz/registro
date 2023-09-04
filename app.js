@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
-    const collectButton = document.querySelector('.collect-button');
+    const collectEggsButton = document.getElementById('collectEggsButton');
 
     
     
@@ -1458,28 +1458,14 @@ async function mintEggss() {
     }
   });
 	
-collectButton.addEventListener('click', async () => {
+collectEggsButton.addEventListener('click', async () => {
   try {
-    if (typeof window.ethereum === 'undefined') {
-      alert('Please install MetaMask to use this feature.');
-      return;
-    }
-
-    await window.ethereum.enable();
-
-    const web3 = new Web3(window.ethereum);
-    const accounts = await web3.eth.getAccounts();
-    const senderAddress = accounts[0];
-
-    // Reemplaza 'contractAbi' con el ABI de tu contrato y 'contractAddress' con la dirección de tu contrato
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
-    const result = await contract.methods.collectegg().send({ from: senderAddress });
-
-    // Manejar la respuesta de la transacción si es necesario
-    console.log('Collect Eggs button clicked. Transaction hash:', result.transactionHash);
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' }); // Solicita acceso a la cuenta
+    const senderAddress = accounts[0]; // Obtiene la dirección de la cuenta conectada
+    const result = await contract.methods.collectEggs().send({ from: senderAddress }); // Llama a la función del contrato
+    console.log('Transaction Result:', result);
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
   }
 });
 
