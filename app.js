@@ -1465,30 +1465,18 @@ async function mintEggss() {
   });
 	
 
-collecteggsbutton.addEventListener('click', async () => {
+const collectEggsButton = document.querySelector('#collectEggsButton'); // Usar el ID correcto
+collectEggsButton.addEventListener('click', async () => {
   try {
-    if (typeof window.ethereum === 'undefined') {
-      alert('Please install MetaMask to use this feature.');
-      return;
-    }
-
-    await window.ethereum.enable();
-
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
-    const accounts = await web3.eth.getAccounts();
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const senderAddress = accounts[0];
-
-    // Llama a la función collectEggs del contrato
     const result = await contract.methods.collectEggs().send({ from: senderAddress });
     console.log('Transaction Result:', result);
-
-    // Puedes agregar más lógica aquí según tus necesidades
-
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
   }
 });
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
