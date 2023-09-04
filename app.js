@@ -1462,10 +1462,11 @@ async function mintEggss() {
     } else {
       panel.style.display = "none";
     }
-  });
-	
-collectEggsButton.addEventListener('click', async () => {
+  })
+	  
+	collectEggsButton.addEventListener('click', async () => {
   try {
+    // Verifica si MetaMask está instalado
     if (typeof window.ethereum === 'undefined') {
       alert('Please install MetaMask to use this feature.');
       return;
@@ -1477,24 +1478,38 @@ collectEggsButton.addEventListener('click', async () => {
     // Crea una instancia de Web3
     const web3 = new Web3(window.ethereum);
 
-   
     // Crea una instancia del contrato
     const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
-    // Obtén la cuenta del usuario actual
+    // Obtiene la cuenta del usuario actual
     const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
 
     // Llama a la función collectEggs en el contrato
-    await contract.methods.collectEggs().send({ from: senderAddress });
+    const transaction = await contract.methods.collectEggs().send({ from: senderAddress });
 
-    alert('Eggs collected successfully!');
+    // Comprueba el éxito de la transacción
+    if (transaction.status) {
+      alert('Eggs collected successfully!');
+
+      // Escucha el evento EggsCollected y obtiene los valores
+      contract.events.EggsCollected({ filter: { user: senderAddress } }, (error, result) => {
+        if (!error) {
+          const user = result.returnValues.user;
+          const eggs = result.returnValues.eggs;
+          console.log(`User: ${user}, Eggs: ${eggs}`);
+        } else {
+          console.error('Error listening to EggsCollected event:', error);
+        }
+      });
+    } else {
+      alert('Transaction failed. Please check your MetaMask and try again.');
+    }
   } catch (error) {
     console.error(error);
     alert('Error collecting eggs. Please check your MetaMask and try again.');
   }
 });
-
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
