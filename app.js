@@ -1465,7 +1465,7 @@ async function mintEggss() {
   });
 	
 
-collecteggsbuttom.addEventListener('click', async () => {
+collecteggsbutton.addEventListener('click', async () => {
   try {
     if (typeof window.ethereum === 'undefined') {
       alert('Please install MetaMask to use this feature.');
