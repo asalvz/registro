@@ -1,3 +1,4 @@
+let contract; // Declaración de la instancia del contrato en un alcance global
 console.log("Archivo JavaScript cargado");
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1463,22 +1464,24 @@ async function mintEggss() {
   });
 	
 
+// Función para recolectar huevos
 collectEggsButton.addEventListener('click', async () => {
   try {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const senderAddress = accounts[0];
-
-    // Verifica si la instancia del contrato ya está definida
-    if (typeof contract !== 'undefined') {
-      const result = await contract.methods.collectEggs().send({ from: senderAddress });
-      console.log('Transaction Result:', result);
-    } else {
+    
+    if (!contract) {
       console.error('La instancia del contrato no está definida.');
+      return;
     }
+
+    const result = await contract.methods.collectEggs().send({ from: senderAddress });
+    console.log('Transaction Result:', result);
   } catch (error) {
     console.error('Error:', error);
   }
 });
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
