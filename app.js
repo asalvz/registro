@@ -1462,18 +1462,24 @@ async function mintEggss() {
     }
   });
 	
+
 collectEggsButton.addEventListener('click', async () => {
   try {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' }); // Solicita acceso a la cuenta
-    const senderAddress = accounts[0]; // Obtiene la dirección de la cuenta conectada
-    const contract = new window.web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const senderAddress = accounts[0];
 
-    const result = await contract.methods.collectEggs().send({ from: senderAddress }); // Llama a la función del contrato
-    console.log('Transaction Result:', result);
+    // Verifica si la instancia del contrato ya está definida
+    if (typeof contract !== 'undefined') {
+      const result = await contract.methods.collectEggs().send({ from: senderAddress });
+      console.log('Transaction Result:', result);
+    } else {
+      console.error('La instancia del contrato no está definida.');
+    }
   } catch (error) {
     console.error('Error:', error);
   }
 });
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
