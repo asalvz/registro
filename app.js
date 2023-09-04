@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
-    const collectEggsButton = document.querySelector('.collect-button');
+    const collectEggsButton = document.getElementById('collectEggsButton');
 
     
     
