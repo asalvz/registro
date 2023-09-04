@@ -1464,16 +1464,34 @@ async function mintEggss() {
     }
   });
 	
-
-const collectEggsButton = document.querySelector('#collectEggsButton'); // Usar el ID correcto
 collectEggsButton.addEventListener('click', async () => {
   try {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    if (typeof window.ethereum === 'undefined') {
+      alert('Please install MetaMask to use this feature.');
+      return;
+    }
+
+    // Habilita MetaMask
+    await window.ethereum.enable();
+
+    // Crea una instancia de Web3
+    const web3 = new Web3(window.ethereum);
+
+   
+    // Crea una instancia del contrato
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+    // Obtén la cuenta del usuario actual
+    const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
-    const result = await contract.methods.collectEggs().send({ from: senderAddress });
-    console.log('Transaction Result:', result);
+
+    // Llama a la función collectEggs en el contrato
+    await contract.methods.collectEggs().send({ from: senderAddress });
+
+    alert('Eggs collected successfully!');
   } catch (error) {
-    console.error('Error:', error);
+    console.error(error);
+    alert('Error collecting eggs. Please check your MetaMask and try again.');
   }
 });
 
