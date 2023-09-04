@@ -1157,6 +1157,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
+    const contract = new web3.eth.Contract(abi, contractAddress);
+
   
 connectButton.addEventListener('click', async () => {
     try {
