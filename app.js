@@ -1157,9 +1157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
-    const web3 = new Web3(web3Provider); // Configura Web3.js con tu proveedor de Ethereum
-    const contract = new web3.eth.Contract(contractABI, contractAddress); // Crea una instancia del contrato
-
+  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
