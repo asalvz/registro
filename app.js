@@ -1455,54 +1455,7 @@ async function mintEggss() {
       panel.style.display = "none";
     }
   });
-	 // Obtener las gallinas del usuario
-        async function getGallinas() {
-            const gallinasOwned = await contractInstance.methods.getGallinasOwned(userAddress).call();
-            const gallinasList = document.getElementById("gallinasList");
-
-            gallinasList.innerHTML = "";
-
-            gallinasOwned.forEach(gallinaType => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Tipo de Gallina: ${gallinaType}`;
-                gallinasList.appendChild(listItem);
-            });
-        }
-
-        // Mostrar eventos
-        async function getEvents() {
-            const eventList = document.getElementById("eventList");
-
-            // Escuchar eventos relevantes
-            contractInstance.events.GallinaPurchased({ filter: { buyer: userAddress } })
-            .on("data", event => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Gallina comprada - Tipo: ${event.returnValues.gallinaType}`;
-                eventList.appendChild(listItem);
-            });
-
-            // Puedes agregar más escuchadores de eventos aquí
-
-            // También puedes obtener eventos históricos
-            const pastEvents = await contractInstance.getPastEvents("GallinaPurchased", {
-                filter: { buyer: userAddress },
-                fromBlock: 0,
-                toBlock: "latest"
-            });
-
-            pastEvents.forEach(event => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `Gallina comprada - Tipo: ${event.returnValues.gallinaType}`;
-                eventList.appendChild(listItem);
-            });
-        }
-
-        // Ejecutar las funciones al cargar la página
-        window.onload = async () => {
-            await getGallinas();
-            await getEvents();
-        };
-
+	
 collectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
