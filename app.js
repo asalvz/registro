@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById("toggle-button");
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
-    const collectEggsButton = document.getElementById('collectEggsButton');
+    const collectEggsButton = document.querySelector('.collect-button');
 
     
     
@@ -1468,7 +1468,6 @@ collectEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
-
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
