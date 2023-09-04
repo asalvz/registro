@@ -1166,10 +1166,7 @@ connectButton.addEventListener('click', async () => {
             return;
         }
 
-        await window.ethereum.enable();
-
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const address = accounts[0];
 
         userAddress.textContent = address;
@@ -1188,6 +1185,7 @@ connectButton.addEventListener('click', async () => {
         console.error(error);
     }
 });
+
 	
  generateReferralButton.addEventListener('click', async () => {
       try {
