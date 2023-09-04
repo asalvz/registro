@@ -150,6 +150,7 @@
     </div>
   <button class="buy-button" data-gallina-type="Type6" style="margin: 10px; padding: 5px; background-color: gray; color: white; cursor: pointer;">Buy</button>
   </div>
+
 <div id="dashboard-container" style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 20px;">
 
   <!-- Panel 1 -->
@@ -200,12 +201,27 @@
     <p>Boosts used: <span id="boosts-used">0</span></p>
   </div>
 
+  <!-- Panel 7 -->
+  <div class="panel" style="border: 1px solid #8c6239; padding: 20px; background-color: rgba(0, 0, 0, 0.8); color: white; border-radius: 10px; text-align: center;">
+    <h2>Reduce Cooldown Time</h2>
+    <button id="reduce-cooldown-button" style="background-color: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Reduce Cooldown Time</button>
+    <p>Reductions used: <span id="reductions-used">0</span></p>
+  </div>
+
+  <!-- Panel 8 -->
+  <div class="panel" style="border: 1px solid #8c6239; padding: 20px; background-color: #fff; border-radius: 10px;">
+    <h2>Sell Eggs at Higher Price</h2>
+    <button id="sell-higher" style="background-color: #5bc0de; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Sell Eggs at Higher Price</button>
+    <p>Sell boosts used: <span id="sell-boosts-used">0</span></p>
+  </div>
+
 </div>
 
 <div style="position: fixed; bottom: 10px; right: 10px;">
   <input type="number" id="newEggAmountt" placeholder="Enter egg amountt" style="font-size: 12px; padding: 4px;">
   <button id="mintButton" style="font-size: 12px;">Mint Eggs</button>
 </div>
+
 
   <div class="totalcontainer"> 
 <div class="laya-please layer-1">
