@@ -155,7 +155,7 @@
   <button class="buy-button" data-gallina-type="Type6" style="margin: 10px; padding: 5px; background-color: gray; color: white; cursor: pointer;">Buy</button>
   </div>
 <div class="panels-container" style="display: flex; justify-content: space-between;">
-  <div class="panel" id="dashboard-panel" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border: 1px solid #8c6239; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; color: #fff; padding: 20px; width: 100%; box-sizing: border-box;">
+  <div class="panel" id="dashboard-panel" style="flex: 1; border: 1px solid #8c6239; padding: 20px; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; color: #fff; display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; width: 100%; box-sizing: border-box;">
 
     <style>
       .panel-title {
@@ -168,9 +168,8 @@
         background-color: rgba(0, 0, 0, 0.2);
         padding: 15px;
         border-radius: 10px;
-        margin-top: 10px;
-        width: 100%;
-        box-sizing: border-box;
+        margin-left: 10px;
+        flex: 1;
       }
 
       .card-title {
@@ -208,18 +207,18 @@
       }
     </style>
 
-    <div class="panel-title">MARKET</div>
     <div class="card">
+      <div class="panel-title">MARKET</div>
       <div class="card-title">To buy large eggs: Friday to Saturday</div>
       <div class="card-content">
         <p>Payment for egg: <span style="color: green;">0.00005 BNB</span></p>
         <input type="number" id="egg-amount-input" placeholder="Enter egg amount" style="width: 70px;">
+        <button id="sell-eggs-button">Sell</button>
       </div>
-      <button id="sell-eggs-button">Sell</button>
     </div>
 
-    <div class="panel-title" style="margin-top: 20px;">MARKET Calculator</div>
     <div class="card">
+      <div class="panel-title">MARKET Calculator</div>
       <div class="card-title">Corral: <span id="corral-capacity">0</span> Chicken</div>
       <div class="card-content">
         <p>Current Corral Level: <span id="nivel-amount">1</span></p>
