@@ -156,31 +156,93 @@
   </div>
 <div class="panels-container" style="display: flex; justify-content: space-between;">
   <div class="panel" id="dashboard-panel" style="flex: 1; border: 1px solid #8c6239; padding: 20px; background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; color: #fff;">
-    <div class="panel-title" style="font-size: 20px; color: #8c6239; margin-bottom: 15px;">MARKET</div>
-    <div class="card" style="background-color: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 10px; margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-      <p style="margin-bottom: 10px;">To buy large eggs: Friday to Saturday</p>
-      <p>Payment for egg: <span style="color: green;">0.00005 BNB</span></p>
-      <input type="number" id="egg-amount-input" placeholder="Enter egg amount" style="width: 70px;">
-      <button id="sell-eggs-button" style="background-color: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Sell</button>
+
+    <style>
+      .panel-title {
+        font-size: 20px;
+        color: #8c6239;
+        margin-bottom: 15px;
+      }
+
+      .card {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+
+      .card-title {
+        font-size: 16px;
+        color: #fff;
+      }
+
+      .card-content {
+        color: #fff;
+      }
+
+      button {
+        background-color: #d9534f;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        background-color: #d9534f;
+        transform: scale(1.05);
+      }
+
+      #sell-eggs-button {
+        background-color: #d9534f;
+      }
+
+      #sell-higher {
+        background-color: #5bc0de;
+      }
+    </style>
+
+    <div class="panel-title">MARKET</div>
+    <div class="card">
+      <div class="card-title">To buy large eggs: Friday to Saturday</div>
+      <div class="card-content">
+        <p>Payment for egg: <span style="color: green;">0.00005 BNB</span></p>
+        <input type="number" id="egg-amount-input" placeholder="Enter egg amount" style="width: 70px;">
+      </div>
+      <button id="sell-eggs-button">Sell</button>
     </div>
 
-    <div class="panel-title" style="font-size: 20px; color: #8c6239; margin-top: 20px; margin-bottom: 15px;">MARKET Calculator</div>
-    <div class="card" style="background-color: rgba(0, 0, 0, 0.2); padding: 15px; border-radius: 10px; margin-top: 10px; display: flex; flex-direction: column; align-items: flex-start;">
-      <p>Corral: <span id="corral-capacity">0</span> Chicken</p>
-      <p>Current Corral Level: <span id="nivel-amount">1</span></p>
-      <p>Current Corral Level: <span id="corral-capacity">12</span> Chicken</p>
-      <h2>Corral Actions</h2>
-      <button id="buy-extension-button" style="background-color: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Buy Corral Extension</button>
-      <p>Capacity Upgrade Cost: <span id="capacity-upgrade-cost">0.1 BNB</span></p>
-      <h2>Boost Productivity</h2>
-      <button id="boost-productivity-button" style="background-color: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Boost Productivity</button>
-      <p>Boosts used: <span id="boosts-used">0</span></p>
-      <h2>Reduce Cooldown Time</h2>
-      <button id="reduce-cooldown-button" style="background-color: #d9534f; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Reduce Cooldown Time</button>
-      <p>Reductions used: <span id="reductions-used">0</span></p>
-      <h2>Sell Eggs at Higher Price</h2>
-      <button id="sell-higher" style="background-color: #5bc0de; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.2s;">Sell Eggs at Higher Price</button>
-      <p>Sell boosts used: <span id="sell-boosts-used">0</span></p>
+    <div class="panel-title" style="margin-top: 20px;">MARKET Calculator</div>
+    <div class="card">
+      <div class="card-title">Corral: <span id="corral-capacity">0</span> Chicken</div>
+      <div class="card-content">
+        <p>Current Corral Level: <span id="nivel-amount">1</span></p>
+        <p>Current Corral Level: <span id="corral-capacity">12</span> Chicken</p>
+      </div>
+      <div class="card-title">Corral Actions</div>
+      <div class="card-content">
+        <button id="buy-extension-button">Buy Corral Extension</button>
+        <p>Capacity Upgrade Cost: <span id="capacity-upgrade-cost">0.1 BNB</span></p>
+      </div>
+      <div class="card-title">Boost Productivity</div>
+      <div class="card-content">
+        <button id="boost-productivity-button">Boost Productivity</button>
+        <p>Boosts used: <span id="boosts-used">0</span></p>
+      </div>
+      <div class="card-title">Reduce Cooldown Time</div>
+      <div class="card-content">
+        <button id="reduce-cooldown-button">Reduce Cooldown Time</button>
+        <p>Reductions used: <span id="reductions-used">0</span></p>
+      </div>
+      <div class="card-title">Sell Eggs at Higher Price</div>
+      <div class="card-content">
+        <button id="sell-higher">Sell Eggs at Higher Price</button>
+        <p>Sell boosts used: <span id="sell-boosts-used">0</span></p>
+      </div>
     </div>
   </div>
 </div>
