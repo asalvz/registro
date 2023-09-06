@@ -1575,14 +1575,14 @@ document.body.addEventListener('mouseenter', function (e) {
  
 
 $(document).ready(function() {
-    $("#banner-content").hide();
+    $("#close-btn").hide();
 
     $(window).on("load", function() {
-        $("#banner-content").fadeIn();
+        $("#close-btn").fadeIn();
     });
 
     $("#close-btn").click(function() {
-        $("#banner-content").fadeOut();
+        $("#close-btn").fadeOut();
     });
 });
 
