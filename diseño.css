@@ -243,9 +243,7 @@ h1 {
 
 
 
-.chicken:hover {
-  filter: brightness(0.7); /* Oscurece el card al 70% cuando el puntero está encima */
-}
+
 
 .title {
   font-size: 32px;
