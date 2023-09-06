@@ -1574,16 +1574,15 @@ document.body.addEventListener('mouseenter', function (e) {
 });
  
 
-$(document).ready(function() {
-    $("#close-btn").hide();
+document.addEventListener("DOMContentLoaded", function() {
+    var banner = document.getElementById("banner-content");
+    var closeButton = document.getElementById("close-btn");
 
-    $(window).on("load", function() {
-        $("#close-btn").fadeIn();
-    });
-
-    $("#close-btn").click(function() {
-        $("#close-btn").fadeOut();
-    });
+    if (banner && closeButton) {
+        closeButton.addEventListener("click", function() {
+            banner.style.display = "none";
+        });
+    }
 });
 
  });
