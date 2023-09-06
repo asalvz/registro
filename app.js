@@ -1574,16 +1574,19 @@ document.body.addEventListener('mouseenter', function (e) {
 });
  
 
-document.addEventListener("DOMContentLoaded", function() {
-    var banner = document.getElementById("banner-content");
-    var closeButton = document.getElementById("close-btn");
+$(document).ready(function() {
+    $("#banner-dialog").hide();
 
-    if (banner && closeButton) {
-        closeButton.addEventListener("click", function() {
-            banner.style.display = "none";
-        });
-    }
+    $(window).on("load", function() {
+        $("#banner-dialog").fadeIn();
+    });
+
+    $("#close-btn").click(function() {
+        $("#banner-dialog").fadeOut();
+    });
 });
+
+
 
  });
 
