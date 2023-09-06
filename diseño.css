@@ -232,7 +232,7 @@ h1 {
   width: 180px;
   height: 400px;
   text-align: center;
-  background: linear-gradient(to bottom, rgba(0, 255, 0, 0.5), rgba(0, 128, 0, 0.5)); /* Green gradient with 50% opacity */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)); /* Fondo verde muy oscuro */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -240,6 +240,7 @@ h1 {
   cursor: pointer;
   transition: transform 0.3s;
 }
+
 
 
 
