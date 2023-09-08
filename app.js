@@ -1457,12 +1457,13 @@ async function mintEggss() {
 
 
 
-
-$(document).ready(function() {
-    $("#toggleButton").click(function() {
-        $("#panel").toggle();
-    });
-});
+  toggleButton.addEventListener("click", () => {
+    if (panel.style.display === "none") {
+      panel.style.display = "block";
+    } else {
+      panel.style.display = "none";
+    }
+  })
 
 
 	  
