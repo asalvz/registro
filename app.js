@@ -1575,12 +1575,15 @@ document.body.addEventListener('mouseenter', function (e) {
  
 
 $(document).ready(function() {
+    // Ocultar el panel al principio
     $("#banner-dialog").hide();
 
+    // Mostrar el panel cuando se carga la página
     $(window).on("load", function() {
         $("#banner-dialog").fadeIn();
     });
 
+    // Asociar el evento click para cerrar el panel
     $("#close-btn").click(function() {
         $("#banner-dialog").fadeOut();
     });
