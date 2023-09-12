@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
-    const clickSound = document.getElementById('click-sound');
 
 
     
@@ -1594,11 +1593,6 @@ $(document).ready(function() {
     });
 });
 
-buyButton.addEventListener('click', () => {
-  // Reproduce el sonido cuando se hace clic
-  clickSound.currentTime = 0; // Reinicia el sonido si se está reproduciendo
-  clickSound.play();
-});
 
  });
 
