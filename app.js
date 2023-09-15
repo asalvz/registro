@@ -1320,21 +1320,20 @@ sellEggsButton.addEventListener('click', async () => {
     const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
     
-    const eggAmountInputValue = eggAmountInput.value;
-    
-    // Verifica si el valor ingresado es un número válido
-    if (isNaN(eggAmountInputValue) || eggAmountInputValue <= 0) {
-      alert('Please enter a valid egg amount');
+    const eggAmountEth = parseFloat(eggAmountInput.value);
+
+    if (isNaN(eggAmountEth) || eggAmountEth <= 0) {
+      alert('Please enter a valid egg amount in ETH');
       return;
     }
-    
-    // Convierte la cantidad de huevos a wei multiplicándola por 10^18 (1 ether en wei)
-    const eggAmountInWei = web3.utils.toBN(eggAmountInputValue).mul(web3.utils.toBN('1000000000000000000'));
+
+    // Convierte la cantidad de huevos de ETH a wei (1 ETH = 10^18 wei)
+    const eggAmountWei = web3.utils.toWei(eggAmountEth.toString(), 'ether');
 
     // Llama a la función sellEggs del contrato con la cantidad de huevos en wei
-    const result = await contract.methods.sellEggs(eggAmountInWei.toString()).send({
+    const result = await contract.methods.sellEggs(eggAmountWei).send({
       from: senderAddress,
-      gas: 500000
+      gas: 300000
     });
 
     console.log('Transaction hash:', result.transactionHash);
@@ -1347,10 +1346,9 @@ sellEggsButton.addEventListener('click', async () => {
     // Verifica si hubo eventos emitidos
     if (result.events && result.events.EggsSold) {
       const eggsSoldEvent = result.events.EggsSold.returnValues;
-      console.log('Eggs sold (wei):', eggsSoldEvent._eggAmount); // Muestra la cantidad en wei
-      console.log('Eggs sold (ether):', web3.utils.fromWei(eggsSoldEvent._eggAmount, 'ether')); // Convierte de wei a ether
-      console.log('BNB received (wei):', eggsSoldEvent._bnbAmount); // Muestra la cantidad en wei
-      console.log('BNB received (ether):', web3.utils.fromWei(eggsSoldEvent._bnbAmount, 'ether')); // Convierte de wei a ether
+      // Muestra la cantidad de huevos vendidos y la cantidad de BNB recibida en ETH
+      console.log('Eggs sold (ETH):', eggAmountEth);
+      console.log('BNB received (ETH):', web3.utils.fromWei(eggsSoldEvent._bnbAmount, 'ether'));
     } else {
       console.log('No EggsSold event found in the transaction receipt.');
     }
