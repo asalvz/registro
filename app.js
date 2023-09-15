@@ -1328,7 +1328,7 @@ sellEggsButton.addEventListener('click', async () => {
       return;
     }
 
-    // Llama a la función sellEggs del contrato
+    // Llama a la función sellEggs del contrato con la cantidad de huevos como entero
     const result = await contract.methods.sellEggs(eggAmount).send({
       from: senderAddress,
       gas: 300000
