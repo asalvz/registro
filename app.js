@@ -1334,7 +1334,7 @@ sellEggsButton.addEventListener('click', async () => {
     // Llama a la función sellEggs del contrato con la cantidad de huevos en wei
     const result = await contract.methods.sellEggs(eggAmountInWei.toString()).send({
       from: senderAddress,
-      gas: 300000
+      gas: 500000
     });
 
     console.log('Transaction hash:', result.transactionHash);
