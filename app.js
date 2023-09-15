@@ -1311,7 +1311,6 @@ async function buyCorralExtension() {
     console.error('Error:', error);
   }
 }
-// Agrega un evento click al botón sellEggsButton
 sellEggsButton.addEventListener('click', async () => {
   try {
     // Habilita la conexión a MetaMask u otro proveedor de Ethereum
@@ -1328,22 +1327,34 @@ sellEggsButton.addEventListener('click', async () => {
       return;
     }
 
-    // Convierte la cantidad de huevos a wei usando el factor de conversión adecuado
-    const eggAmountInWei = web3.utils.toWei(eggAmount.toString(), 'ether');
-
     // Llama a la función sellEggs del contrato con la cantidad de huevos en wei
-    const result = await contract.methods.sellEggs(eggAmountInWei).send({
+    const result = await contract.methods.sellEggs(eggAmount).send({
       from: senderAddress,
       gas: 300000
     });
 
-    console.log('Eggs sold:', result);
+    console.log('Transaction hash:', result.transactionHash);
+
+    // Espera a que se confirme la transacción
+    await result.transactionConfirmation;
+
+    console.log('Transaction confirmed.');
+
+    // Verifica si hubo eventos emitidos
+    if (result.events && result.events.EggsSold) {
+      const eggsSoldEvent = result.events.EggsSold.returnValues;
+      console.log('Eggs sold:', eggsSoldEvent._eggAmount);
+      console.log('BNB received:', eggsSoldEvent._bnbAmount);
+    } else {
+      console.log('No EggsSold event found in the transaction receipt.');
+    }
 
     eggAmountInput.value = '';
   } catch (error) {
     console.error('Error:', error);
   }
 });
+
 
 
 	 boostProductivityButton.addEventListener('click', async () => {
