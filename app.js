@@ -1328,8 +1328,11 @@ sellEggsButton.addEventListener('click', async () => {
       return;
     }
 
-    // Llama a la función sellEggs del contrato con la cantidad de huevos como entero
-    const result = await contract.methods.sellEggs(eggAmount).send({
+    // Convierte la cantidad de huevos a wei usando el factor de conversión adecuado
+    const eggAmountInWei = web3.utils.toWei(eggAmount.toString(), 'ether');
+
+    // Llama a la función sellEggs del contrato con la cantidad de huevos en wei
+    const result = await contract.methods.sellEggs(eggAmountInWei).send({
       from: senderAddress,
       gas: 300000
     });
@@ -1341,6 +1344,7 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
+
 
 	 boostProductivityButton.addEventListener('click', async () => {
                 try {
