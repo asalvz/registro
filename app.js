@@ -1311,8 +1311,10 @@ async function buyCorralExtension() {
     console.error('Error:', error);
   }
 }
+// Agrega un evento click al botón sellEggsButton
 sellEggsButton.addEventListener('click', async () => {
   try {
+    // Habilita la conexión a MetaMask u otro proveedor de Ethereum
     await window.ethereum.enable();
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(contractAbi, contractAddress);
@@ -1326,9 +1328,10 @@ sellEggsButton.addEventListener('click', async () => {
       return;
     }
 
+    // Llama a la función sellEggs del contrato
     const result = await contract.methods.sellEggs(eggAmount).send({
       from: senderAddress,
-      gas: 200000
+      gas: 300000
     });
 
     console.log('Eggs sold:', result);
@@ -1338,6 +1341,7 @@ sellEggsButton.addEventListener('click', async () => {
     console.error('Error:', error);
   }
 });
+
 	 boostProductivityButton.addEventListener('click', async () => {
                 try {
                     if (typeof window.ethereum === 'undefined') {
