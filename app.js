@@ -1322,14 +1322,7 @@ sellEggsButton.addEventListener('click', async () => {
     const eggAmount = parseInt(eggAmountInput.value);
 
     if (isNaN(eggAmount) || eggAmount <= 0) {
-      alert('Por favor, ingresa una cantidad válida de huevos');
-      return;
-    }
-
-    // Verificar si el usuario tiene suficientes huevos
-    const userEggBalance = await contract.methods.balanceOf(senderAddress).call();
-    if (userEggBalance < eggAmount) {
-      alert('No tienes suficientes huevos para vender');
+      alert('Please enter a valid egg amount');
       return;
     }
 
@@ -1338,14 +1331,13 @@ sellEggsButton.addEventListener('click', async () => {
       gas: 200000
     });
 
-    console.log('Huevos vendidos:', result);
+    console.log('Eggs sold:', result);
 
     eggAmountInput.value = '';
   } catch (error) {
     console.error('Error:', error);
   }
-});
-
+}); 
 
 	 boostProductivityButton.addEventListener('click', async () => {
                 try {
