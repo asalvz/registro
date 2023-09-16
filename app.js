@@ -1313,52 +1313,38 @@ async function buyCorralExtension() {
 }
 sellEggsButton.addEventListener('click', async () => {
   try {
-    // Habilita la conexión a MetaMask u otro proveedor de Ethereum
     await window.ethereum.enable();
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(contractAbi, contractAddress);
     const accounts = await web3.eth.getAccounts();
     const senderAddress = accounts[0];
     
-    const eggAmountEth = parseFloat(eggAmountInput.value);
+    const eggAmount = parseInt(eggAmountInput.value);
 
-    if (isNaN(eggAmountEth) || eggAmountEth <= 0) {
-      alert('Please enter a valid egg amount in ETH');
+    if (isNaN(eggAmount) || eggAmount <= 0) {
+      alert('Por favor, ingresa una cantidad válida de huevos');
       return;
     }
 
-    // Convierte la cantidad de huevos de ETH a wei (1 ETH = 10^18 wei)
-    const eggAmountWei = web3.utils.toWei(eggAmountEth.toString(), 'ether');
+    // Verificar si el usuario tiene suficientes huevos
+    const userEggBalance = await contract.methods.balanceOf(senderAddress).call();
+    if (userEggBalance < eggAmount) {
+      alert('No tienes suficientes huevos para vender');
+      return;
+    }
 
-    // Llama a la función sellEggs del contrato con la cantidad de huevos en wei
-    const result = await contract.methods.sellEggs(eggAmountWei).send({
+    const result = await contract.methods.sellEggs(eggAmount).send({
       from: senderAddress,
-      gas: 300000
+      gas: 200000
     });
 
-    console.log('Transaction hash:', result.transactionHash);
-
-    // Espera a que se confirme la transacción
-    await result.transactionConfirmation;
-
-    console.log('Transaction confirmed.');
-
-    // Verifica si hubo eventos emitidos
-    if (result.events && result.events.EggsSold) {
-      const eggsSoldEvent = result.events.EggsSold.returnValues;
-      // Muestra la cantidad de huevos vendidos y la cantidad de BNB recibida en ETH
-      console.log('Eggs sold (ETH):', eggAmountEth);
-      console.log('BNB received (ETH):', web3.utils.fromWei(eggsSoldEvent._bnbAmount, 'ether'));
-    } else {
-      console.log('No EggsSold event found in the transaction receipt.');
-    }
+    console.log('Huevos vendidos:', result);
 
     eggAmountInput.value = '';
   } catch (error) {
     console.error('Error:', error);
   }
 });
-
 
 
 	 boostProductivityButton.addEventListener('click', async () => {
