@@ -1322,23 +1322,26 @@ sellEggsButton.addEventListener('click', async () => {
     const eggAmount = parseInt(eggAmountInput.value);
 
     if (isNaN(eggAmount) || eggAmount <= 0) {
-      alert('Please enter a valid egg amount');
+      alert('Por favor, ingresa una cantidad válida de huevos');
       return;
     }
 
-    const result = await contract.methods.sellEggs(eggAmount).send({
+    // Convertir la cantidad de egg a su equivalente en unidades base (1 egg = 1.000.000.000 unidades)
+    const eggAmountInUnits = eggAmount * 1000000000;
+
+    // Enviar la cantidad convertida al contrato
+    const result = await contract.methods.sellEggs(eggAmountInUnits).send({
       from: senderAddress,
       gas: 200000
     });
 
-    console.log('Eggs sold:', result);
+    console.log('Huevos vendidos:', result);
 
     eggAmountInput.value = '';
   } catch (error) {
     console.error('Error:', error);
   }
-}); 
-
+});
 	 boostProductivityButton.addEventListener('click', async () => {
                 try {
                     if (typeof window.ethereum === 'undefined') {
