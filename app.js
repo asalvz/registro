@@ -1519,6 +1519,49 @@ async function mintEggss() {
   }
 });
 
+async function iniciar() {
+            // Obtener una instancia del contrato (ya tienes establecido el contrato)
+
+            // Escuchar eventos desde el contrato y actualizar los elementos HTML correspondientes
+            contrato.on('EventoCantidadGallinas', (usuario, cantidadGallinas) => {
+                const elementos = document.querySelectorAll('.gallinas');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Cantidad de gallinas de usuario: ${cantidadGallinas}`;
+                });
+            });
+
+            contrato.on('EventoCapacidadCorral', (usuario, capacidadCorral) => {
+                const elementos = document.querySelectorAll('.capacidad-corral');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Capacidad de corral de usuario: ${capacidadCorral}`;
+                });
+            });
+
+            contrato.on('EventoReductorEnfriamiento', (usuario, infoReductor) => {
+                const elementos = document.querySelectorAll('.reductor-enfriamiento');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Información de reductor de enfriamiento: ${infoReductor}`;
+                });
+            });
+
+            contrato.on('EventoAumentoVentaEgg', (usuario, aumentoVentaEgg) => {
+                const elementos = document.querySelectorAll('.aumento-venta-egg');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Aumento de venta de Egg: ${aumentoVentaEgg}`;
+                });
+            });
+
+            contrato.on('EventoAumentoProduccion', (usuario, aumentoProduccion) => {
+                const elementos = document.querySelectorAll('.aumento-produccion');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Aumento de producción: ${aumentoProduccion}`;
+                });
+            });
+        }
+
+        // Llamar a la función de inicio cuando se carga la página
+        window.addEventListener('load', iniciar);
+
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
