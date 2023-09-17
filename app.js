@@ -1519,8 +1519,9 @@ async function mintEggss() {
   }
 });
 
-async function iniciar() {
+ async function iniciar() {
             // Obtener una instancia del contrato (ya tienes establecido el contrato)
+            const contrato = 0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C; // Aquí debes establecer tu contrato
 
             // Escuchar eventos desde el contrato y actualizar los elementos HTML correspondientes
             contrato.on('EventoCantidadGallinas', (usuario, cantidadGallinas) => {
@@ -1557,12 +1558,19 @@ async function iniciar() {
                     elemento.textContent = `Aumento de producción: ${aumentoProduccion}`;
                 });
             });
+
+            contrato.on('EventoCantidadTipoGallinas', (usuario, cantidadGallinas, tipoGallina) => {
+                const elementos = document.querySelectorAll('.cantidad-tipo-gallinas');
+                elementos.forEach(elemento => {
+                    elemento.textContent = `Cantidad de gallinas de usuario: ${cantidadGallinas}, Tipo de gallina: ${tipoGallina}`;
+                });
+            });
         }
 
         // Llamar a la función de inicio cuando se carga la página
         window.addEventListener('load', iniciar);
 
-
+	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
