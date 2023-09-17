@@ -1519,6 +1519,32 @@ async function mintEggss() {
   }
 });
 
+	try {
+        // Solicitar acceso a la cuenta del usuario
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+
+        const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        const userAddress = web3.eth.accounts[0]; // Obtiene la dirección del usuario
+
+        // Consulta información de tu contrato y actualiza tu página web
+        const gallinas = await contract.methods.getGallinas(userAddress).call();
+        const capacidadCorral = await contract.methods.getCapacidadCorral(userAddress).call();
+        const reductorEnfriamiento = await contract.methods.getReductorEnfriamiento(userAddress).call();
+        const aumentoVentaEgg = await contract.methods.getAumentoVentaEgg(userAddress).call();
+        const aumentoProduccion = await contract.methods.getAumentoProduccion(userAddress).call();
+
+        // Actualiza tu página HTML con la información obtenida
+        document.getElementById("gallinas").textContent = `Gallinas: ${gallinas}`;
+        document.getElementById("capacidadCorral").textContent = `Capacidad de Corral: ${capacidadCorral}`;
+        document.getElementById("reductorEnfriamiento").textContent = `Reductor de Enfriamiento: ${reductorEnfriamiento}`;
+        document.getElementById("aumentoVentaEgg").textContent = `Aumento de Venta de Egg: ${aumentoVentaEgg}`;
+        document.getElementById("aumentoProduccion").textContent = `Aumento de Producción: ${aumentoProduccion}`;
+    } catch (error) {
+        console.error(error);
+    }
+});
+
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
