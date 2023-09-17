@@ -1521,7 +1521,6 @@ async function mintEggss() {
 
  async function iniciar() {
             // Obtener una instancia del contrato (ya tienes establecido el contrato)
-            const contrato = 0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C; // Aquí debes establecer tu contrato
 
             // Escuchar eventos desde el contrato y actualizar los elementos HTML correspondientes
             contrato.on('EventoCantidadGallinas', (usuario, cantidadGallinas) => {
