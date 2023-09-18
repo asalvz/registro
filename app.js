@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
-    const contrato = new web3.eth.Contract(abi, direccionContrato); 
 
 
 
@@ -1522,7 +1521,8 @@ async function mintEggss() {
 });
 
  async function iniciar() {
-            // Obtener una instancia del contrato (ya tienes establecido el contrato)
+    const contrato = new web3.eth.Contract(abi, direccionContrato); 
+
 
             // Escuchar eventos desde el contrato y actualizar los elementos HTML correspondientes
             contrato.on('EventoCantidadGallinas', (usuario, cantidadGallinas) => {
