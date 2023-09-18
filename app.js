@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
+    const contrato = new web3.eth.Contract(abi, direccionContrato); 
+
 
 
     
