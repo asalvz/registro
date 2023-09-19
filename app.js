@@ -1519,46 +1519,43 @@ async function mintEggss() {
     alert('Error collecting eggs. Please check your MetaMask and try again.');
   }
 });
-async function getUserAddress() {
-  try {
-    const accounts = await web3.eth.getAccounts();
-    if (accounts.length > 0) {
-      return accounts[0]; // Devuelve la primera dirección de la lista (la del usuario conectado)
-    } else {
-      throw new Error('No se encontraron direcciones de usuario.');
-    }
-  } catch (error) {
-    throw new Error('Error al obtener la dirección del usuario:', error);
-  }
-}
+  async function getUserGallinasDetails() {
+            try {
+                const userAddress = await getUserAddress();
+                const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+                const gallinaCount = gallinasOwned.length;
 
-// Obtener la cantidad de gallinas del usuario y detalles de las gallinas
-async function getUserGallinasDetails() {
-  try {
-    const userAddress = await getUserAddress(); // Obtiene la dirección del usuario conectado
-    const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
-    console.log(`Cantidad de gallinas de ${userAddress}: ${gallinasOwned.length}`);
+                // Actualizar la dirección del usuario y la cantidad de gallinas en la página
+                document.getElementById('user-address').textContent = userAddress;
+                document.getElementById('gallina-count').textContent = gallinaCount;
 
-    for (let i = 0; i < gallinasOwned.length; i++) {
-      const gallinaType = gallinasOwned[i];
-      const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
-      const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
+                const gallinaList = document.getElementById('gallina-list');
+                gallinaList.innerHTML = ''; // Limpiar la lista existente
 
-      // Calcular el tiempo restante para la próxima producción
-      const cooldownTime = parseInt(gallinaDetails.productionCooldown);
-      const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
-      const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
+                for (let i = 0; i < gallinaCount; i++) {
+                    const gallinaType = gallinasOwned[i];
+                    const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
+                    const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
 
-      console.log(`Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`);
-    }
-  } catch (error) {
-    console.error('Error al obtener los detalles de las gallinas:', error);
-  }
-}
+                    // Calcular el tiempo restante para la próxima producción
+                    const cooldownTime = parseInt(gallinaDetails.productionCooldown);
+                    const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+                    const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
 
-// Llamar a la función para obtener los detalles de las gallinas del usuario
-getUserGallinasDetails();
+                    // Crear un elemento de lista para mostrar los detalles de la gallina
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`;
+                    gallinaList.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error('Error al obtener los detalles de las gallinas:', error);
+            }
+        }
 
+        // Llamar a la función para obtener los detalles de las gallinas del usuario
+        getUserGallinasDetails();
+
+	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
