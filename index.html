@@ -49,10 +49,18 @@
 </div>
 
 
-<h2 style="color: white; font-family: Arial, sans-serif;">Eventos:</h2>
-<ul style="color: white; font-family: Arial, sans-serif;" id="eventList"></ul>
-    <div class="cantidad-gallinas"></div>
-<div class="tipo-gallina"></div>
+ <h1>Detalles de Gallinas</h1>
+    <div id="user-details">
+        <h2>Datos del Usuario</h2>
+        <p><strong>Dirección del Usuario:</strong> <span id="user-address"></span></p>
+        
+       
+<p><strong>Cantidad de Gallinas:</strong> <span id="gallina-count"></span></p>
+    </div>
+    <div id="gallina-details">
+        <h2>Detalles de las Gallinas</h2>
+        <ul id="gallina-list"></ul>
+    </div>
 
  <button class="collect-button" id="collectEggsButton" style="background-color: green; color: white; border: none; padding: 10px 20px; cursor: pointer; transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;" onmouseover="this.style.backgroundColor='#009900'; this.style.boxShadow='0 0 5px rgba(0, 0, 0, 0.3)';" onmouseout="this.style.backgroundColor='green'; this.style.boxShadow='none';">Collect Eggs</button>
 
