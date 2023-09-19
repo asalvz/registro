@@ -1519,44 +1519,45 @@ async function mintEggss() {
     alert('Error collecting eggs. Please check your MetaMask and try again.');
   }
 });
-
-	async function getUserGallinasAndTipo() {
+async function getUserAddress() {
   try {
-    const web3 = new Web3(window.ethereum);
-    const contract = new web3.eth.Contract(contractAbi, contractAddress);
     const accounts = await web3.eth.getAccounts();
-    const userAddress = accounts[0];
-    
-    // Supongamos que el contrato tiene métodos para obtener la cantidad de gallinas y el tipo de gallina del usuario
-    const cantidadGallinas = await contract.methods.getCantidadGallinas(userAddress).call();
-    const tipoGallina = await contract.methods.getTipoGallina(userAddress).call();
-    
-    // Devuelve un objeto con la cantidad de gallinas y el tipo de gallina
-    return {
-      cantidadGallinas,
-      tipoGallina
-    };
+    if (accounts.length > 0) {
+      return accounts[0]; // Devuelve la primera dirección de la lista (la del usuario conectado)
+    } else {
+      throw new Error('No se encontraron direcciones de usuario.');
+    }
   } catch (error) {
-    console.error(error);
-    return null;
+    throw new Error('Error al obtener la dirección del usuario:', error);
   }
 }
 
-async function showUserGallinasAndTipoOnPage() {
-  const userGallinasAndTipo = await getUserGallinasAndTipo();
-  
-  if (userGallinasAndTipo) {
-    const cantidadGallinasElement = document.querySelector('.cantidad-gallinas');
-    const tipoGallinaElement = document.querySelector('.tipo-gallina');
-    
-    // Muestra la cantidad de gallinas y el tipo de gallina en los elementos HTML
-    cantidadGallinasElement.textContent = `Cantidad de Gallinas: ${userGallinasAndTipo.cantidadGallinas}`;
-    tipoGallinaElement.textContent = `Tipo de Gallina: ${userGallinasAndTipo.tipoGallina}`;
+// Obtener la cantidad de gallinas del usuario y detalles de las gallinas
+async function getUserGallinasDetails() {
+  try {
+    const userAddress = await getUserAddress(); // Obtiene la dirección del usuario conectado
+    const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+    console.log(`Cantidad de gallinas de ${userAddress}: ${gallinasOwned.length}`);
+
+    for (let i = 0; i < gallinasOwned.length; i++) {
+      const gallinaType = gallinasOwned[i];
+      const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
+      const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
+
+      // Calcular el tiempo restante para la próxima producción
+      const cooldownTime = parseInt(gallinaDetails.productionCooldown);
+      const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+      const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
+
+      console.log(`Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`);
+    }
+  } catch (error) {
+    console.error('Error al obtener los detalles de las gallinas:', error);
   }
 }
 
-window.addEventListener('load', showUserGallinasAndTipoOnPage);
-
+// Llamar a la función para obtener los detalles de las gallinas del usuario
+getUserGallinasDetails();
 
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
