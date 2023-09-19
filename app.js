@@ -1520,58 +1520,44 @@ async function mintEggss() {
   }
 });
 
- async function iniciar() {
-    const contrato = new web3.eth.Contract(abi, direccionContrato); 
+	async function getUserGallinasAndTipo() {
+  try {
+    const web3 = new Web3(window.ethereum);
+    const contract = new web3.eth.Contract(contractAbi, contractAddress);
+    const accounts = await web3.eth.getAccounts();
+    const userAddress = accounts[0];
+    
+    // Supongamos que el contrato tiene métodos para obtener la cantidad de gallinas y el tipo de gallina del usuario
+    const cantidadGallinas = await contract.methods.getCantidadGallinas(userAddress).call();
+    const tipoGallina = await contract.methods.getTipoGallina(userAddress).call();
+    
+    // Devuelve un objeto con la cantidad de gallinas y el tipo de gallina
+    return {
+      cantidadGallinas,
+      tipoGallina
+    };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+async function showUserGallinasAndTipoOnPage() {
+  const userGallinasAndTipo = await getUserGallinasAndTipo();
+  
+  if (userGallinasAndTipo) {
+    const cantidadGallinasElement = document.querySelector('.cantidad-gallinas');
+    const tipoGallinaElement = document.querySelector('.tipo-gallina');
+    
+    // Muestra la cantidad de gallinas y el tipo de gallina en los elementos HTML
+    cantidadGallinasElement.textContent = `Cantidad de Gallinas: ${userGallinasAndTipo.cantidadGallinas}`;
+    tipoGallinaElement.textContent = `Tipo de Gallina: ${userGallinasAndTipo.tipoGallina}`;
+  }
+}
+
+window.addEventListener('load', showUserGallinasAndTipoOnPage);
 
 
-            // Escuchar eventos desde el contrato y actualizar los elementos HTML correspondientes
-            contrato.on('EventoCantidadGallinas', (usuario, cantidadGallinas) => {
-                const elementos = document.querySelectorAll('.gallinas');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Cantidad de gallinas de usuario: ${cantidadGallinas}`;
-                });
-            });
-
-            contrato.on('EventoCapacidadCorral', (usuario, capacidadCorral) => {
-                const elementos = document.querySelectorAll('.capacidad-corral');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Capacidad de corral de usuario: ${capacidadCorral}`;
-                });
-            });
-
-            contrato.on('EventoReductorEnfriamiento', (usuario, infoReductor) => {
-                const elementos = document.querySelectorAll('.reductor-enfriamiento');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Información de reductor de enfriamiento: ${infoReductor}`;
-                });
-            });
-
-            contrato.on('EventoAumentoVentaEgg', (usuario, aumentoVentaEgg) => {
-                const elementos = document.querySelectorAll('.aumento-venta-egg');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Aumento de venta de Egg: ${aumentoVentaEgg}`;
-                });
-            });
-
-            contrato.on('EventoAumentoProduccion', (usuario, aumentoProduccion) => {
-                const elementos = document.querySelectorAll('.aumento-produccion');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Aumento de producción: ${aumentoProduccion}`;
-                });
-            });
-
-            contrato.on('EventoCantidadTipoGallinas', (usuario, cantidadGallinas, tipoGallina) => {
-                const elementos = document.querySelectorAll('.cantidad-tipo-gallinas');
-                elementos.forEach(elemento => {
-                    elemento.textContent = `Cantidad de gallinas de usuario: ${cantidadGallinas}, Tipo de gallina: ${tipoGallina}`;
-                });
-            });
-        }
-
-        // Llamar a la función de inicio cuando se carga la página
-        window.addEventListener('load', iniciar);
-
-	
 const elems = document.querySelectorAll('.laya-please');
 const layer2 = document.querySelector('.layer-2');
 const layer3 = document.querySelector('.layer-3');
