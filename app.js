@@ -1541,42 +1541,50 @@ async function mintEggss() {
 
 
 	
+async function getUserGallinasDetails() {
+    try {
+        const userAddress = await getUserAddress();
 
-  async function getUserGallinasDetails() {
-            try {
-                const userAddress = await getUserAddress();
-                const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
-                const gallinaCount = gallinasOwned.length;
-
-                // Actualizar la dirección del usuario y la cantidad de gallinas en la página
-                document.getElementById('user-address').textContent = userAddress;
-                document.getElementById('gallina-count').textContent = gallinaCount;
-
-                const gallinaList = document.getElementById('gallina-list');
-                gallinaList.innerHTML = ''; // Limpiar la lista existente
-
-                for (let i = 0; i < gallinaCount; i++) {
-                    const gallinaType = gallinasOwned[i];
-                    const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
-                    const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
-
-                    // Calcular el tiempo restante para la próxima producción
-                    const cooldownTime = parseInt(gallinaDetails.productionCooldown);
-                    const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
-                    const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
-
-                    // Crear un elemento de lista para mostrar los detalles de la gallina
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`;
-                    gallinaList.appendChild(listItem);
-                }
-            } catch (error) {
-                console.error('Error al obtener los detalles de las gallinas:', error);
-            }
+        if (!userAddress) {
+            console.error('La dirección del usuario no está definida.');
+            return;
         }
 
-        // Llamar a la función para obtener los detalles de las gallinas del usuario
-        getUserGallinasDetails();
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+        const gallinaCount = gallinasOwned.length;
+
+        // Actualizar la dirección del usuario y la cantidad de gallinas en la página
+        document.getElementById('user-address').textContent = userAddress;
+        document.getElementById('gallina-count').textContent = gallinaCount;
+
+        const gallinaList = document.getElementById('gallina-list');
+        gallinaList.innerHTML = ''; // Limpiar la lista existente
+
+        for (let i = 0; i < gallinaCount; i++) {
+            const gallinaType = gallinasOwned[i];
+            const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
+            const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
+
+            // Calcular el tiempo restante para la próxima producción
+            const cooldownTime = parseInt(gallinaDetails.productionCooldown);
+            const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+            const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
+
+            // Crear un elemento de lista para mostrar los detalles de la gallina
+            const listItem = document.createElement('li');
+            listItem.textContent = `Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`;
+            gallinaList.appendChild(listItem);
+        }
+    } catch (error) {
+        console.error('Error al obtener los detalles de las gallinas:', error);
+    }
+}
+
+// Llamar a la función para obtener los detalles de las gallinas del usuario
+getUserGallinasDetails();
 
 	
 const elems = document.querySelectorAll('.laya-please');
