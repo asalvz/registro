@@ -1540,25 +1540,15 @@ async function mintEggss() {
 }
 
 
-	
 async function getUserGallinasDetails() {
     try {
         const userAddress = await getUserAddress();
-
-        if (!userAddress) {
-            console.error('La dirección del usuario no está definida.');
-            return;
-        }
-
-        const web3 = new Web3(window.ethereum);
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
         const gallinaCount = gallinasOwned.length;
 
         // Actualizar la dirección del usuario y la cantidad de gallinas en la página
         document.getElementById('user-address').textContent = userAddress;
-        document.getElementById('gallina-count').textContent = gallinaCount;
+        document.getElementById('user-chicken-count').textContent = gallinaCount;
 
         const gallinaList = document.getElementById('gallina-list');
         gallinaList.innerHTML = ''; // Limpiar la lista existente
@@ -1582,9 +1572,6 @@ async function getUserGallinasDetails() {
         console.error('Error al obtener los detalles de las gallinas:', error);
     }
 }
-
-// Llamar a la función para obtener los detalles de las gallinas del usuario
-getUserGallinasDetails();
 
 	
 const elems = document.querySelectorAll('.laya-please');
