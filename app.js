@@ -1519,6 +1519,29 @@ async function mintEggss() {
     alert('Error collecting eggs. Please check your MetaMask and try again.');
   }
 });
+
+
+
+	
+	async function getUserAddress() {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
+
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        return accounts[0];
+    } catch (error) {
+        console.error(error);
+        return '';
+    }
+}
+
+
+	
+
   async function getUserGallinasDetails() {
             try {
                 const userAddress = await getUserAddress();
