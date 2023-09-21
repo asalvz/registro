@@ -1160,7 +1160,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
-    const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 
 
@@ -1548,38 +1547,6 @@ async function mintEggss() {
 }
 
 
-async function getUserGallinasDetails() {
-    try {
-        const userAddress = await getUserAddress();
-        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
-        const gallinaCount = gallinasOwned.length;
-
-        // Actualizar la dirección del usuario y la cantidad de gallinas en la página
-        document.getElementById('user-address').textContent = userAddress;
-        document.getElementById('user-chicken-count').textContent = gallinaCount;
-
-        const gallinaList = document.getElementById('gallina-list');
-        gallinaList.innerHTML = ''; // Limpiar la lista existente
-
-        for (let i = 0; i < gallinaCount; i++) {
-            const gallinaType = gallinasOwned[i];
-            const gallinaDetails = await contract.methods.gallinas(gallinaType).call();
-            const lastProductionUpdate = parseInt(gallinaDetails.lastProductionUpdate);
-
-            // Calcular el tiempo restante para la próxima producción
-            const cooldownTime = parseInt(gallinaDetails.productionCooldown);
-            const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
-            const timeRemaining = cooldownTime - (currentTime - lastProductionUpdate);
-
-            // Crear un elemento de lista para mostrar los detalles de la gallina
-            const listItem = document.createElement('li');
-            listItem.textContent = `Gallina ${i + 1}: Tipo ${gallinaType}, Tiempo restante para la producción: ${timeRemaining} segundos`;
-            gallinaList.appendChild(listItem);
-        }
-    } catch (error) {
-        console.error('Error al obtener los detalles de las gallinas:', error);
-    }
-}
 
 	
 const elems = document.querySelectorAll('.laya-please');
