@@ -1177,7 +1177,7 @@ connectButton.addEventListener('click', async () => {
         const userAddress = accounts[0];
 
         // Actualizar la dirección del usuario en el HTML
-        const userAddressElement = document.getElementById('userAddress');
+        const userAddress = document.getElementById('userAddress');
         userAddress.textContent = `Dirección del Usuario: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
@@ -1188,8 +1188,8 @@ connectButton.addEventListener('click', async () => {
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        const userBalanceElement = document.getElementById('userBalance');
-        userBalanceElement.textContent = `Saldo del Usuario: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        const userBalance = document.getElementById('userBalance');
+        userBalance.textContent = `Saldo del Usuario: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         
 
