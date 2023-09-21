@@ -1175,36 +1175,41 @@ connectButton.addEventListener('click', async () => {
 
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
-        const address = accounts[0];
+        const userAddress = accounts[0];
 
-        userAddress.textContent = address;
+        userAddress.textContent = userAddress;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
-        const balance = await bscWeb3.eth.getBalance(address);
+        const balance = await bscWeb3.eth.getBalance(userAddress);
         userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
-        const eggBalance = await contract.methods.balanceOf(address).call();
+        const eggBalance = await contract.methods.balanceOf(userAddress).call();
         eggCountElement.textContent = eggBalance; 
+
+        // Obtener la cantidad y tipo de gallinas que posee el usuario
+        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+
+        // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
+        // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
+        for (const gallinaType of gallinasOwned) {
+            console.log(`El usuario posee una gallina de tipo ${gallinaType}`);
+            // Puedes mostrar esto en tu interfaz de usuario o hacer cualquier otro manejo necesario
+        }
+
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
 
-
-
-
-
-
-	
- generateReferralButton.addEventListener('click', async () => {
-      try {
+generateReferralButton.addEventListener('click', async () => {
+    try {
         if (typeof window.ethereum === 'undefined') {
-          alert('Please install MetaMask to use this feature.');
-          return;
+            alert('Please install MetaMask to use this feature.');
+            return;
         }
 
         await window.ethereum.enable();
@@ -1217,25 +1222,21 @@ connectButton.addEventListener('click', async () => {
         const referrerAddress = referrerInput.value;
 
         if (!referrerAddress) {
-          return;
+            return;
         }
 
         if (referrerAddress.length !== 42) {
-          alert('Invalid referrer address format');
-          return;
+            alert('Invalid referrer address format');
+            return;
         }
 
         await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
         referralLink.textContent = `Referral set to ${referrerAddress}`;
-      } catch (error) {
+    } catch (error) {
         console.error(error);
-      }
-    });
-
-
-	
-
+    }
+});
 
 	
 
