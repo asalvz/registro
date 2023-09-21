@@ -1176,27 +1176,29 @@ connectButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        userAddress.textContent = userAddress;
+        // Actualizar la dirección del usuario en el HTML
+        const userAddressElement = document.getElementById('userAddress');
+        userAddressElement.textContent = `Dirección del Usuario: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        const userBalanceElement = document.getElementById('userBalance');
+        userBalanceElement.textContent = `Saldo del Usuario: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        eggCountElement.textContent = eggBalance; 
+        const eggCountElement = document.getElementById('eggCount');
+        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
 
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
-        for (const gallinaType of gallinasOwned) {
-            console.log(`El usuario posee una gallina de tipo ${gallinaType}`);
-            // Puedes mostrar esto en tu interfaz de usuario o hacer cualquier otro manejo necesario
-        }
+        const eggTypeElement = document.getElementById('eggType');
+        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
@@ -1231,6 +1233,7 @@ generateReferralButton.addEventListener('click', async () => {
 
         await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
+        const referralLink = document.getElementById('referralLink');
         referralLink.textContent = `Referral set to ${referrerAddress}`;
     } catch (error) {
         console.error(error);
