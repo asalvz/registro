@@ -28,12 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
-    const userAddressElement = document.getElementById('userAddress');
-
-    const eggTypeElement = document.getElementById("eggType");
-    const gallinaImage = document.getElementById("gallinaImage");
-
-
+  
 
 
     
@@ -1167,6 +1162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1180,16 +1176,14 @@ connectButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        userAddressElement.textContent = userAddress;
+        userAddress.textContent = userAddress;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        userBalanceElement.
-        userBalance
-textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
         eggCountElement.textContent = eggBalance; 
@@ -1235,16 +1229,13 @@ generateReferralButton.addEventListener('click', async () => {
             return;
         }
 
-        
-       
-await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
+        await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
         referralLink.textContent = `Referral set to ${referrerAddress}`;
     } catch (error) {
         console.error(error);
     }
 });
-
 
 
 buyButtons.forEach((button) => {
