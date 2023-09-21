@@ -1163,6 +1163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
+  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1176,34 +1177,27 @@ connectButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Actualizar la dirección del usuario en el HTML
-        userAddress.textContent = `Dirección del Usuario: ${userAddress}`;
+        userAddress.textContent = userAddress;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
-        
-
-       
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        const userBalance = document.getElementById('userBalance');
-        userBalance.textContent = `Saldo del Usuario: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        userBalance.textContent = `${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
-        
-
-       
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
+        eggCountElement.textContent = eggBalance; 
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
 
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
-        const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+        for (const gallinaType of gallinasOwned) {
+            console.log(`El usuario posee una gallina de tipo ${gallinaType}`);
+            // Puedes mostrar esto en tu interfaz de usuario o hacer cualquier otro manejo necesario
+        }
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
@@ -1219,8 +1213,6 @@ generateReferralButton.addEventListener('click', async () => {
         }
 
         await window.ethereum.enable();
-
-        
 
         const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(contractAbi, contractAddress);
@@ -1240,7 +1232,6 @@ generateReferralButton.addEventListener('click', async () => {
 
         await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
 
-        const referralLink = document.getElementById('referralLink');
         referralLink.textContent = `Referral set to ${referrerAddress}`;
     } catch (error) {
         console.error(error);
