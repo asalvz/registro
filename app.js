@@ -1177,8 +1177,7 @@ connectButton.addEventListener('click', async () => {
         const userAddress = accounts[0];
 
         // Actualizar la dirección del usuario en el HTML
-        const userAddressElement = document.getElementById('userAddress');
-        userAddressElement.textContent = `Dirección del Usuario: ${userAddress}`;
+       userAddress.textContent = userAddress;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
