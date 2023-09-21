@@ -1177,17 +1177,24 @@ connectButton.addEventListener('click', async () => {
         const userAddress = accounts[0];
 
         // Actualizar la dirección del usuario en el HTML
-       userAddress.textContent = userAddress;
+        const userAddressElement = document.getElementById('userAddress');
+        userAddressElement.textContent = `Dirección del Usuario: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
-        const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
+        
+
+       
+const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
         const userBalanceElement = document.getElementById('userBalance');
         userBalanceElement.textContent = `Saldo del Usuario: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
-        const eggBalance = await contract.methods.balanceOf(userAddress).call();
+        
+
+       
+const eggBalance = await contract.methods.balanceOf(userAddress).call();
         const eggCountElement = document.getElementById('eggCount');
         eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
 
@@ -1214,7 +1221,9 @@ generateReferralButton.addEventListener('click', async () => {
 
         await window.ethereum.enable();
 
-        const web3 = new Web3(window.ethereum);
+        
+
+const web3 = new Web3(window.ethereum);
         const contract = new web3.eth.Contract(contractAbi, contractAddress);
         const accounts = await web3.eth.getAccounts();
         const senderAddress = accounts[0];
