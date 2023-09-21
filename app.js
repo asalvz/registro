@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
+    const userAddressElement = document.getElementById('userAddress');
+
     const eggTypeElement = document.getElementById("eggType");
     const gallinaImage = document.getElementById("gallinaImage");
 
