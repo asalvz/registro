@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
-    const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 
 
@@ -1161,7 +1160,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
-    let contract; // Declaración de la instancia del contrato en un alcance global
     const contract = new web3.eth.Contract(contractABI, contractAddress);
 
 
