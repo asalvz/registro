@@ -1236,42 +1236,7 @@ connectButton.addEventListener('click', async () => {
 
 
 	
-	// Agrega un evento click al botón para obtener el estado del usuario en el contrato
-document.getElementById('get-user-status-button').addEventListener('click', async () => {
-    try {
-        // Obtén la dirección del usuario actual
-        const userAddress = await getUserAddress();
 
-        
-
-// Llama a una función del contrato para obtener el estado del usuario
-        
-       
-const userStatus = await contract.methods.getUserStatus(userAddress).call();
-
-        // Muestra el estado en la página web (reemplaza 'estadoElementId' con el ID de tu elemento HTML)
-        document.getElementById('estadoElementId').textContent = `Estado del usuario: ${userStatus}`;
-    } catch (error) {
-        console.error('Error al obtener el estado del usuario:', error);
-    }
-});
-
-// Función para obtener la dirección del usuario actual (puedes mantenerla como está)
-async function getUserAddress() {
-    try {
-        if (typeof window.ethereum === 'undefined') {
-            alert('Por favor, instala MetaMask para usar esta función.');
-            return '';
-        }
-
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        return accounts[0];
-    } catch (error) {
-        console.error(error);
-        return '';
-    }
-}
 
 	
 
