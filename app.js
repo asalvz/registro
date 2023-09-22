@@ -1162,7 +1162,6 @@ document.addEventListener('DOMContentLoaded', () => {
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
-  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1181,17 +1180,18 @@ connectButton.addEventListener('click', async () => {
         userAddressElement.textContent = `Address: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
-
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
+        // Obtener el saldo de BNB del usuario
         const balance = await bscWeb3.eth.getBalance(userAddress);
         const userBalanceElement = document.getElementById('user-balance');
         userBalanceElement.textContent = `Available: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
+        // Obtener la cantidad de EGG del usuario
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
         const formattedEggBalance = parseFloat(eggBalance / 1e18); // Eliminar ceros innecesarios
         const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: `;
+        eggCountElement.textContent = `EGG Token: `;
         const eggCountValueElement = document.createElement('span');
         eggCountValueElement.textContent = formattedEggBalance;
         eggCountValueElement.style.color = '#ff6600'; // Color para el número
@@ -1204,7 +1204,7 @@ connectButton.addEventListener('click', async () => {
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
         const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: `;
+        eggTypeElement.textContent = `Type Chicken: `;
         const eggTypeValueElement = document.createElement('span');
         eggTypeValueElement.textContent = gallinasOwned.join(', ');
         eggTypeValueElement.style.color = '#3399ff'; // Color para el tipo de gallina
