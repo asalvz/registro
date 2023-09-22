@@ -1162,56 +1162,38 @@ document.addEventListener('DOMContentLoaded', () => {
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
-
-
-// Conecta el botón de inicio de sesión
-const connectButton = document.getElementById('connect-button');
-
+  
+  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
             alert('Please install MetaMask to use this feature.');
             return;
         }
-
         await window.ethereum.enable();
-
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
-
-        // Actualiza la dirección del usuario en el HTML
         const userAddressElement = document.getElementById('user-address');
         userAddressElement.textContent = `Address: ${userAddress}`;
-
-        // Consultar saldo del usuario
-        const balance = await web3.eth.getBalance(userAddress);
-
-        // Actualiza el saldo en el HTML
-        const userBalanceElement = document.getElementById('user-balance');
-        userBalanceElement.textContent = `Available: ${web3.utils.fromWei(balance, 'ether')} BNB`;
-
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
-
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
-
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
         const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
-
-        // Obtener la cantidad y tipo de gallinas que posee el usuario
+        eggCountElement.textContent = `EGG Token: ${eggBalance}`;
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
-
-        // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
-        // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
         const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+        eggTypeElement.textContent = `Type Chicken: ${gallinasOwned.join(', ')}`;
+        const gallinasCountElement = document.getElementById('gallinasCount');
+        gallinasCountElement.textContent = `Balance Owner: ${gallinasOwned.length}`;
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
+
+
 
 generateReferralButton.addEventListener('click', async () => {
     try {
