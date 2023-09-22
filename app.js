@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById("header");
     const gallinasListElement = document.querySelector('.gallinas-list'); 
     const collectEggsButton = document.getElementById('collectEggsButton');
+    const eggCountElement = document.getElementById('eggCount');
+    const gallinasCountElement = document.getElementById('gallinasCount'); // Agregamos una nueva referencia
+
   
 
 
@@ -1163,7 +1166,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
-  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1177,35 +1179,73 @@ connectButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        // Actualiza la dirección del usuario en el HTML
-        const userAddressElement = document.getElementById('user-address');
-        userAddressElement.textContent = `Address: ${userAddress}`;
+        userAddressElement.textContent = `Dirección del Usuario: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        const userBalanceElement = document.getElementById('user-balance');
-        userBalanceElement.textContent = `Available: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        userBalanceElement.textContent = `Saldo Disponible: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
+        eggCountElement.textContent = `Cantidad de EGG: ${eggBalance}`;
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
 
+        gallinasCountElement.textContent = `Cantidad de Gallinas: ${gallinasOwned.length}`;
+
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
-        const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+        for (const gallinaType of gallinasOwned) {
+            console.log(`El usuario posee una gallina de tipo ${gallinaType}`);
+            // Puedes mostrar esto en tu interfaz de usuario o hacer cualquier otro manejo necesario
+        }
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
+
+generateReferralButton.addEventListener('click', async () => {
+    try {
+        if (typeof window.ethereum === 'undefined') {
+            alert('Please install MetaMask to use this feature.');
+            return;
+        }
+
+        await window.ethereum.enable();
+
+        const web3 = new Web3(window.ethereum);
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        const accounts = await web3.eth.getAccounts();
+        const senderAddress = accounts[0];
+
+        const referrerAddress = referrerInput.value;
+
+        if (!referrerAddress) {
+            return;
+        }
+
+        if (referrerAddress.length !== 42) {
+            alert('Invalid referrer address format');
+            return;
+        }
+
+        await contract.methods.setReferrer(referrerAddress).send({ from: senderAddress });
+
+        referralLink.textContent = `Referral set to ${referrerAddress}`;
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+
+
+
+
 
 generateReferralButton.addEventListener('click', async () => {
     try {
