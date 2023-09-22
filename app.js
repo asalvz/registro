@@ -1189,24 +1189,36 @@ connectButton.addEventListener('click', async () => {
         userBalanceElement.textContent = `Available: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        const formattedEggBalance = (eggBalance / 1e18).toFixed(2); // Limitar a 2 decimales
+        const formattedEggBalance = parseFloat(eggBalance / 1e18); // Eliminar ceros innecesarios
         const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: ${formattedEggBalance} EGG`;
+        eggCountElement.textContent = `Cantidad de Gallinas: `;
+        const eggCountValueElement = document.createElement('span');
+        eggCountValueElement.textContent = formattedEggBalance;
+        eggCountValueElement.style.color = '#ff6600'; // Color para el número
+        eggCountElement.appendChild(eggCountValueElement);
+        eggCountElement.appendChild(document.createTextNode(' EGG'));
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
-        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress);
 
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
         const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+        eggTypeElement.textContent = `Tipo de Gallina: `;
+        const eggTypeValueElement = document.createElement('span');
+        eggTypeValueElement.textContent = gallinasOwned.join(', ');
+        eggTypeValueElement.style.color = '#3399ff'; // Color para el tipo de gallina
+        eggTypeElement.appendChild(eggTypeValueElement);
+
+        const gallinasCountElement = document.getElementById('gallinasCount');
+        gallinasCountElement.textContent = `Balance Owner: ${gallinasOwned.length}`;
+        gallinasCountElement.style.color = '#33cc33'; // Color para la cantidad de gallinas
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
-
 
 generateReferralButton.addEventListener('click', async () => {
     try {
