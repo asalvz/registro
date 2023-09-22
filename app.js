@@ -1184,9 +1184,9 @@ connectButton.addEventListener('click', async () => {
         eggCountElement.innerHTML = `EGG Token: <span class="number">${eggCount}</span>`;
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
         const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+        eggTypeElement.textContent = `Type Chicken: ${gallinasOwned.join(', ')}`;
         const gallinasCountElement = document.getElementById('gallinasCount');
-        gallinasCountElement.textContent = `Balance del Propietario: ${gallinasOwned.length}`;
+        gallinasCountElement.textContent = `Balance user: ${gallinasOwned.length}`;
 
         connectButton.innerHTML = 'web3 activado';
       } catch (error) {
