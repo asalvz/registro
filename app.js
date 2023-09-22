@@ -1187,13 +1187,10 @@ connectButton.addEventListener('click', async () => {
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
-        const balance = await bscWeb3.eth.getBalance(userAddress);
-        const userBalanceElement = document.getElementById('user-balance');
-        userBalanceElement.textContent = `Available: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
-
+        // Obtener la cantidad de "EGG" que posee el usuario
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
         const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
+        eggCountElement.textContent = `Cantidad de EGG: ${eggBalance}`;
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
@@ -1203,11 +1200,16 @@ connectButton.addEventListener('click', async () => {
         const eggTypeElement = document.getElementById('eggType');
         eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
 
+        // Mostrar la cantidad de gallinas
+        const gallinasCountElement = document.getElementById('gallinasCount');
+        gallinasCountElement.textContent = `Cantidad de Gallinas: ${gallinasOwned.length}`;
+
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
         console.error(error);
     }
 });
+
 
 generateReferralButton.addEventListener('click', async () => {
     try {
