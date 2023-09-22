@@ -1165,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   
+  
 connectButton.addEventListener('click', async () => {
     try {
         if (typeof window.ethereum === 'undefined') {
@@ -1178,29 +1179,29 @@ connectButton.addEventListener('click', async () => {
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
 
-        userAddressElement.textContent = `Dirección del Usuario: ${userAddress}`;
+        // Actualiza la dirección del usuario en el HTML
+        const userAddressElement = document.getElementById('user-address');
+        userAddressElement.textContent = `Address: ${userAddress}`;
 
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
 
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
 
         const balance = await bscWeb3.eth.getBalance(userAddress);
-        userBalanceElement.textContent = `Saldo Disponible: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
+        const userBalanceElement = document.getElementById('user-balance');
+        userBalanceElement.textContent = `Available: ${bscWeb3.utils.fromWei(balance, 'ether')} BNB`;
 
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        eggCountElement.textContent = `Cantidad de EGG: ${eggBalance}`;
+        const eggCountElement = document.getElementById('eggCount');
+        eggCountElement.textContent = `Cantidad de Gallinas: ${eggBalance}`;
 
         // Obtener la cantidad y tipo de gallinas que posee el usuario
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
 
-        gallinasCountElement.textContent = `Cantidad de Gallinas: ${gallinasOwned.length}`;
-
         // gallinasOwned es un array que contiene los tipos de gallinas que posee el usuario
         // Puedes recorrer este array para mostrar los tipos de gallinas en tu interfaz
-        for (const gallinaType of gallinasOwned) {
-            console.log(`El usuario posee una gallina de tipo ${gallinaType}`);
-            // Puedes mostrar esto en tu interfaz de usuario o hacer cualquier otro manejo necesario
-        }
+        const eggTypeElement = document.getElementById('eggType');
+        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
 
         connectButton.innerHTML = 'web3 active';
     } catch (error) {
