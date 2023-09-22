@@ -1165,34 +1165,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
 connectButton.addEventListener('click', async () => {
-    try {
+      try {
         if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
-            return;
+          alert('Por favor, instala MetaMask para usar esta función.');
+          return;
         }
         await window.ethereum.enable();
         const web3 = new Web3(window.ethereum);
         const accounts = await web3.eth.getAccounts();
         const userAddress = accounts[0];
         const userAddressElement = document.getElementById('user-address');
-        userAddressElement.textContent = `Address: ${userAddress}`;
+        userAddressElement.textContent = `Dirección: ${userAddress}`;
         const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
         const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
         const eggBalance = await contract.methods.balanceOf(userAddress).call();
         const eggCountElement = document.getElementById('eggCount');
-        eggCountElement.textContent = `EGG Token: ${eggBalance}`;
+        const eggCount = parseInt(eggBalance); // Convierte a número entero
+        eggCountElement.innerHTML = `EGG Token: <span class="number">${eggCount}</span>`;
         const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
         const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Type Chicken: ${gallinasOwned.join(', ')}`;
+        eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
         const gallinasCountElement = document.getElementById('gallinasCount');
-        gallinasCountElement.textContent = `Balance Owner: ${gallinasOwned.length}`;
+        gallinasCountElement.textContent = `Balance del Propietario: ${gallinasOwned.length}`;
 
-        connectButton.innerHTML = 'web3 active';
-    } catch (error) {
+        connectButton.innerHTML = 'web3 activado';
+      } catch (error) {
         console.error(error);
-    }
-});
-
+      }
+    });
 
 generateReferralButton.addEventListener('click', async () => {
     try {
