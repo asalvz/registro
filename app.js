@@ -1165,8 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
 // Agrega un evento click al botón con id 'connectButton'
-document.getElementById('connectButton').addEventListener('click', async () => {
-  try {
+connectButton.addEventListener('click', async () => {  try {
     // Verifica si MetaMask está instalado y conectado
     if (typeof window.ethereum === 'undefined') {
       alert('Por favor, instala MetaMask para usar esta función.');
