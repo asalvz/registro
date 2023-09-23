@@ -1576,6 +1576,84 @@ async function mintEggss() {
 
 
 
+// Función para actualizar el Ranking de Referidos
+document.getElementById('update-referral-ranking-button').addEventListener('click', async () => {
+    try {
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        // Reemplaza 'obtenerRankingReferidos' con la función en tu contrato que obtiene el ranking de referidos
+        const referralRanking = await contract.methods.obtenerRankingReferidos().call();
+        
+        // Actualiza la tabla "referral-list" con los datos obtenidos
+        const referralListElement = document.getElementById('referral-list');
+        referralListElement.innerHTML = '';
+
+        for (let i = 0; i < referralRanking.length; i++) {
+            const row = document.createElement('tr');
+            const rankCell = document.createElement('td');
+            rankCell.textContent = `Puesto ${i + 1}`;
+            const addressCell = document.createElement('td');
+            addressCell.textContent = referralRanking[i];
+
+            row.appendChild(rankCell);
+            row.appendChild(addressCell);
+            referralListElement.appendChild(row);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+// Función para actualizar el Ranking de Acumulación de Egg
+document.getElementById('update-egg-accumulation-ranking-button').addEventListener('click', async () => {
+    try {
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        // Reemplaza 'obtenerRankingAcumulacionEgg' con la función en tu contrato que obtiene el ranking de acumulación de Egg
+        const eggAccumulationRanking = await contract.methods.obtenerRankingAcumulacionEgg().call();
+        
+        // Actualiza la tabla "egg-accumulation-list" con los datos obtenidos
+        const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
+        eggAccumulationListElement.innerHTML = '';
+
+        for (let i = 0; i < eggAccumulationRanking.length; i++) {
+            const row = document.createElement('tr');
+            const rankCell = document.createElement('td');
+            rankCell.textContent = `Puesto ${i + 1}`;
+            const addressCell = document.createElement('td');
+            addressCell.textContent = eggAccumulationRanking[i];
+
+            row.appendChild(rankCell);
+            row.appendChild(addressCell);
+            eggAccumulationListElement.appendChild(row);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+// Función para actualizar los datos del usuario
+async function updateUserData() {
+    try {
+        const accounts = await web3.eth.getAccounts();
+        const userAddress = accounts[0];
+
+        // Actualiza la dirección del usuario
+        const userAddressElement = document.getElementById('real-user-address');
+        userAddressElement.textContent = userAddress;
+
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+        // Reemplaza 'obtenerCantidadEggUsuario' con la función en tu contrato que obtiene la cantidad de Egg del usuario
+        const eggAmount = await contract.methods.obtenerCantidadEggUsuario(userAddress).call();
+        
+        // Actualiza la cantidad de Egg del usuario
+        const eggAmountElement = document.getElementById('real-egg-amount');
+        eggAmountElement.textContent = eggAmount;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Llama a la función para actualizar los datos del usuario al cargar la página
+window.addEventListener('load', updateUserData);
 	
 
 
