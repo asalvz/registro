@@ -1203,14 +1203,14 @@ connectButton.addEventListener('click', async () => {  try {
     
     // Actualiza el HTML con los tipos de gallinas y la cantidad
     const eggTypeElement = document.getElementById('eggType');
-    eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+    eggTypeElement.textContent = `Type Chicken: ${gallinasOwned.join(', ')}`;
     
     // Actualiza la cantidad total de gallinas poseídas por el usuario
     const gallinasCountElement = document.getElementById('gallinasCount');
-    gallinasCountElement.textContent = `Balance usuario: ${gallinasOwned.length}`;
+    gallinasCountElement.textContent = `Balance user: ${gallinasOwned.length}`;
     
     // Cambia el texto del botón
-    document.getElementById('connectButton').innerHTML = 'web3 activado';
+    document.getElementById('connect-button').innerHTML = 'web3 activado';
   } catch (error) {
     console.error(error);
   }
