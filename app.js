@@ -1164,35 +1164,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   
-connectButton.addEventListener('click', async () => {
-      try {
-        if (typeof window.ethereum === 'undefined') {
-          alert('Por favor, instala MetaMask para usar esta función.');
-          return;
-        }
-        await window.ethereum.enable();
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        const userAddress = accounts[0];
-        const userAddressElement = document.getElementById('user-address');
-        userAddressElement.textContent = `Dirección: ${userAddress}`;
-        const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
-        const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
-        const eggBalance = await contract.methods.balanceOf(userAddress).call();
-        const eggCountElement = document.getElementById('eggCount');
-        const eggCount = parseInt(eggBalance); // Convierte a número entero
-        eggCountElement.innerHTML = `EGG Token: <span class="number">${eggCount}</span>`;
-        const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
-        const eggTypeElement = document.getElementById('eggType');
-        eggTypeElement.textContent = `Type Chicken: ${gallinasOwned.join(', ')}`;
-        const gallinasCountElement = document.getElementById('gallinasCount');
-        gallinasCountElement.textContent = `Balance user: ${gallinasOwned.length}`;
-
-        connectButton.innerHTML = 'web3 activado';
-      } catch (error) {
-        console.error(error);
-      }
-    });
+// Agrega un evento click al botón con id 'connectButton'
+document.getElementById('connectButton').addEventListener('click', async () => {
+  try {
+    // Verifica si MetaMask está instalado y conectado
+    if (typeof window.ethereum === 'undefined') {
+      alert('Por favor, instala MetaMask para usar esta función.');
+      return;
+    }
+    
+    // Habilita MetaMask y obtiene una instancia de web3
+    await window.ethereum.enable();
+    const web3 = new Web3(window.ethereum);
+    
+    // Obtiene la dirección del usuario actual
+    const accounts = await web3.eth.getAccounts();
+    const userAddress = accounts[0];
+    
+    // Actualiza la dirección del usuario en el HTML
+    const userAddressElement = document.getElementById('user-address');
+    userAddressElement.textContent = `Dirección: ${userAddress}`;
+    
+    // Crea una instancia de web3 para la red de Binance Smart Chain
+    const bscWeb3 = new Web3('https://bsc-dataseed.binance.org/');
+    
+    // Crea una instancia del contrato inteligente con su ABI y dirección
+    const contract = new bscWeb3.eth.Contract(contractAbi, contractAddress);
+    
+    // Obtiene el saldo de tokens EGG del usuario
+    const eggBalance = await contract.methods.balanceOf(userAddress).call();
+    
+    // Convierte el saldo a un número entero y actualiza el HTML
+    const eggCountElement = document.getElementById('eggCount');
+    const eggCount = parseInt(eggBalance);
+    eggCountElement.innerHTML = `EGG Token: <span class="number">${eggCount}</span>`;
+    
+    // Obtiene los tipos de gallinas que posee el usuario
+    const gallinasOwned = await contract.methods.getGallinasOwned(userAddress).call();
+    
+    // Actualiza el HTML con los tipos de gallinas y la cantidad
+    const eggTypeElement = document.getElementById('eggType');
+    eggTypeElement.textContent = `Tipo de Gallina: ${gallinasOwned.join(', ')}`;
+    
+    // Actualiza la cantidad total de gallinas poseídas por el usuario
+    const gallinasCountElement = document.getElementById('gallinasCount');
+    gallinasCountElement.textContent = `Balance usuario: ${gallinasOwned.length}`;
+    
+    // Cambia el texto del botón
+    document.getElementById('connectButton').innerHTML = 'web3 activado';
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 generateReferralButton.addEventListener('click', async () => {
     try {
