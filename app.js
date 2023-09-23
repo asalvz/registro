@@ -1162,17 +1162,6 @@ document.addEventListener('DOMContentLoaded', () => {
 ];
     const contractAddress = '0xC4d977a53E3b1F748B5797bfcf43E565BF28b45C';
 
-    window.addEventListener('load', () => {
-    updateReferralRanking();
-    updateEggAccumulationRanking();
-});
-
-// También puedes agregar botones que los usuarios puedan hacer clic para actualizar los rankings
-const referralRankingButton = document.getElementById('update-referral-ranking-button');
-referralRankingButton.addEventListener('click', updateReferralRanking);
-
-const eggAccumulationRankingButton = document.getElementById('update-egg-accumulation-ranking-button');
-eggAccumulationRankingButton.addEventListener('click', updateEggAccumulationRanking);
   
   
 connectButton.addEventListener('click', async () => {
@@ -1566,63 +1555,6 @@ async function mintEggss() {
 
 
 	
-	async function getUserAddress() {
-    try {
-        if (typeof window.ethereum === 'undefined') {
-            alert('Please install MetaMask to use this feature.');
-            return;
-        }
-
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.getAccounts();
-        return accounts[0];
-    } catch (error) {
-        console.error(error);
-        return '';
-    }
-}
-async function updateReferralRanking() {
-    try {
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const referralRanking = await contract.methods.getReferralRanking().call();
-
-        const referralList = document.getElementById('referral-list');
-        referralList.innerHTML = ''; // Limpiar la tabla antes de actualizar
-
-        referralRanking.forEach((address, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${address}</td>
-            `;
-            referralList.appendChild(row);
-        });
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// Función para consultar y mostrar el ranking de acumulación de Egg
-async function updateEggAccumulationRanking() {
-    try {
-        const contract = new web3.eth.Contract(contractAbi, contractAddress);
-        const eggAccumulationRanking = await contract.methods.getEggAccumulationRanking().call();
-
-        const eggAccumulationList = document.getElementById('egg-accumulation-list');
-        eggAccumulationList.innerHTML = ''; // Limpiar la tabla antes de actualizar
-
-        eggAccumulationRanking.forEach((address, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${address}</td>
-            `;
-            eggAccumulationList.appendChild(row);
-        });
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 
 	
