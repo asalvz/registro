@@ -34,17 +34,21 @@ function addToRanking(rankingElement, address, amount) {
 
 // Función para simular actualización de rankings aleatoriamente
 function simulateRankingUpdate() {
-    // Simulación de dirección y cantidad aleatorias
-    const randomAddress = generateRandomAddress();
-    const randomAmount = Math.random() * 100;
+    // Simulación de direcciones y montos aleatorios para Referidos
+    const randomAddressReferral = generateRandomAddress();
+    const randomAmountReferral = Math.random() * 100;
+
+    // Simulación de direcciones y montos aleatorios para Acumulación de Egg
+    const randomAddressEggAccumulation = generateRandomAddress();
+    const randomAmountEggAccumulation = Math.random() * 100;
 
     // Actualizar el Ranking de Referidos
     const referralListElement = document.getElementById('referral-list');
-    addToRanking(referralListElement, randomAddress, randomAmount);
+    addToRanking(referralListElement, randomAddressReferral, randomAmountReferral);
 
     // Actualizar el Ranking de Acumulación de Egg
     const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-    addToRanking(eggAccumulationListElement, randomAddress, randomAmount);
+    addToRanking(eggAccumulationListElement, randomAddressEggAccumulation, randomAmountEggAccumulation);
 }
 
 // Simular actualización de rankings cada 5 segundos
