@@ -1,76 +1,43 @@
  const gameContainer = document.getElementById('game-container');
-        const pollo = document.getElementById('pollo');
-        const startButton = document.getElementById('start-button');
+        const gallinas = document.querySelectorAll('.gallina');
         const scoreDisplay = document.getElementById('score');
         let score = 0;
-        let gameRunning = false;
 
-        startButton.addEventListener('click', () => {
-            startGame();
+        gallinas.forEach((gallina) => {
+            createEgg(gallina);
         });
 
-        function startGame() {
-            gameRunning = true;
-            startButton.style.display = 'none'; // Ocultar el botón de inicio
-            pollo.style.display = 'block'; // Mostrar al pollo
-            score = 0;
-            updateScore();
-            createEgg();
-        }
+        function createEgg(gallina) {
+            const egg = document.createElement('div');
+            egg.classList.add('egg');
+            egg.style.left = `${Math.random() * (gameContainer.clientWidth - 30)}px`;
+            egg.style.top = `${gallina.offsetTop + 40}px`; // Posición inicial del huevo cerca de la gallina
+            gameContainer.appendChild(egg);
 
-        gameContainer.addEventListener('mousemove', (e) => {
-            if (gameRunning) {
-                const x = e.clientX - gameContainer.getBoundingClientRect().left;
-                pollo.style.left = `${x - pollo.clientWidth / 2}px`;
-            }
-        });
-
-        function createEgg() {
-            if (gameRunning) {
-                const egg = document.createElement('div');
-                egg.classList.add('egg');
-                egg.style.left = `${Math.random() * (gameContainer.clientWidth - 30)}px`;
-                gameContainer.appendChild(egg);
-
-                const fallInterval = setInterval(() => {
-                    if (gameRunning) {
-                        const eggY = parseInt(egg.style.top) || 0;
-                        const maxY = gameContainer.clientHeight - egg.clientHeight;
-                        if (eggY >= maxY) {
-                            clearInterval(fallInterval);
-                            gameContainer.removeChild(egg);
-                            score--; // Restar puntos si se cae un huevo
-                            updateScore();
-                            createEgg();
-                        } else {
-                            egg.style.top = `${eggY + 5}px`;
-                            const polloX = pollo.getBoundingClientRect().left + pollo.clientWidth / 2;
-                            const polloY = pollo.getBoundingClientRect().top;
-                            const eggX = egg.getBoundingClientRect().left + egg.clientWidth / 2;
-                            const eggY = egg.getBoundingClientRect().top + egg.clientHeight;
-                            if (Math.abs(polloX - eggX) < 25 && eggY >= polloY) {
-                                clearInterval(fallInterval);
-                                gameContainer.removeChild(egg);
-                                score++; // Sumar puntos si el pollo atrapa un huevo
-                                updateScore();
-                                createEgg();
-                            }
-                        }
+            const fallInterval = setInterval(() => {
+                const eggY = parseInt(egg.style.top) || 0;
+                const maxY = gameContainer.clientHeight - egg.clientHeight;
+                if (eggY >= maxY) {
+                    clearInterval(fallInterval);
+                    gameContainer.removeChild(egg);
+                    createEgg(gallina); // Vuelve a crear el huevo
+                } else {
+                    egg.style.top = `${eggY + 2}px`; // Cambia la velocidad de caída ajustando el valor
+                    const gallinaX = gallina.getBoundingClientRect().left + gallina.clientWidth / 2;
+                    const gallinaY = gallina.getBoundingClientRect().top;
+                    const eggX = egg.getBoundingClientRect().left + egg.clientWidth / 2;
+                    const eggY = egg.getBoundingClientRect().top + egg.clientHeight;
+                    if (Math.abs(gallinaX - eggX) < 25 && eggY >= gallinaY) {
+                        clearInterval(fallInterval);
+                        gameContainer.removeChild(egg);
+                        score++; // Sumar puntos si la gallina atrapa un huevo
+                        updateScore();
+                        createEgg(gallina); // Vuelve a crear el huevo
                     }
-                }, 30);
-            }
+                }
+            }, 10); // Controla la velocidad de caída de los huevos
         }
 
         function updateScore() {
             scoreDisplay.textContent = `Puntuación: ${score}`;
-            if (score <= -10) {
-                endGame();
-            }
-        }
-
-        function endGame() {
-            gameRunning = false;
-            pollo.style.display = 'none'; // Ocultar el pollo al final del juego
-            startButton.style.display = 'block'; // Mostrar el botón de inicio
-            scoreDisplay.textContent = `Game Over. Puntuación final: ${score}`;
         }
