@@ -323,9 +323,14 @@
 </style>
 
 
-   <div style="position: relative; width: 800px; height: 400px; background-image: url('https://low-chicken-ranch.netlify.app/granja.gif'); background-size: cover; background-repeat: no-repeat;">
-        <button id="start-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background-color: #4CAF50; color: white; font-size: 20px; cursor: pointer;">Iniciar</button>
-        <div id="pollo" style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 50px; height: 50px; background-image: url('https://low-chicken-ranch.netlify.app/chicken5.png'); background-size: cover; display: none;"></div>
+   <div id="game-container" style="position: relative; width: 800px; height: 400px; background-image: url('granja.gif'); background-size: cover; background-repeat: no-repeat;">
+        <!-- Gallinas -->
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina1.png'); background-size: cover; animation: moveLeftRight 4s infinite alternate; top: 80px;"></div>
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina2.png'); background-size: cover; animation: moveLeftRight 5s infinite alternate; top: 160px;"></div>
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina3.png'); background-size: cover; animation: moveLeftRight 3s infinite alternate; top: 240px;"></div>
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina4.png'); background-size: cover; animation: moveLeftRight 4.5s infinite alternate; top: 320px;"></div>
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina5.png'); background-size: cover; animation: moveLeftRight 3.5s infinite alternate; top: 400px;"></div>
+        <div class="gallina" style="position: absolute; width: 50px; height: 50px; background-image: url('gallina6.png'); background-size: cover; animation: moveLeftRight 6s infinite alternate; top: 480px;"></div>
     </div>
     <div id="score" style="position: absolute; top: 10px; left: 10px; font-size: 24px; color: white;">Puntuación: 0</div>
 
