@@ -1,11 +1,15 @@
-// Función para generar una dirección aleatoria completa
+// Función para generar una dirección aleatoria truncada
 function generateRandomAddress() {
     let address = '0x';
     for (let i = 0; i < 40; i++) {
         const randomDigit = Math.floor(Math.random() * 16).toString(16);
         address += randomDigit;
     }
-    return address;
+    
+    // Truncar la dirección a 25 caracteres y agregar puntos suspensivos
+    const truncatedAddress = address.substring(0, 25) + '...';
+    
+    return truncatedAddress;
 }
 
 // Función para agregar una dirección y cantidad simulada al ranking
