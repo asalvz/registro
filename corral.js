@@ -1,4 +1,4 @@
- // Función para generar una dirección aleatoria de 25 caracteres
+  // Función para generar una dirección aleatoria de 25 caracteres
         function generateRandomAddress() {
             let address = '0x';
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,30 +33,21 @@
 
         // Función para simular actualización de rankings aleatoriamente
         function simulateRankingUpdate() {
-            // Simulación de 7 direcciones y montos aleatorios
-            const addresses = [];
-            for (let i = 0; i < 7; i++) {
-                const randomAddress = generateRandomAddress();
-                const randomAmount = getRandomBNBAmount();
-                addresses.push({ address: randomAddress, amount: randomAmount });
-            }
-
-            // Ordenar las direcciones aleatoriamente
-            addresses.sort(() => Math.random() - 0.5);
-
+            // Simulación de 1 dirección y monto aleatorio
+            const randomAddress = generateRandomAddress();
+            const randomAmount = getRandomBNBAmount();
+            
             // Actualizar el Ranking de Referidos
             const referralListElement = document.getElementById('referral-list');
-            referralListElement.innerHTML = ''; // Limpiar la tabla
-            addresses.forEach(({ address, amount }) => {
-                addToRanking(referralListElement, address, amount);
-            });
+            addToRanking(referralListElement, randomAddress, randomAmount);
+
+            // Simulación de 1 dirección y monto aleatorio diferente
+            const randomAddress2 = generateRandomAddress();
+            const randomAmount2 = getRandomBNBAmount();
 
             // Actualizar el Ranking de Acumulación de Egg
             const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-            eggAccumulationListElement.innerHTML = ''; // Limpiar la tabla
-            addresses.forEach(({ address, amount }) => {
-                addToRanking(eggAccumulationListElement, address, amount);
-            });
+            addToRanking(eggAccumulationListElement, randomAddress2, randomAmount2);
         }
 
         // Simular actualización de rankings cada 5 segundos
