@@ -1,65 +1,40 @@
-// Función para agregar una dirección y monto en BNB simulado al ranking de acumulación de Egg
-function addToEggAccumulationRanking(position, address, eggAmount) {
-    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-    const row = eggAccumulationListElement.insertRow(position);
-    const positionCell = row.insertCell(0);
-    const addressCell = row.insertCell(1);
-    const eggAmountCell = row.insertCell(2);
+// Función para agregar una dirección y cantidad simulada al ranking
+function addToRanking(rankingElement, address, amount) {
+    const row = document.createElement('tr');
+    const addressCell = document.createElement('td');
+    const amountCell = document.createElement('td');
 
-    positionCell.textContent = `#${position + 1}`;
     addressCell.textContent = address;
+    amountCell.textContent = `${amount.toFixed(2)} BNB`;
 
-    // Verificar si eggAmount es numérico antes de formatearlo
-    if (typeof eggAmount === 'number') {
-        eggAmountCell.textContent = `${eggAmount.toFixed(2)} BNB`;
-    } else {
-        eggAmountCell.textContent = 'N/A'; // Mostrar 'N/A' si no es numérico
+    row.appendChild(addressCell);
+    row.appendChild(amountCell);
+
+    // Agregar al principio de la tabla (en la parte superior)
+    rankingElement.insertBefore(row, rankingElement.firstChild);
+
+    // Aplicar efecto de destello
+    row.classList.add('flash');
+
+    // Si hay más de 7 filas, eliminar la última
+    if (rankingElement.rows.length > 7) {
+        rankingElement.removeChild(rankingElement.lastChild);
     }
 }
 
-// ...
-
 // Función para simular actualización de rankings aleatoriamente
 function simulateRankingUpdate() {
-    // Simulación de 7 direcciones y montos aleatorios
-    const addresses = [];
-    for (let i = 0; i < 7; i++) {
-        const randomAddress = generateRandomAddress();
-        const randomReferCount = Math.floor(Math.random() * 100); // Cantidad de referidos simulados
-        const randomEggAmount = Math.random() * 100; // Monto en BNB simulado
-        addresses.push({ position: i, address: randomAddress, referCount: randomReferCount, eggAmount: randomEggAmount });
-    }
-
-    // Ordenar las direcciones aleatoriamente
-    addresses.sort(() => Math.random() - 0.5);
-
-    // Crear filas vacías en ambas tablas si no existen
-    const referralListElement = document.getElementById('referral-list');
-    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-
-    if (referralListElement.rows.length === 0) {
-        for (let i = 0; i < 7; i++) {
-            addToReferralRanking(i, '', '');
-        }
-    }
-
-    if (eggAccumulationListElement.rows.length === 0) {
-        for (let i = 0; i < 7; i++) {
-            addToEggAccumulationRanking(i, '', '');
-        }
-    }
+    // Simulación de dirección y cantidad aleatorias
+    const randomAddress = '0x' + Math.random().toString(16).padStart(40, '0'); // Dirección de 40 caracteres
+    const randomAmount = Math.random() * 100;
 
     // Actualizar el Ranking de Referidos
-    referralListElement.innerHTML = ''; // Limpiar la tabla
-    addresses.forEach(({ position, address, referCount }) => {
-        addToReferralRanking(position, address, referCount);
-    });
+    const referralListElement = document.getElementById('referral-list');
+    addToRanking(referralListElement, randomAddress, randomAmount);
 
     // Actualizar el Ranking de Acumulación de Egg
-    eggAccumulationListElement.innerHTML = ''; // Limpiar la tabla
-    addresses.forEach(({ position, address, eggAmount }) => {
-        addToEggAccumulationRanking(position, address, eggAmount);
-    });
+    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
+    addToRanking(eggAccumulationListElement, randomAddress, randomAmount);
 }
 
 // Simular actualización de rankings cada 5 segundos
