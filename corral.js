@@ -1,25 +1,3 @@
-// Función para generar una dirección aleatoria única con 40 caracteres
-function generateRandomAddress() {
-    let address = '0x';
-    for (let i = 0; i < 40; i++) {
-        address += Math.floor(Math.random() * 16).toString(16);
-    }
-    return address;
-}
-
-// Función para agregar una dirección y cantidad de referidos simulados al ranking de referidos
-function addToReferralRanking(position, address, referCount) {
-    const referralListElement = document.getElementById('referral-list');
-    const row = referralListElement.insertRow(position);
-    const positionCell = row.insertCell(0);
-    const addressCell = row.insertCell(1);
-    const referCountCell = row.insertCell(2);
-
-    positionCell.textContent = `#${position + 1}`;
-    addressCell.textContent = address;
-    referCountCell.textContent = referCount;
-}
-
 // Función para agregar una dirección y monto en BNB simulado al ranking de acumulación de Egg
 function addToEggAccumulationRanking(position, address, eggAmount) {
     const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
@@ -30,14 +8,16 @@ function addToEggAccumulationRanking(position, address, eggAmount) {
 
     positionCell.textContent = `#${position + 1}`;
     addressCell.textContent = address;
-    
+
     // Verificar si eggAmount es numérico antes de formatearlo
-    if (!isNaN(eggAmount)) {
+    if (typeof eggAmount === 'number') {
         eggAmountCell.textContent = `${eggAmount.toFixed(2)} BNB`;
     } else {
         eggAmountCell.textContent = 'N/A'; // Mostrar 'N/A' si no es numérico
     }
 }
+
+// ...
 
 // Función para simular actualización de rankings aleatoriamente
 function simulateRankingUpdate() {
