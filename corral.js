@@ -1,4 +1,4 @@
-  // Función para generar un número aleatorio entre min y max
+   // Función para generar un número aleatorio entre min y max
         function getRandomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
@@ -6,63 +6,61 @@
         // Función para actualizar el ranking de referidos simulado
         function updateReferralRanking() {
             const referralListElement = document.getElementById('referral-list');
-            const rows = referralListElement.getElementsByTagName('tr');
+            referralListElement.innerHTML = ''; // Limpiar la tabla
 
-            // Actualizar y reorganizar filas aleatoriamente
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i];
-                row.classList.add('flash'); // Aplicar efecto de destello
+            // Generar 7 direcciones aleatorias para el ranking
+            for (let i = 1; i <= 7; i++) {
+                const row = document.createElement('tr');
+                const positionCell = document.createElement('td');
+                const addressCell = document.createElement('td');
+                const referCountCell = document.createElement('td');
 
-                // Generar datos aleatorios
-                const position = i + 1;
+                const position = i;
                 const address = '0x' + Math.random().toString(16).slice(2, 10); // Dirección aleatoria
                 const referCount = getRandomNumber(1, 999); // Cantidad de referidos aleatoria
 
-                // Actualizar contenido de la fila
-                const cells = row.getElementsByTagName('td');
-                cells[0].textContent = `#${position}`;
-                cells[1].textContent = address;
-                cells[2].textContent = referCount;
+                positionCell.textContent = `#${position}`;
+                addressCell.textContent = address;
+                referCountCell.textContent = referCount;
 
-                // Reorganizar filas en función de la cantidad de referidos
-                const rowCount = referralListElement.rows.length;
-                const currentPosition = i + 1;
-                const newPosition = getRandomNumber(1, rowCount);
-                referralListElement.insertBefore(row, referralListElement.rows[newPosition]);
+                row.appendChild(positionCell);
+                row.appendChild(addressCell);
+                row.appendChild(referCountCell);
+
+                referralListElement.appendChild(row);
             }
         }
 
         // Función para actualizar el ranking de acumulación de Egg simulado
         function updateEggAccumulationRanking() {
             const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-            const rows = eggAccumulationListElement.getElementsByTagName('tr');
+            eggAccumulationListElement.innerHTML = ''; // Limpiar la tabla
 
-            // Actualizar y reorganizar filas aleatoriamente
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i];
-                row.classList.add('flash'); // Aplicar efecto de destello
+            // Generar 7 direcciones aleatorias para el ranking
+            for (let i = 1; i <= 7; i++) {
+                const row = document.createElement('tr');
+                const positionCell = document.createElement('td');
+                const addressCell = document.createElement('td');
+                const eggAmountCell = document.createElement('td');
 
-                // Generar datos aleatorios
-                const position = i + 1;
+                const position = i;
                 const address = '0x' + Math.random().toString(16).slice(2, 10); // Dirección aleatoria
                 const eggAmount = (getRandomNumber(5, 2400) / 100).toFixed(2); // Cantidad de Egg aleatoria
 
-                // Actualizar contenido de la fila
-                const cells = row.getElementsByTagName('td');
-                cells[0].textContent = `#${position}`;
-                cells[1].textContent = address;
-                cells[2].textContent = `${eggAmount} BNB`;
+                positionCell.textContent = `#${position}`;
+                addressCell.textContent = address;
+                eggAmountCell.textContent = `${eggAmount} BNB`;
 
-                // Reorganizar filas en función de la cantidad de Egg acumulados
-                const rowCount = eggAccumulationListElement.rows.length;
-                const currentPosition = i + 1;
-                const newPosition = getRandomNumber(1, rowCount);
-                eggAccumulationListElement.insertBefore(row, eggAccumulationListElement.rows[newPosition]);
+                row.appendChild(positionCell);
+                row.appendChild(addressCell);
+                row.appendChild(eggAmountCell);
+
+                eggAccumulationListElement.appendChild(row);
             }
         }
 
-        // Llamar a las funciones de actualización de manera periódica
-        setInterval(() => {
+        // Llamar a las funciones de actualización al cargar la página
+        window.addEventListener('load', () => {
             updateReferralRanking();
             updateEggAccumulationRanking();
-        }, 3000); // Actualizar cada 3 segundos
+        });
