@@ -15,43 +15,77 @@ function generateRandomAddress() {
 // Función para actualizar el ranking de referidos simulado
 function updateReferralRanking() {
     const referralListElement = document.getElementById('referral-list');
-    const rows = referralListElement.getElementsByTagName('tr');
+    referralListElement.innerHTML = ''; // Limpiar la tabla
 
-    // Actualizar las filas una por una
-    for (let i = 0; i < rows.length && i < 7; i++) {
-        const addressCell = rows[i].querySelector('.address');
-        const referCountCell = rows[i].querySelector('.refer-count');
-
-        const address = generateRandomAddress();
-        const referCount = getRandomNumber(1, 999);
-
-        addressCell.textContent = address;
-        referCountCell.textContent = referCount;
+    // Llenar el arreglo con direcciones aleatorias únicas si es la primera vez
+    if (referralData.length === 0) {
+        for (let i = 1; i <= 7; i++) {
+            referralData.push({ position: i, address: generateRandomAddress(), referCount: getRandomNumber(1, 999) });
+        }
     }
 
     // Reordenar aleatoriamente el arreglo
     referralData.sort(() => Math.random() - 0.5);
+
+    // Actualizar la tabla y aplicar el efecto de destello
+    referralData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        const positionCell = document.createElement('td');
+        const addressCell = document.createElement('td');
+        const referCountCell = document.createElement('td');
+
+        positionCell.textContent = `#${index + 1}`;
+        addressCell.textContent = item.address;
+        referCountCell.textContent = item.referCount;
+
+        row.appendChild(positionCell);
+        row.appendChild(addressCell);
+        row.appendChild(referCountCell);
+
+        if (index < 7) {
+            row.classList.add('flash'); // Aplicar el efecto de destello a las primeras 7 filas
+        }
+
+        referralListElement.appendChild(row);
+    });
 }
 
 // Función para actualizar el ranking de acumulación de Egg simulado (similar a la función de referidos)
 function updateEggAccumulationRanking() {
     const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-    const rows = eggAccumulationListElement.getElementsByTagName('tr');
+    eggAccumulationListElement.innerHTML = '';
 
-    // Actualizar las filas una por una
-    for (let i = 0; i < rows.length && i < 7; i++) {
-        const addressCell = rows[i].querySelector('.address');
-        const eggAmountCell = rows[i].querySelector('.egg-amount');
-
-        const address = generateRandomAddress();
-        const eggAmount = (getRandomNumber(5, 2400) / 100).toFixed(2);
-
-        addressCell.textContent = address;
-        eggAmountCell.textContent = `${eggAmount} BNB`;
+    // Llenar el arreglo con direcciones aleatorias únicas si es la primera vez
+    if (eggAccumulationData.length === 0) {
+        for (let i = 1; i <= 7; i++) {
+            eggAccumulationData.push({ position: i, address: generateRandomAddress(), eggAmount: (getRandomNumber(5, 2400) / 100).toFixed(2) });
+        }
     }
 
     // Reordenar aleatoriamente el arreglo
     eggAccumulationData.sort(() => Math.random() - 0.5);
+
+    // Actualizar la tabla y aplicar el efecto de destello
+    eggAccumulationData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        const positionCell = document.createElement('td');
+        const addressCell = document.createElement('td');
+        const eggAmountCell = document.createElement('td');
+
+        positionCell.textContent = `#${index + 1}`;
+        addressCell.textContent = item.address;
+        eggAmountCell.textContent = `${item.eggAmount} BNB`;
+
+        row.appendChild(positionCell);
+        row.appendChild(addressCell);
+        row.appendChild(eggAmountCell);
+
+        if (index < 7) {
+            row.classList.add('flash');
+        }
+
+        eggAccumulationListElement.appendChild(row);
+    });
 }
 
 // Llamar a las funciones de actualización cada 5 segundos
