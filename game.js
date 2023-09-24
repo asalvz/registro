@@ -1,5 +1,5 @@
- const gallina = document.getElementById('gallina');
-        const gameContainer = gallina.parentElement;
+const pollo = document.getElementById('pollo');
+        const gameContainer = pollo.parentElement;
         const scoreDisplay = document.createElement('div');
         gameContainer.appendChild(scoreDisplay);
         scoreDisplay.style.position = 'absolute';
@@ -9,9 +9,9 @@
         scoreDisplay.style.color = 'white';
         let score = 0;
 
-        gallina.addEventListener('mousemove', (e) => {
+        pollo.addEventListener('mousemove', (e) => {
             const x = e.clientX - gameContainer.getBoundingClientRect().left;
-            gallina.style.left = `${x - gallina.clientWidth / 2}px`;
+            pollo.style.left = `${x - pollo.clientWidth / 2}px`;
         });
 
         function createCoyote() {
@@ -19,7 +19,7 @@
             coyote.style.position = 'absolute';
             coyote.style.width = '50px';
             coyote.style.height = '50px';
-            coyote.style.backgroundImage = "url('https://low-chicken-ranch.netlify.app/chicken1.png" )"; /* Ruta de la imagen del coyote */
+            coyote.style.backgroundImage = "url('coyote.png')"; /* Ruta de la imagen del coyote */
             coyote.style.backgroundSize = 'cover';
             coyote.style.left = `${Math.random() * (gameContainer.clientWidth - 50)}px`;
             gameContainer.appendChild(coyote);
@@ -36,13 +36,13 @@
                         y += 5;
                         coyote.style.top = `${y}px`;
 
-                        const gallinaX = gallina.getBoundingClientRect().left + gallina.clientWidth / 2;
-                        const gallinaY = gallina.getBoundingClientRect().top;
+                        const polloX = pollo.getBoundingClientRect().left + pollo.clientWidth / 2;
+                        const polloY = pollo.getBoundingClientRect().top;
 
                         const coyoteX = coyote.getBoundingClientRect().left + coyote.clientWidth / 2;
                         const coyoteY = coyote.getBoundingClientRect().top + coyote.clientHeight;
 
-                        if (Math.abs(gallinaX - coyoteX) < 25 && coyoteY >= gallinaY) {
+                        if (Math.abs(polloX - coyoteX) < 25 && coyoteY >= polloY) {
                             clearInterval(moveInterval);
                             gameContainer.removeChild(coyote);
                             score--;
