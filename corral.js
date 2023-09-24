@@ -1,3 +1,13 @@
+// Función para generar una dirección aleatoria completa
+function generateRandomAddress() {
+    let address = '0x';
+    for (let i = 0; i < 40; i++) {
+        const randomDigit = Math.floor(Math.random() * 16).toString(16);
+        address += randomDigit;
+    }
+    return address;
+}
+
 // Función para agregar una dirección y cantidad simulada al ranking
 function addToRanking(rankingElement, address, amount) {
     const row = document.createElement('tr');
@@ -25,7 +35,7 @@ function addToRanking(rankingElement, address, amount) {
 // Función para simular actualización de rankings aleatoriamente
 function simulateRankingUpdate() {
     // Simulación de dirección y cantidad aleatorias
-    const randomAddress = '0x' + Math.random().toString(16).padStart(40, '0'); // Dirección de 40 caracteres
+    const randomAddress = generateRandomAddress();
     const randomAmount = Math.random() * 100;
 
     // Actualizar el Ranking de Referidos
