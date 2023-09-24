@@ -1,4 +1,4 @@
- // Arreglo para almacenar las direcciones y su información
+// Arreglo para almacenar las direcciones y su información
 let referralData = [];
 let eggAccumulationData = [];
 
