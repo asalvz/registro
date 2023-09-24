@@ -3,8 +3,6 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-
-
 // Arreglo para almacenar las direcciones y su información
 let referralData = [];
 let eggAccumulationData = [];
@@ -90,8 +88,8 @@ function updateEggAccumulationRanking() {
     });
 }
 
-// Llamar a las funciones de actualización al cargar la página
-window.addEventListener('load', () => {
+// Llamar a las funciones de actualización cada 5 segundos
+setInterval(() => {
     updateReferralRanking();
     updateEggAccumulationRanking();
-});
+}, 5000); // 5000 milisegundos (5 segundos)
