@@ -1,12 +1,12 @@
- let referralAddresses = [];
+        let referralAddresses = [];
         let eggAccumulationAddresses = [];
 
-        // Función para generar una dirección aleatoria de 25 caracteres
+        // Función para generar una dirección aleatoria de 15 caracteres
         function generateRandomAddress() {
             let address = '0x';
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             const charactersLength = characters.length;
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 15; i++) {
                 address += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
             address += '...'; // Agregar puntos suspensivos
