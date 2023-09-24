@@ -30,7 +30,13 @@ function addToEggAccumulationRanking(position, address, eggAmount) {
 
     positionCell.textContent = `#${position + 1}`;
     addressCell.textContent = address;
-    eggAmountCell.textContent = `${eggAmount.toFixed(2)} BNB`;
+    
+    // Verificar si eggAmount es numérico antes de formatearlo
+    if (!isNaN(eggAmount)) {
+        eggAmountCell.textContent = `${eggAmount.toFixed(2)} BNB`;
+    } else {
+        eggAmountCell.textContent = 'N/A'; // Mostrar 'N/A' si no es numérico
+    }
 }
 
 // Función para simular actualización de rankings aleatoriamente
