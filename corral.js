@@ -1,23 +1,21 @@
-// Función para generar un número aleatorio entre min y max
-function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // Arreglo para almacenar las direcciones y su información
 let referralData = [];
 let eggAccumulationData = [];
+
+// Función para generar una dirección aleatoria única
+function generateRandomAddress() {
+    return '0x' + Math.random().toString(16).slice(2, 10);
+}
 
 // Función para actualizar el ranking de referidos simulado
 function updateReferralRanking() {
     const referralListElement = document.getElementById('referral-list');
     referralListElement.innerHTML = ''; // Limpiar la tabla
 
-    // Generar 7 direcciones aleatorias para el ranking si es la primera vez
+    // Llenar el arreglo con direcciones aleatorias únicas si es la primera vez
     if (referralData.length === 0) {
         for (let i = 1; i <= 7; i++) {
-            const address = '0x' + Math.random().toString(16).slice(2, 10); // Dirección aleatoria
-            const referCount = getRandomNumber(1, 999); // Cantidad de referidos aleatoria
-            referralData.push({ position: i, address, referCount });
+            referralData.push({ position: i, address: generateRandomAddress(), referCount: getRandomNumber(1, 999) });
         }
     }
 
@@ -52,16 +50,17 @@ function updateEggAccumulationRanking() {
     const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
     eggAccumulationListElement.innerHTML = '';
 
+    // Llenar el arreglo con direcciones aleatorias únicas si es la primera vez
     if (eggAccumulationData.length === 0) {
         for (let i = 1; i <= 7; i++) {
-            const address = '0x' + Math.random().toString(16).slice(2, 10);
-            const eggAmount = (getRandomNumber(5, 2400) / 100).toFixed(2);
-            eggAccumulationData.push({ position: i, address, eggAmount });
+            eggAccumulationData.push({ position: i, address: generateRandomAddress(), eggAmount: (getRandomNumber(5, 2400) / 100).toFixed(2) });
         }
     }
 
+    // Reordenar aleatoriamente el arreglo
     eggAccumulationData.sort(() => Math.random() - 0.5);
 
+    // Actualizar la tabla y aplicar el efecto de destello
     eggAccumulationData.forEach((item, index) => {
         const row = document.createElement('tr');
         const positionCell = document.createElement('td');
