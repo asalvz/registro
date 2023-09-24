@@ -1,83 +1,76 @@
-const pollo = document.getElementById('pollo');
-const gameContainer = pollo.parentElement;
-const scoreDisplay = document.createElement('div');
-gameContainer.appendChild(scoreDisplay);
-scoreDisplay.style.position = 'absolute';
-scoreDisplay.style.top = '10px';
-scoreDisplay.style.left = '10px';
-scoreDisplay.style.fontSize = '24px';
-scoreDisplay.style.color = 'white';
-let score = 0;
-let gameRunning = true; // Variable para controlar si el juego está en curso
+ const gameContainer = document.getElementById('game-container');
+        const pollo = document.getElementById('pollo');
+        const startButton = document.getElementById('start-button');
+        const scoreDisplay = document.getElementById('score');
+        let score = 0;
+        let gameRunning = false;
 
-pollo.addEventListener('mousemove', (e) => {
-    const x = e.clientX - gameContainer.getBoundingClientRect().left;
-    pollo.style.left = `${x - pollo.clientWidth / 2}px`;
-});
+        startButton.addEventListener('click', () => {
+            startGame();
+        });
 
-function createCoyote() {
-    if (gameRunning) {
-        const coyote = document.createElement('div');
-        coyote.style.position = 'absolute';
-        coyote.style.width = '50px';
-        coyote.style.height = '50px';
-        coyote.style.backgroundImage = "url('https://low-chicken-ranch.netlify.app/ghnjm.png')"; /* Ruta de la imagen del coyote */
-        coyote.style.backgroundSize = 'cover';
-        coyote.style.left = `${Math.random() * (gameContainer.clientWidth - 50)}px`;
-        gameContainer.appendChild(coyote);
+        function startGame() {
+            gameRunning = true;
+            startButton.style.display = 'none'; // Ocultar el botón de inicio
+            pollo.style.display = 'block'; // Mostrar al pollo
+            score = 0;
+            updateScore();
+            createEgg();
+        }
 
-        const moveCoyote = () => {
-            const maxY = gameContainer.clientHeight - coyote.clientHeight;
-            let y = 0;
+        gameContainer.addEventListener('mousemove', (e) => {
+            if (gameRunning) {
+                const x = e.clientX - gameContainer.getBoundingClientRect().left;
+                pollo.style.left = `${x - pollo.clientWidth / 2}px`;
+            }
+        });
 
-            const moveInterval = setInterval(() => {
-                if (y >= maxY) {
-                    clearInterval(moveInterval);
-                    gameContainer.removeChild(coyote);
+        function createEgg() {
+            if (gameRunning) {
+                const egg = document.createElement('div');
+                egg.classList.add('egg');
+                egg.style.left = `${Math.random() * (gameContainer.clientWidth - 30)}px`;
+                gameContainer.appendChild(egg);
+
+                const fallInterval = setInterval(() => {
                     if (gameRunning) {
-                        score--; // Restar puntos cuando el coyote llega al suelo
-                        updateScore();
-                    }
-                } else {
-                    y += 5;
-                    coyote.style.top = `${y}px`;
-
-                    const polloX = pollo.getBoundingClientRect().left + pollo.clientWidth / 2;
-                    const polloY = pollo.getBoundingClientRect().top;
-
-                    const coyoteX = coyote.getBoundingClientRect().left + coyote.clientWidth / 2;
-                    const coyoteY = coyote.getBoundingClientRect().top + coyote.clientHeight;
-
-                    if (Math.abs(polloX - coyoteX) < 25 && coyoteY >= polloY) {
-                        clearInterval(moveInterval);
-                        gameContainer.removeChild(coyote);
-                        if (gameRunning) {
-                            score++; // Aumentar puntos cuando el pollo atrapa el coyote
+                        const eggY = parseInt(egg.style.top) || 0;
+                        const maxY = gameContainer.clientHeight - egg.clientHeight;
+                        if (eggY >= maxY) {
+                            clearInterval(fallInterval);
+                            gameContainer.removeChild(egg);
+                            score--; // Restar puntos si se cae un huevo
                             updateScore();
+                            createEgg();
+                        } else {
+                            egg.style.top = `${eggY + 5}px`;
+                            const polloX = pollo.getBoundingClientRect().left + pollo.clientWidth / 2;
+                            const polloY = pollo.getBoundingClientRect().top;
+                            const eggX = egg.getBoundingClientRect().left + egg.clientWidth / 2;
+                            const eggY = egg.getBoundingClientRect().top + egg.clientHeight;
+                            if (Math.abs(polloX - eggX) < 25 && eggY >= polloY) {
+                                clearInterval(fallInterval);
+                                gameContainer.removeChild(egg);
+                                score++; // Sumar puntos si el pollo atrapa un huevo
+                                updateScore();
+                                createEgg();
+                            }
                         }
                     }
-                }
-            }, 30);
-        };
+                }, 30);
+            }
+        }
 
-        moveCoyote();
-    }
-}
+        function updateScore() {
+            scoreDisplay.textContent = `Puntuación: ${score}`;
+            if (score <= -10) {
+                endGame();
+            }
+        }
 
-function updateScore() {
-    scoreDisplay.textContent = `Puntuación: ${score}`;
-    
-    // Verificar si el juego ha terminado
-    if (score <= -10) { // Cambia este valor a la condición deseada para el final del juego
-        endGame();
-    }
-}
-
-function endGame() {
-    gameRunning = false;
-    scoreDisplay.textContent = `Game Over. Puntuación final: ${score}`;
-}
-
-setInterval(() => {
-    createCoyote();
-}, 2000);
+        function endGame() {
+            gameRunning = false;
+            pollo.style.display = 'none'; // Ocultar el pollo al final del juego
+            startButton.style.display = 'block'; // Mostrar el botón de inicio
+            scoreDisplay.textContent = `Game Over. Puntuación final: ${score}`;
+        }
