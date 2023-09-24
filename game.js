@@ -19,7 +19,7 @@
             coyote.style.position = 'absolute';
             coyote.style.width = '50px';
             coyote.style.height = '50px';
-            coyote.style.backgroundImage = "url('coyote.png')"; /* Ruta de la imagen del coyote */
+            coyote.style.backgroundImage = "url('https://low-chicken-ranch.netlify.app/chicken1.png" )"; /* Ruta de la imagen del coyote */
             coyote.style.backgroundSize = 'cover';
             coyote.style.left = `${Math.random() * (gameContainer.clientWidth - 50)}px`;
             gameContainer.appendChild(coyote);
