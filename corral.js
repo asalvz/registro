@@ -1,4 +1,4 @@
-  // Función para generar una dirección aleatoria de 25 caracteres
+// Función para generar una dirección aleatoria de 25 caracteres
 function generateRandomAddress() {
     let address = '0x';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -29,40 +29,26 @@ function addToRanking(rankingElement, address, amount) {
     row.appendChild(amountCell);
     rankingElement.appendChild(row); // Agregar al final de la lista
     row.classList.add('flash'); // Agregar clase de destello
-}
 
-// Definir contadores para cada panel
-let referralCount = 0;
-let eggAccumulationCount = 0;
+    // Eliminar la fila más antigua si excede el límite de 10 filas
+    if (rankingElement.rows.length > 10) {
+        rankingElement.deleteRow(0);
+    }
+}
 
 // Función para simular actualización de rankings aleatoriamente
 function simulateRankingUpdate() {
-    if (referralCount < 10) {
-        // Simulación de 1 dirección y monto aleatorio para el Ranking de Referidos
-        const randomAddress = generateRandomAddress();
-        const randomAmount = getRandomBNBAmount();
-        const referralListElement = document.getElementById('referral-list');
-        addToRanking(referralListElement, randomAddress, randomAmount);
-        referralCount++;
-    }
+    // Simulación de 1 dirección y monto aleatorio para el Ranking de Referidos
+    const randomAddress = generateRandomAddress();
+    const randomAmount = getRandomBNBAmount();
+    const referralListElement = document.getElementById('referral-list');
+    addToRanking(referralListElement, randomAddress, randomAmount);
 
-    if (eggAccumulationCount < 10) {
-        // Simulación de 1 dirección y monto aleatorio para el Ranking de Acumulación de Egg
-        const randomAddress2 = generateRandomAddress();
-        const randomAmount2 = getRandomBNBAmount();
-        const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
-        addToRanking(eggAccumulationListElement, randomAddress2, randomAmount2);
-        eggAccumulationCount++;
-    }
-    
-    // Eliminar las filas que excedan 10 en cada panel
-    if (referralListElement.rows.length > 10) {
-        referralListElement.deleteRow(0);
-    }
-
-    if (eggAccumulationListElement.rows.length > 10) {
-        eggAccumulationListElement.deleteRow(0);
-    }
+    // Simulación de 1 dirección y monto aleatorio para el Ranking de Acumulación de Egg
+    const randomAddress2 = generateRandomAddress();
+    const randomAmount2 = getRandomBNBAmount();
+    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
+    addToRanking(eggAccumulationListElement, randomAddress2, randomAmount2);
 }
 
 // Simular actualización de rankings cada 5 segundos
