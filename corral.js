@@ -47,15 +47,29 @@ function simulateRankingUpdate() {
     // Ordenar las direcciones aleatoriamente
     addresses.sort(() => Math.random() - 0.5);
 
-    // Actualizar el Ranking de Referidos
+    // Crear filas vacías en ambas tablas si no existen
     const referralListElement = document.getElementById('referral-list');
+    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
+
+    if (referralListElement.rows.length === 0) {
+        for (let i = 0; i < 7; i++) {
+            addToReferralRanking(i, '', '');
+        }
+    }
+
+    if (eggAccumulationListElement.rows.length === 0) {
+        for (let i = 0; i < 7; i++) {
+            addToEggAccumulationRanking(i, '', '');
+        }
+    }
+
+    // Actualizar el Ranking de Referidos
     referralListElement.innerHTML = ''; // Limpiar la tabla
     addresses.forEach(({ position, address, referCount }) => {
         addToReferralRanking(position, address, referCount);
     });
 
     // Actualizar el Ranking de Acumulación de Egg
-    const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
     eggAccumulationListElement.innerHTML = ''; // Limpiar la tabla
     addresses.forEach(({ position, address, eggAmount }) => {
         addToEggAccumulationRanking(position, address, eggAmount);
