@@ -1,4 +1,4 @@
-     // Función para generar una dirección aleatoria de 25 caracteres
+  // Función para generar una dirección aleatoria de 25 caracteres
 function generateRandomAddress() {
     let address = '0x';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -55,13 +55,13 @@ function simulateRankingUpdate() {
         eggAccumulationCount++;
     }
     
-    // Reiniciar contadores cuando se alcancen 10 filas
-    if (referralCount === 10) {
-        referralCount = 0;
+    // Eliminar las filas que excedan 10 en cada panel
+    if (referralListElement.rows.length > 10) {
+        referralListElement.deleteRow(0);
     }
-    
-    if (eggAccumulationCount === 10) {
-        eggAccumulationCount = 0;
+
+    if (eggAccumulationListElement.rows.length > 10) {
+        eggAccumulationListElement.deleteRow(0);
     }
 }
 
