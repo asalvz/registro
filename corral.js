@@ -44,18 +44,22 @@ function simulateRankingUpdate() {
     // Ordenar las direcciones aleatoriamente
     addresses.sort(() => Math.random() - 0.5);
 
-    // Actualizar el Ranking de Referidos
+    // Actualizar el Ranking de Referidos de forma asíncrona
     const referralListElement = document.getElementById('referral-list');
     referralListElement.innerHTML = ''; // Limpiar la tabla
-    addresses.forEach(({ address, referCount }) => {
-        addToReferralRanking(address, referCount);
+    addresses.forEach(({ address, referCount }, index) => {
+        setTimeout(() => {
+            addToReferralRanking(address, referCount);
+        }, index * 1000); // Actualizar cada dirección con un retraso de 1 segundo (1000 ms)
     });
 
-    // Actualizar el Ranking de Acumulación de Egg
+    // Actualizar el Ranking de Acumulación de Egg de forma asíncrona
     const eggAccumulationListElement = document.getElementById('egg-accumulation-list');
     eggAccumulationListElement.innerHTML = ''; // Limpiar la tabla
-    addresses.forEach(({ address, eggAmount }) => {
-        addToEggAccumulationRanking(address, eggAmount);
+    addresses.forEach(({ address, eggAmount }, index) => {
+        setTimeout(() => {
+            addToEggAccumulationRanking(address, eggAmount);
+        }, index * 1000); // Actualizar cada dirección con un retraso de 1 segundo (1000 ms)
     });
 }
 
